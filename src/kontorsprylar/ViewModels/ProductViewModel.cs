@@ -7,8 +7,11 @@ namespace kontorsprylar.ViewModels
 {
     public class ProductViewModel
     {
-        public string ImgSrc {get; set;}
-        public string Name { get; set; }
+        public string ImgLink {get; set;}
+        public string ProductName { get; set; }
+
+        
+
 
     }
 }
