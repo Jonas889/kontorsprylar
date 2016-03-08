@@ -48,16 +48,23 @@
     </div>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-*-*"></div>
-    </div>
-    <div class="row">
-        <div class="col-*-*"></div>
-        <div class="col-*-*"></div>
-        <div class="col-*-*"></div>
-    </div>
-    <div class="row">
-        ...
-    </div>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+       //TODO: lägg till logik för hur bilder ska visas när det inet är antal som är jämnt delbara med 4
+        if((i==0 || i%4==0) && i+3<Model.Count)
+        {
+            <div class="row">
+               
+                <div class="col-lg-3"><img src=@Model[i].ImgSrc width="200" height="200"><br /><h4>@Model[i].Name</h4></div>
+                <div class="col-lg-3"><img src=@Model[i+1].ImgSrc width="200" height="200"><br /><h4>@Model[i+1].Name</h4></div>
+                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+2].ImgSrc width="200" height="200"><br /><h4>@Model[i+2].Name</h4></div>
+                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+3].ImgSrc width="200" height="200"><br /><h4>@Model[i+3].Name</h4></div>
+            </div>
+            i += 3;
+        }
+
+
+    }
+
 </div>
 
