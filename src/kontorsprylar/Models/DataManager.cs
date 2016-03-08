@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using kontorsprylar.ViewModels;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace kontorsprylar.Models
 {
@@ -13,7 +11,18 @@ namespace kontorsprylar.Models
         {
             this.context = context;
         }
-
-
+        
+        //Används av produkter som visas på första sidan
+        public ProductViewModel[] Get()
+        {
+            //Här kanske vi sak tänka att produkter har en frontpageprop för att kunna beställa med .Where
+            return context.Products
+                .OrderByDescending(p => p.Price)
+                .Select(p => new ProductViewModel
+                {
+                    ImgLink = p.ImgLink,
+                    ProductName = p.ProductName
+                }).ToArray();
+        }
     }
 }
