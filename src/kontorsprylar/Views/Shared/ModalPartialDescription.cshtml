@@ -1,0 +1,22 @@
+﻿@model PartialDescriptionViewModel
+
+
+
+@*En modal som öppnas upp som en quick view för en produkt och erbjuder enkel information, bilder och lägg i varukorg*@
+<div id="descriptionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content" style="width:700px">
+            <div class="modal-header">
+                <h4 class="modal-title">@Model.ProductName</h4>
+            </div>
+            <div class="container-fluid">
+
+                <div class="modal-body" id="product">
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
