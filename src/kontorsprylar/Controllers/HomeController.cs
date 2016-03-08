@@ -22,6 +22,29 @@ namespace kontorsprylar.Controllers
             modelList[0].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
             modelList[1].ImgSrc = "http://www.aquaticadventures.com/silver_bank/sb_gallery/g/fin_slap_main.jpg";
             modelList[2].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
+            modelList.Add(new ProductViewModel());
+            modelList.Add(new ProductViewModel());
+            modelList.Add(new ProductViewModel());
+            modelList[3].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
+            modelList[4].ImgSrc = "http://www.aquaticadventures.com/silver_bank/sb_gallery/g/fin_slap_main.jpg";
+            modelList[5].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
+            modelList.Add(new ProductViewModel());
+            modelList.Add(new ProductViewModel());
+            modelList.Add(new ProductViewModel());
+            modelList[6].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
+            modelList[7].ImgSrc = "http://www.aquaticadventures.com/silver_bank/sb_gallery/g/fin_slap_main.jpg";
+            modelList[8].ImgSrc = "http://cdn07.dayviews.com/59/_u2/_u6/_u8/_u5/_u7/u268576/fs_483471291_94249_1296166959/Soluppgangen_var_iaf_hemskt_fin_sprang_ut_med_kameran_nagra_fa_minuter_innan_det_var_dags_att_aka.jpg";
+
+            modelList[0].Name = "Namn1";
+            modelList[1].Name = "Namn2";
+            modelList[2].Name = "Namn3";
+            modelList[3].Name = "Namn4";
+            modelList[4].Name = "Namn5";
+            modelList[5].Name = "Namn6";
+            modelList[6].Name = "Namn7";
+            modelList[7].Name = "Namn8";
+            modelList[8].Name = "Namn9";
+
             return View(modelList);
         }
     }
