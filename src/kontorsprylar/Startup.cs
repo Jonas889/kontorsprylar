@@ -18,13 +18,12 @@ namespace kontorsprylar
         {
             var connString = @"Server=tcp:emperor.database.windows.net,1433;Database=KontorsPrylar_DB;User ID=root_emperor@emperor;Password=Academy16;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
-            //services.AddEntityFramework()
-            //    .AddSqlServer()
-            //    .AddDbContext<lägg till ett context>(options => options.UseSqlServer(connStrjing));
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<StoredDbContext>(options =>
+                options.UseSqlServer(connString));
 
             services.AddMvc();
-
-            //testestest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
