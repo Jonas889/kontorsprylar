@@ -14,18 +14,21 @@
         <div class="container-fluid">
             <div class="row" id="row1">
                 @*TOP ROW*@
-                <div class="col-lg-1">
-                    LOGGA
+                <div class="col-md-2">
+                    <a href="/home/index"><img title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
-                <div class="col-lg-4">
-                    <form class="" role="search">
+                <div class="col-md-4">
+                    <form role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg..">
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-5">
-                    Kundvagn, login m.m
+                <div class="col-md-2">
+                    <h5>Kundvagn</h5>
+                </div>
+                <div class="col-md-2">
+                    <h5>Login m.m</h5>
                 </div>
             </div> @*TOP ROW (1)*@
             <div class="row" id="row2">
@@ -87,13 +90,16 @@
             </div> @*MENU ROW (2)*@
             <div class="row content text-center" id="row3">
                 @*CONTENT ROW (3)*@
-                <div class="col-lg-3 sidenav">
+                <div class="col-md-3 sidenav">
                     <h4>Kategorier</h4>
                     <p><a href="#">Kategori</a></p>
                     <p><a href="#">Underkategori</a></p>
                     <p><a href="#">Underkategori</a></p>
+                    <p>PARTIAL VIEW - KATEGORIER</p>
+                    <p>PARTIAL VIEW - TAGGS / FILTER</p>
+                    <p>PARTIAL VIEW - RELATED PRODUCTS</p>
                 </div>
-                <div class="col-lg-9 text-left">
+                <div class="col-md-8 text-left">
                     <div>
                         @RenderBody()
                     </div>
@@ -101,58 +107,58 @@
             </div> @*CONTENT ROW (3)*@
             <div class="row footer" id="row4">
                 @*FOOTER ROW (4)*@
-                    <div class="col-lg-3 text-center">
-                        <p><a href="#"><img src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/footer/tryggehandel-grey-wide.png" id="inline_image5"></a> </p>
-                        <p class="footerText">
-                            Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
-                        </p>
+                <div class="col-md-3 text-center">
+                    <p><a href="#"><img src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/footer/tryggehandel-grey-wide.png" id="inline_image5"></a> </p>
+                    <p class="footerText">
+                        Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
+                    </p>
+                </div>
+                <div class="text-left" id="footerLinksContainer">
+                    <div class="col-md-3">
+                        <div class="footerLinks" id="footerContent1">
+                            <h4>Kundcenter</h4>
+                            <ul class="linklist">
+                                <li><a href="#">Kontakta oss</a></li>
+                                <li><a href="/information/varakataloger">Våra kataloger</a> </li>
+                                <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
+                                <li><a href="/information/betalning">Betalningsalternativ</a> </li>
+                                <li><a href="/information/specialorder">Specialbeställning</a> </li>
+                                <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
+                                <li><a href="/information/cookieinformation">Information om cookies</a> </li>
+                                <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="text-left" id="footerLinksContainer">
-                        <div class="col-lg-3">
-                            <div class="footerLinks" id="footerContent1">
-                                <h4>Kundcenter</h4> 
-                                <ul class="linklist">                                    
-                                    <li><a href="#">Kontakta oss</a></li>
-                                    <li><a href="/information/varakataloger">Våra kataloger</a> </li>
-                                    <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
-                                    <li><a href="/information/betalning">Betalningsalternativ</a> </li>
-                                    <li><a href="/information/specialorder">Specialbeställning</a> </li>
-                                    <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
-                                    <li><a href="/information/cookieinformation">Information om cookies</a> </li>
-                                    <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
-                                </ul>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="footerLinks" id="footerContent2">
+                            <h4>Kontorsprylar.se</h4>
+                            <ul class="linklist">
+                                <li><a href="/information/omoss">Om oss</a> </li>
+                                <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
+                                <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
+                                <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
+                                <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
+                            </ul>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="footerLinks" id="footerContent2">
-                                <h4>Kontorsprylar.se</h4>
-                                <ul class="linklist">
-                                    <li><a href="/information/omoss">Om oss</a> </li>
-                                    <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
-                                    <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
-                                    <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
-                                    <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="footerLinks" id="footerContent3">
-                                <h4>Tjänster&nbsp;&amp; produkter</h4>
-                                <ul class="linklist">
-                                    <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
-                                    <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
-                                    <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
-                                    <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
-                                    <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
-                                    <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
-                                    <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
-                                    <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
-                                </ul>
-                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="footerLinks" id="footerContent3">
+                            <h4>Tjänster&nbsp;&amp; produkter</h4>
+                            <ul class="linklist">
+                                <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
+                                <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
+                                <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
+                                <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
+                                <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
+                                <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
+                                <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
+                                <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div> @*FOOTER ROW (4)*@
         </div>
+    </div>
 </body>
 </html>
