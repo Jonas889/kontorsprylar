@@ -7,6 +7,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Entity;
+using kontorsprylar.Models;
 
 namespace kontorsprylar
 {
