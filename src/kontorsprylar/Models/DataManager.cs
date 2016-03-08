@@ -13,7 +13,7 @@ namespace kontorsprylar.Models
         }
         
         //Används av produkter som visas på första sidan
-        public ProductViewModel[] Get()
+        public ProductViewModel[] GetProductPresentationData()
         {
             //Här kanske vi sak tänka att produkter har en frontpageprop för att kunna beställa med .Where
             return context.Products
