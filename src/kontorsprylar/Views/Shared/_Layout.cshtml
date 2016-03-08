@@ -6,14 +6,103 @@
     <title>@ViewBag.Title</title>
     <link href="~/css/bootstrap.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/src/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
-    <script src="~/script/jquery.validate.js"></script>
 </head>
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <div>
-        @RenderBody()
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-3 sidenav">
+                <h4>Kategorier</h4>
+                <p><a href="#">Kategori</a></p>
+                <p><a href="#">Underkategori</a></p>
+                <p><a href="#">Underkategori</a></p>
+            </div>
+            <div class="col-sm-9 text-left">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+            @*<div class="col-sm-2 sidenav">
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                    <div class="well">
+                        <p>ADS</p>
+                    </div>
+                </div>*@
+        </div>
     </div>
-    
+    <div class="footer container-fluid text-center" id="footerContainer">
+        <div class="row content">
+            <div class="col-sm-4">
+                        <p><a internal="" rel="nofollow" type="link" href="#"><img origheight="79" origwidth="230" src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/footer/tryggehandel-grey-wide.png" id="inline_image5"></a> </p>
+                        <p class="footerText">Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.</p>
+                    </div>
+            <div class="col-sm-8">
+                <div id="footerLinksContainer">
+                    <div class="footerLinks cycube-container" id="content1">
+
+                        <div class="component_richtext" id="richtext.100261">
+
+                            <ul class="linklist"> <li> <h2>Kundcenter</h2> </li><li><a rel="nofollow" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/kontaktaoss">Kontakta oss</a> </li><li><a rel="nofollow" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/varakataloger">Våra kataloger</a> </li><li><a href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/forsaljningsvillkor">Försäljningsvillkor</a> </li><li><a rel="nofollow" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/betalning">Betalningsalternativ</a> </li><li><a href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/specialorder">Specialbeställning</a> </li><li><a href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li><li><a href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/cookieinformation">Information om cookies</a> </li><li><a internal="" target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li></ul>
+                        </div>
+                    </div>
+                    <div class="footerLinks cycube-container" id="content2">
+
+                        <div class="component_richtext" id="richtext.100262">
+
+                            <ul class="linklist"> <li> <h2><a rel="nofollow" href="https://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/officedepot/prislista" style="COLOR: #000; CURSOR: text; TEXT-DECORATION: none">Office Depot</a></h2> </li><li><a rel="nofollow" href="/ecommerce/control/fullcontent?contentPath=/pim/officedepot/omoss">Om oss</a> </li><li><a rel="nofollow" href="/ecommerce/control/butiker">Våra butiker</a> </li><li><a href="https://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/officedepot/varavarumarken">Våra varumärken</a> </li><li><a rel="nofollow" href="/ecommerce/control/fullcontent?contentPath=/pim/officedepot/omoss/press">Pressmeddelanden</a> </li><li><a rel="nofollow" href="https://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/officedepot/omoss/ledigatjanster">Lediga tjänster</a> </li><li><a rel="nofollow" href="/ecommerce/control/fullcontent?contentPath=/pim/officedepot/kvalitet-miljo">Kvalitet &amp; miljö</a></li></ul>
+                        </div>
+                    </div>
+                    <div class="footerLinks cycube-container" id="content3">
+
+                        <div class="component_richtext" id="richtext.100263">
+
+                            <ul class="linklist"> <li> <h2>Tjänster&nbsp;&amp; produkter</h2><a internal="" target="" type="link" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Ffruktkorgar"> </a></li><li><a internal="" target="" type="link" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/varatjanster/fruktkorgar">Frukt på jobbet</a> <a internal="" target="" type="link" href="http://http//http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/varatjanster/profil"> </a></li><li><a internal="" target="" rel="nofollow" type="link" href="/ecommerce/control/fullcontent?contentPath=/pim/varatjanster/profil">Profilprodukter</a>  </li><li><a internal="" target="" rel="nofollow" type="link" href="http://www.officedepot.se/ecommerce/sortiment/papper--block-c2334/">Papper</a> </li><li><a internal="" target="" rel="nofollow" type="link" href="http://www.officedepot.se/ecommerce/control/kop-black-och-toner">Bläck &amp; toner</a> </li><li><a internal="" target="" rel="nofollow" type="link" href="/ecommerce/sortiment/c2157/stad/">Städmaterial</a> </li><li><a internal="" target="" rel="nofollow" type="link" href="/ecommerce/sortiment/c2130/teknik/">Teknik</a> </li><li><a internal="" target="" type="link" href="http://www.officedepot.se/ecommerce/sortiment/ergonomi-c3227/">Ergonomi</a> </li><li><a internal="" target="" type="link" href="http://www.officedepot.se/ecommerce/control/fullcontent?contentPath=/pim/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li></ul>
+                        </div>
+                    </div>
+                    <div class="footerLinks cycube-container" id="content4">
+
+                        <div class="component_richtext" id="richtext.100264">
+
+                            <ul class="linklist"> <li> <h2>Erbjudanden</h2> </li><li><a internal="" rel="nofollow" type="link" href="/ecommerce/control/showproductlist?productList=allNews&amp;viewIndex=0&amp;VIEW_SIZE=24&amp;sortPrice=&amp;sortDatum=nyast&amp;environment=&amp;inStock=&amp;brand=&amp;filterCategory=&amp;topCat=&amp;mainCat=&amp;prodCat=">Produktnyheter</a> </li><li><a rel="nofollow" href="/ecommerce/control/showproductlist?productList=allCampaigns&amp;viewIndex=0&amp;VIEW_SIZE=24&amp;sortPrice=asc&amp;sortDatum=nyast&amp;environment=&amp;inStock=&amp;brand=&amp;filterCategory=&amp;topCat=&amp;mainCat=&amp;prodCat=">Aktuella kampanjer</a> </li><li><a rel="nofollow" href="/ecommerce/control/showproductlist?productList=allOfferings&amp;viewIndex=0&amp;VIEW_SIZE=24&amp;sortPrice=asc&amp;sortDatum=nyast&amp;environment=&amp;inStock=&amp;brand=&amp;filterCategory=&amp;topCat=&amp;mainCat=&amp;prodCat=">Fyndhörna</a> </li></ul>
+                        </div>
+                    </div>
+                    <div class="customerService cycube-container" id="content5">
+
+                        <div class="component_richtext" id="richtext.100517">
+
+                            <p>&nbsp;<a internal="" target="_blank" type="link" href="https://www.facebook.com/officedepotsverige"><img origwidth="119" origheight="53" src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/Footer/Footerfacebook.jpg" id="inline_image7" style="FLOAT: left"></a><a internal="" target="_blank" type="link" href="https://www.facebook.com/officedepotsverige"></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
