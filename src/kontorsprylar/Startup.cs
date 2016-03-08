@@ -20,7 +20,7 @@ namespace kontorsprylar
 
             //services.AddEntityFramework()
             //    .AddSqlServer()
-            //    .AddDbContext<lägg till ett context>(options => options.UseSqlServer(connString));
+            //    .AddDbContext<lägg till ett context>(options => options.UseSqlServer(connStrjing));
 
             services.AddMvc();
 
