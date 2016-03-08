@@ -1,9 +1,9 @@
 ﻿@model List<ProductViewModel>
 <head>
-    @*carousel fungerar inte utan dessa, ska de vara med i layout-filen?*@
-    @*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -24,13 +24,13 @@
         <div class="carousel-inner" role="listbox">
 
             <div class="item active">
-                <img src="@Model[0].ImgSrc">
+                <img src="@Model[0].ImgLink">
             </div>
 
             @for (int i = 1; i < Model.Count; i++)
             {
                 <div class="item">
-                    <img src="@Model[i].ImgSrc">
+                    <img src="@Model[i].ImgLink">
                 </div>
             }
 
@@ -54,10 +54,10 @@
         if((i==0 || i%4==0) && i+3<Model.Count)
         {
             <div class="row">
-                <div class="col-lg-3"><img src=@Model[i].ImgSrc width="200" height="200"><br /><h4>@Model[i].Name</h4></div>
-                <div class="col-lg-3"><img src=@Model[i+1].ImgSrc width="200" height="200"><br /><h4>@Model[i+1].Name</h4></div>
-                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+2].ImgSrc width="200" height="200"><br /><h4>@Model[i+2].Name</h4></div>
-                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+3].ImgSrc width="200" height="200"><br /><h4>@Model[i+3].Name</h4></div>
+                <div class="col-lg-3"><img src=@Model[i].ImgLink width="200" height="200"><br /><h4>@Model[i].ProductName</h4></div>
+                <div class="col-lg-3"><img src=@Model[i+1].ImgLink width="200" height="200"><br /><h4>@Model[i+1].ProductName</h4></div>
+                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+2].ImgLink width="200" height="200"><br /><h4>@Model[i+2].ProductName</h4></div>
+                <div class="col-lg-3" style="border:1px;"><img src=@Model[i+3].ImgLink width="200" height="200"><br /><h4>@Model[i+3].ProductName</h4></div>
             </div>
             i += 3;
         }
