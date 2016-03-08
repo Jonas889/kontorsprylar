@@ -13,148 +13,149 @@
 
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3">
-                LOGGA
-            </div>
-            <div class="col-sm-4">
-                <form class="" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>
-            <div class="col-sm-5">
-                Kundvagn, login m.m
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-default">
+    <div class="container">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class="container-fluid text-center">
-        <div class="row content">
-            <div class="col-sm-3 sidenav">
-                <h4>Kategorier</h4>
-                <p><a href="#">Kategori</a></p>
-                <p><a href="#">Underkategori</a></p>
-                <p><a href="#">Underkategori</a></p>
-            </div>
-            <div class="col-sm-9 text-left">
-                <div>
-                    @RenderBody()
+            <div class="row" id="row1">
+                @*TOP ROW*@
+                <div class="col-lg-1">
+                    LOGGA
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid text-center footer" id="footerContainer">
-        <div class="row">
-            <div class="col-sm-4">
-                <p><a href="#"><img origheight="79" origwidth="230" src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/footer/tryggehandel-grey-wide.png" id="inline_image5"></a> </p>
-                <p class="footerText">
-                    Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
-                </p>
-            </div>
-            <div class="col-sm-8">
-                <div id="footerLinksContainer">
-                    <div class="footerLinks" id="footerContent1">
-                        <ul class="linklist">
-                            <li> <h2>Kundcenter</h2> </li>
-                            <li><a href="#">Kontakta oss</a></li>
-                            <li><a href="/information/varakataloger">Våra kataloger</a> </li>
-                            <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
-                            <li><a href="/information/betalning">Betalningsalternativ</a> </li>
-                            <li><a href="/information/specialorder">Specialbeställning</a> </li>
-                            <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
-                            <li><a href="/information/cookieinformation">Information om cookies</a> </li>
-                            <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
-                        </ul>
+                <div class="col-lg-4">
+                    <form class="" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg..">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-5">
+                    Kundvagn, login m.m
+                </div>
+            </div> @*TOP ROW (1)*@
+            <div class="row" id="row2">
+                @*MENU ROW (2)*@
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
-                    <div class="footerLinks" id="footerContent2">
-                        <ul class="linklist">
-                            <li> <h2><a href="#" style="COLOR: #000; CURSOR: text; TEXT-DECORATION: none">Office Depot</a></h2> </li>
-                            <li><a href="/information/omoss">Om oss</a> </li>
-                            <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
-                            <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
-                            <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
-                            <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Link</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div> @*MENU ROW (2)*@
+            <div class="row content text-center" id="row3">
+                @*CONTENT ROW (3)*@
+                <div class="col-lg-3 sidenav">
+                    <h4>Kategorier</h4>
+                    <p><a href="#">Kategori</a></p>
+                    <p><a href="#">Underkategori</a></p>
+                    <p><a href="#">Underkategori</a></p>
+                </div>
+                <div class="col-lg-9 text-left">
+                    <div>
+                        @RenderBody()
                     </div>
                 </div>
-                <div class="footerLinks" id="footerContent3">
-                    <ul class="linklist">
-                        <li> <h2>Tjänster&nbsp;&amp; produkter</h2><a internal="" target="" type="link" href="#"> </a></li>
-                        <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
-                        <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
-                        <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
-                        <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
-                        <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
-                        <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
-                        <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
-                        <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
-                    </ul>
-                    <p>
-                        &nbsp;<a target="_blank" type="link" href="#"><img origwidth="119" origheight="53" src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/Footer/Footerfacebook.jpg" style="float: left"></a>
-                        <a internal="" target="_blank" type="link" href="#"></a>
-                    </p>
+            </div> @*CONTENT ROW (3)*@
+            <div class="row footer" id="row4">
+                @*FOOTER ROW (4)*@
+                    <div class="col-lg-3 text-center">
+                        <p><a href="#"><img src="http://www.officedepot.se/CycubeMediaLibrary/external/mediafiles/footer/tryggehandel-grey-wide.png" id="inline_image5"></a> </p>
+                        <p class="footerText">
+                            Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
+                        </p>
+                    </div>
+                    <div class="text-left" id="footerLinksContainer">
+                        <div class="col-lg-3">
+                            <div class="footerLinks" id="footerContent1">
+                                <h4>Kundcenter</h4> 
+                                <ul class="linklist">                                    
+                                    <li><a href="#">Kontakta oss</a></li>
+                                    <li><a href="/information/varakataloger">Våra kataloger</a> </li>
+                                    <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
+                                    <li><a href="/information/betalning">Betalningsalternativ</a> </li>
+                                    <li><a href="/information/specialorder">Specialbeställning</a> </li>
+                                    <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
+                                    <li><a href="/information/cookieinformation">Information om cookies</a> </li>
+                                    <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="footerLinks" id="footerContent2">
+                                <h4>Kontorsprylar.se</h4>
+                                <ul class="linklist">
+                                    <li><a href="/information/omoss">Om oss</a> </li>
+                                    <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
+                                    <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
+                                    <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
+                                    <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="footerLinks" id="footerContent3">
+                                <h4>Tjänster&nbsp;&amp; produkter</h4>
+                                <ul class="linklist">
+                                    <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
+                                    <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
+                                    <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
+                                    <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
+                                    <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
+                                    <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
+                                    <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
+                                    <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> @*FOOTER ROW (4)*@
         </div>
-    </div>
 </body>
 </html>
