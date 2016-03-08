@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using kontorsprylar.ViewModels;
+using kontorsprylar.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,9 +12,16 @@ namespace kontorsprylar.Controllers
 {
     public class HomeController : Controller
     {
+        static StoredDbContext context = new StoredDbContext();
+        DataManager dataManager = new DataManager(context);
+        public HomeController(StoredDbContext newContext)
+        {
+            context = newContext;
+        }
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var model = dataManager.GetProductPresentationData();
             //detta ersätter vi med datamanager osv senare
             var modelList = new List<ProductViewModel>();
             modelList.Add(new ProductViewModel());
@@ -43,9 +51,10 @@ namespace kontorsprylar.Controllers
             modelList[5].ProductName = "Namn6";
             modelList[6].ProductName = "Namn7";
             modelList[7].ProductName = "Namn8";
-            modelList[8].Name = "Namn9";
+            modelList[8].ProductName = "Namn9";
 
             return View(modelList);
+            
         }
 
     }
