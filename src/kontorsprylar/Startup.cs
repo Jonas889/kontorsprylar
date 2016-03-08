@@ -21,7 +21,7 @@ namespace kontorsprylar
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<StoredDbContext>(options =>
-                options.UseSqlServer(connString));
+                  options.UseSqlServer(connString));
 
             services.AddMvc();
         }
