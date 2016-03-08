@@ -7,6 +7,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.Entity;
+using kontorsprylar.Models;
 
 namespace kontorsprylar
 {
@@ -24,8 +25,6 @@ namespace kontorsprylar
                 options.UseSqlServer(connString));
 
             services.AddMvc();
-
-            //testestest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

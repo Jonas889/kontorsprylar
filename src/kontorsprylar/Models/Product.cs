@@ -13,6 +13,7 @@ namespace kontorsprylar.Models
         public float CampaignPrice { get; set; }
         public string ImgLink { get; set; }
         public string Description { get; set; }
-
+        public int StockQuantity { get; set; }
+        public bool ForSale { get; set; }
     }
 }
