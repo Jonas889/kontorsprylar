@@ -30,10 +30,10 @@ namespace kontorsprylar.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registrate()
-        {
-            return View();
-        }
+        //public IActionResult Registrate()
+        //{
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult Index(LoginViewModel userLogin)
         {
@@ -50,10 +50,11 @@ namespace kontorsprylar.Controllers
             var user = dataManager.GetUser(eMail);
             if (user != null)
             {
-                if ()
+                if (user[0] == crypt.Compute(password, user[1]))
+                   isValidUser = true;
             }
-                //Loginvalidering här
-                return isValidUser;
+            //Loginvalidering här
+            return isValidUser;
         }
     }
 }
