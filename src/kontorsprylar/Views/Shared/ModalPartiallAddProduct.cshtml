@@ -18,7 +18,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Login</h4>
+                    <h4 class="modal-title">Add product</h4>
                 </div>
 
                 <div asp-validation-summary="ValidationSummary.All"></div>
@@ -42,15 +42,16 @@
                     <input asp-for="StockQuantity">
                     <span asp-validation-for="StockQuantity"></span>
                     
-                    <label asp-for="Picture"></label>
-                    <input asp-for="Picture">
+                    <label asp-for="ImgLink"></label>
+                    <input asp-for="ImgLink">
 
                     <label asp-for="ForSale"></label>
+                    <input id="Checkbox1" type="checkbox" name="reaIsTrue" />
                     <input asp-for="ForSale">
                 </form>
 
                 <div class="modal-footer">
-                    <input id="SubmitLogin" type="submit" value="submit" />
+                    <input id="SubmitProduct" type="submit" value="Add product" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

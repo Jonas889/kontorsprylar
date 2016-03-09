@@ -194,6 +194,11 @@ a {
         color: #ededed !important;
         text-decoration: none !important;
     }
+.campaignprice {
+    color:#ff0000;
+    text-decoration:solid;
+}
+
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
