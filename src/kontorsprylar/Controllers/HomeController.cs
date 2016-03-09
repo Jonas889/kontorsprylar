@@ -13,15 +13,18 @@ namespace kontorsprylar.Controllers
     public class HomeController : Controller
     {
         static StoredDbContext context;
-        DataManager dataManager = new DataManager(context);
-        public HomeController(StoredDbContext newContext)
+        public HomeController(StoredDbContext newcontext)
         {
-            context = newContext;
+            context = newcontext;
+            dataManager = new DataManager(context);
         }
+        //Denna körs innan context ovan är instansierad.. Då skickar vi in context = null till konstruktorn för DataManager
+        public static DataManager dataManager; // = new DataManager(context);
+
         // GET: /<controller>/
         public IActionResult Index()
         {
-            //var model = dataManager.GetProductPresentationData();
+            var model = dataManager.GetProductPresentationData();
             //detta ersätter vi med datamanager osv senare
             var modelList = new List<ProductViewModel>();
             modelList.Add(new ProductViewModel());

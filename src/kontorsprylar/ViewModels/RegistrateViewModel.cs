@@ -27,7 +27,7 @@ namespace kontorsprylar.ViewModels
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Land")]
         //public string Country { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Mobilnummer"), StringLength(10, ErrorMessage = "Ange ett mobilnummer i formatet 07xxxxxxxx")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Mobilnummer"), StringLength(10,MinimumLength =10, ErrorMessage = "Ange ett mobilnummer i formatet 07xxxxxxxx")]
         public string CellPhone { get; set; }
 
         [Display(Name = "Fast telefon (valfritt)")]

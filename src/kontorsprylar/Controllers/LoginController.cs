@@ -25,24 +25,22 @@ namespace kontorsprylar.Controllers
             return PartialView("ModalPartialLogin");
         }
         [HttpGet]
-        public IActionResult Registrate()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Registrate(RegistrateViewModel viewModel)
+        //public IActionResult Registrate()
+        //{
+        //    return PartialView("RegistratePartial");
+        //}
+        //[HttpPost]
+        //public IActionResult Registrate(RegistrateViewModel viewModel)
 
-        {
-            
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel);
-            }
+        //{   
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(viewModel);
+        //    }
 
-            dataManager.AddCustomer(viewModel);
-            return RedirectToAction("index");
-            
-        }
+        //    dataManager.AddCustomer(viewModel);
+        //    return RedirectToAction("index");  
+        //}
         [HttpPost]
         public IActionResult Index(LoginViewModel userLogin)
         {
