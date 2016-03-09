@@ -8,11 +8,11 @@ namespace kontorsprylar.ViewModels
 {
     public class AddProductViewModel
     {
-        [Display(Name = "Produkt namn")]
+        [Display(Name = "Produktnamn")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Fyll i produktnamn")]
         public string ProductName { get; set; }
 
-        [Display(Name = "Produkt beskrivning")]
+        [Display(Name = "Produktbeskrivning")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Fyll i beskrivning")]
         public string Description { get; set; }
 
@@ -20,7 +20,7 @@ namespace kontorsprylar.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Fyll i pris")]
         public float Price { get; set; }
 
-        [Display(Name = "Kampanj pris")]
+        [Display(Name = "Kampanjpris")]
         public float CampaignPrice { get; set; }
 
         [Display(Name = "Antal")]
@@ -30,7 +30,7 @@ namespace kontorsprylar.ViewModels
         [Display(Name = "Bild")]        
         public string Picture { get; set; }
 
-        [Display(Name = "Rea")]
+        [Display(Name = "Tillgänglig")]
         public bool ForSale { get; set; }
     }
 }
