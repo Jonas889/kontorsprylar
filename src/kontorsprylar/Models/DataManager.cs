@@ -47,7 +47,7 @@ namespace kontorsprylar.Models
                 })
                 .ToList();
 
-            var query2 = query
+            return query
                 .Select(c => new CategoryMenuViewModel
                 {
                     ID = c.ID,
@@ -56,8 +56,6 @@ namespace kontorsprylar.Models
                     SubCategories = query.Where(o => o.TopID == c.ID).ToList()
                 })
                 .ToList();
-
-            return query2;
         }
     }
 }
