@@ -1,17 +1,13 @@
 ﻿@model LoginViewModel
 
 
-
 <script>
     $(document).ready(function(){
 
-        
         $("#loginModal").animate({ opacity: 'toggle' }, 400);
-        
 
     })
 </script>
-
 
 
 <!-- Modal -->
@@ -23,20 +19,18 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Login</h4>
-            </div>
+            </div>            
 
-            <fieldset>
-                <div>@Html.LabelFor(u => u.Email)</div>
-                <div>
-                    @Html.TextBoxFor(u => u.Email)
-                    @Html.ValidationMessageFor(u => u.Email)
-                </div>
-                <div>@Html.LabelFor(u => u.Password)</div>
-                <div>
-                    @Html.TextBoxFor(u => u.Password)
-                    @Html.ValidationMessageFor(u => u.Password)
-                </div>
-            </fieldset>
+            <div asp-validation-summary="ValidationSummary.All"></div>
+            <form asp-controller="Login" asp-action="Index">
+                <label asp-for="Email"></label>
+                <input asp-for="Email">
+                <span asp-validation-for="Email"></span>
+
+                <label asp-for="Password"></label>
+                <input asp-for="Password">
+                <span asp-validation-for="Password"></span>
+            </form>
 
             <div class="modal-footer">
                 <input id="SubmitLogin" type="submit" value="submit" />
