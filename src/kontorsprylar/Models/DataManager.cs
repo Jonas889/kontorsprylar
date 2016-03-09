@@ -26,9 +26,12 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
-        public  GetUser()
+        public LoginViewModel  GetUser(string eMail)
         {
-            
+            return context.Users
+                .Where(u => u.Email == eMail)
+                .Select(u => new LoginViewModel { u.Email , u.Password, u.PasswordSalt })
+                .SingleOrDefault();
         }
     }
 }

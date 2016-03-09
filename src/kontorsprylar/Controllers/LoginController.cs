@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using SimpleCrypto;
 using kontorsprylar.Models;
+using kontorsprylar.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,13 +30,16 @@ namespace kontorsprylar.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registrate(Task in en vymodell för registrering)
+        public IActionResult Registrate()
         {
             return View();
-        }     
-        public IActionResult ValidateLogin(LoginViewModel userLogin)
+        }
+        [HttpPost]
+        public IActionResult Index(LoginViewModel userLogin)
         {
-            bool loggedIn = ValidateLogin(userLogin.email, userLogin.password)
+            if (!ModelState.IsValid)
+                return View(userLogin);
+            bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
             return View();
         }
 
@@ -43,9 +47,13 @@ namespace kontorsprylar.Controllers
         {
             bool isValidUser = false;
             PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetUser()
-            //Loginvalidering här
-            return isValidUser;
+            var user = dataManager.GetUser(eMail);
+            if (user != null)
+            {
+                if ()
+            }
+                //Loginvalidering här
+                return isValidUser;
         }
     }
 }
