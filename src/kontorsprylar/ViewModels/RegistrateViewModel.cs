@@ -37,6 +37,7 @@ namespace kontorsprylar.ViewModels
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Lösenord")] //<-- fixas
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Display(Name = "Företag (valfritt)")]
