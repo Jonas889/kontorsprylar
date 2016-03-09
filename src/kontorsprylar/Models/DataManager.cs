@@ -1,5 +1,6 @@
 ﻿using kontorsprylar.ViewModels;
 using System.Linq;
+using System;
 
 namespace kontorsprylar.Models
 {
@@ -23,6 +24,14 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     ProductName = p.ProductName
                 }).ToArray();
+        }
+
+        public string[]  GetUser(string eMail)
+        {
+            return context.Users
+                .Where(u => u.Email == eMail)
+                .Select(u => new string[] { u.Password, u.PasswordSalt })
+                .SingleOrDefault();
         }
     }
 }

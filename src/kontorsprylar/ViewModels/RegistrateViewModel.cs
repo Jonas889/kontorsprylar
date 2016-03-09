@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Övning3.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace kontorsprylar.ViewModels
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Land")]
         //public string Country { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Mobilnummer")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Mobilnummer"), StringLength(10, ErrorMessage = "Ange ett mobilnummer i formatet 07xxxxxxxx")]
         public string CellPhone { get; set; }
 
         [Display(Name = "Fast telefon (valfritt)")]
@@ -40,5 +41,8 @@ namespace kontorsprylar.ViewModels
 
         [Display(Name = "Företag (valfritt)")]
         public string CompanyName { get; set; }
+
+        [MustBeTrueAttribute(ErrorMessage = "Var god acceptera de allmänna villkoren")]
+        public bool AcceptTerms { get; set; }
     }
 }
