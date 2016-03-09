@@ -49,17 +49,17 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul ID="mainmenu_1lvl" class="nav navbar-nav text-uppercase">
-                            <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pennor<span class="caret"></span></a>
-                                <ul class="dropdown-menu text-capitalize">
-                                    <li><a href="#"></a></li>
-                                    <li><a href="#"> Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> One more separated link</a></li>
-                                </ul>
-                            </li>
+                                <li class="dropdown active">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pennor<span class="caret"></span></a>
+                                    <ul class="dropdown-menu text-capitalize">
+                                        <li><a href="#"></a></li>
+                                        <li><a href="#"> Something else here</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#"> Separated link</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#"> One more separated link</a></li>
+                                    </ul>
+                                </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teknik<span class="caret"></span></a>
                                 <ul class="dropdown-menu text-capitalize">
@@ -165,22 +165,19 @@
             </div>
         </div> @*FOOTER ROW (4)*@
     </div> @*CONTAINER-FLUID*@
+    <div class="row footer" id="row5">
+        @*FOOTER ROW (5)*@
+        <div class="container text-center">
+            <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
+        </div>
+    </div> @*FOOTER ROW (5)*@
+
     @*Render Modal area*@
-    <div id="modal">
-       
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#login").click(function () {
-                $.get("/login/index", { 'id': this.id }, function (data) {
-                    $("#modal").text(data);
-                    element = document.getElementById("modal");
-                    element.innerHTML = data;
-                    alert(data);
-                    $('#loginModal').modal('show');
-                });
-            });
-        });
-    </script>
+    @if (IsSectionDefined("modal"))
+    {
+        @RenderSection("modal")
+    }
+    else {
+    }
 </body>
 </html>
