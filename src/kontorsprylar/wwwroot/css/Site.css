@@ -34,6 +34,13 @@
     color:#ededed;
     width: auto;
 }
+#row5 {
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color: #0b4a81;
+    color:#ededed;
+    width: auto;
+}
 /* --- MENU ----*/
 /* make sidebar nav vertical */ 
 @media (min-width: 768px){

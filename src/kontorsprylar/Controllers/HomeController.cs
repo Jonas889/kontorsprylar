@@ -12,8 +12,7 @@ namespace kontorsprylar.Controllers
 {
     public class HomeController : Controller
     {
-        static StoredDbContext context = new StoredDbContext();
-
+        static StoredDbContext context;
         DataManager dataManager = new DataManager(context);
         public HomeController(StoredDbContext newContext)
         {
