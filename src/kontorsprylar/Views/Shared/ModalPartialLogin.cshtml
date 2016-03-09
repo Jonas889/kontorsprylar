@@ -12,7 +12,7 @@
             </div>            
             <div style="margin:30px;">
                 <div asp-validation-summary="ValidationSummary.All"></div>
-                <form asp-controller="Login" asp-action="Index" id="loginForm">
+                <form asp-controller="Login" asp-action="Index">
                     <label asp-for="Email"></label>
                     <input asp-for="Email" class="form-control">
                     <span asp-validation-for="Email"></span>
@@ -20,12 +20,14 @@
                     <label asp-for="Password"></label>
                     <input asp-for="Password" class="form-control">
                     <span asp-validation-for="Password"></span>
+                    <div class="modal-footer">
+                        <input id="submit" type="submit" class="btn btn-primary" value="Logga in" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <input id="SubmitLogin" type="submit" class="btn btn-primary" value="Logga in" />
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
-            </div>
+            
+            
         </div>
     </div>
 </div>

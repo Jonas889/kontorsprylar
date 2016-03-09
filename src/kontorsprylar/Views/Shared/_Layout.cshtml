@@ -7,10 +7,6 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/script/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
-    <script src="~/script/jquery.validate.js"></script>
-    <script src="~/script/jquery.validate.unobtrusive.js"></script>
-
-
 </head>
 <body>
     <div class="container">
@@ -174,14 +170,14 @@
             <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
         </div>
     </div> @*FOOTER ROW (5)*@
+    <script src="~/script/jquery.validate.js"></script>
+    <script src="~/script/jquery.validate.unobtrusive.js"></script>
     <div id="modal"></div>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#login").click(function () {
                 $.get("/login/index", { 'id': this.id }, function (data) {
-                    element = document.getElementById("modal");
-                    element.innerHTML = data;
-                    alert(data);
+                    $("#modal").html(data);
                     $('#loginModal').modal('show');
                 });
             });
@@ -195,10 +191,8 @@
         $(document).ready(function () {
             $("#registrate").click(function () {
                 $.get("/registrate/index", { 'id': this.id }, function (data) {
-                    $("#modal").text(data);
-                    element = document.getElementById("modal");
-                    element.innerHTML = data;
-                    alert(data);
+                    $("#modal").html(data);
+                    $.validator.unobtrusive.parse($("#modal"));
                     $('#myModal').modal('show');
                 });
             });
