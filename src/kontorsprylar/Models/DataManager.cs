@@ -26,7 +26,7 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
-        public  GetUser()
+        public void GetUser()
         {
             
         }

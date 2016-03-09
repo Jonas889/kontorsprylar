@@ -28,24 +28,24 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Registrate(Task in en vymodell för registrering)
-        {
-            return View();
-        }     
-        public IActionResult ValidateLogin(LoginViewModel userLogin)
-        {
-            bool loggedIn = ValidateLogin(userLogin.email, userLogin.password)
-            return View();
-        }
+        //[HttpPost]
+        //public IActionResult Registrate(T/*ask in en vymodell för registrering*/)
+        //{
+        //    return View();
+        //}     
+        //public IActionResult ValidateLogin(LoginViewModel userLogin)
+        //{
+        //    bool loggedIn = ValidateLogin(userLogin.email, userLogin.password)
+        //    return View();
+        //}
 
-        private bool ValidateLogin(string eMail, string password)
-        {
-            bool isValidUser = false;
-            PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetUser()
-            //Loginvalidering här
-            return isValidUser;
-        }
+        //private bool ValidateLogin(string eMail, string password)
+        //{
+        //    bool isValidUser = false;
+        //    PBKDF2 crypt = new PBKDF2();
+        //    var user = dataManager.GetUser()
+        //    //Loginvalidering här
+        //    return isValidUser;
+        //}
     }
 }

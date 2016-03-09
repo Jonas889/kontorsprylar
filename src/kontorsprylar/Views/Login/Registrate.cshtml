@@ -1,48 +1,70 @@
 ﻿@model RegistrateViewModel
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Registrera</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-<div class="form-group">
-    <form asp-controller="login" asp-action="registrate">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName"></span>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="form-group">
+                    <form asp-controller="login" asp-action="registrate">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName"></span>
 
-        <br />
+                        <br />
 
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName"></span>
-        <br />
-        <label asp-for="Street"></label>
-        <input asp-for="Street" class="form-control" />
-        <span asp-validation-for="Street"></span>
-        <br />
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName"></span>
+                        <br />
+                        <label asp-for="CompanyName"></label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName"></span>
+                        <br />
+                        <label asp-for="Street"></label>
+                        <input asp-for="Street" class="form-control" />
+                        <span asp-validation-for="Street"></span>
+                        <br />
 
-        <label asp-for="Zip"></label>
-        <input asp-for="Zip" class="form-control" />
-        <span asp-validation-for="Zip"></span>
-        <br />
-        <label asp-for="City"></label>
-        <input asp-for="City" class="form-control" />
-        <span asp-validation-for="City"></span>
-        <br />
-        <label asp-for="Zip"></label>
-        <input asp-for="Zip" class="form-control" />
-        <span asp-validation-for="Zip"></span>
-        <br />
-        <label asp-for="CellPhone"></label>
-        <input asp-for="CellPhone" class="form-control" />
-        <span asp-validation-for="CellPhone"></span>
-        <br />
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone"></span>
-        <br />
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email"></span>
-        <br />
-    </form>
-    
+                        <label asp-for="Zip"></label>
+                        <input asp-for="Zip" class="form-control" />
+                        <span asp-validation-for="Zip"></span>
+                        <br />
+                        <label asp-for="City"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City"></span>
+                        <br />
+                        <label asp-for="Zip"></label>
+                        <input asp-for="Zip" class="form-control" />
+                        <span asp-validation-for="Zip"></span>
+                        <br />
+                        <label asp-for="CellPhone"></label>
+                        <input asp-for="CellPhone" class="form-control" />
+                        <span asp-validation-for="CellPhone"></span>
+                        <br />
+                        <label asp-for="Phone"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone"></span>
+                        <br />
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email"></span>
+                        <br />
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password"></span>
+                        <br />
+                        <input id="submit" type="submit" value="Registrera" class="btn btn-default" />
+                        <btn class="btn btn-default" data-dismiss="modal">Avbryt</btn>
+                    </form>
 
+
+                </div>
+                </div>
+            </div>
 </div>
-
+    </div>
