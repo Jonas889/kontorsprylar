@@ -2,7 +2,7 @@
 }
 
 .container-fluid {
-    background-color: #ededed;
+    background-color: #ffffff;
 }
 
 .combox {
@@ -20,6 +20,25 @@
 .footerText {
     font-size: 10px;
 }
+#row1 {
+    padding-top:25px;
+    padding-bottom:10px;
+}
+#row3 {
+    padding-bottom:20px;
+}
+#row4 {
+    padding-top:30px;
+    padding-bottom:40px;
+    background-color: #1c1c1c;
+    color:#ededed;
+    width: auto;
+}
+/* --- MENU ----*/
+#mainmenu_1lvl {
+    
+}
+
 /* --- LÄNKAR --- */
 a {
   color: #337ab7;
@@ -35,6 +54,13 @@ a:focus {
   outline-offset: -2px;
 }
 
+.footerLinks {
+    color:#ededed !important;
+}
+.footerLinks:hover {
+    color:#ededed !important;
+    text-decoration:none !important;
+}
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
