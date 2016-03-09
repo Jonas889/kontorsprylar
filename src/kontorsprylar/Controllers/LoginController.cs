@@ -30,10 +30,19 @@ namespace kontorsprylar.Controllers
             return View();
         }
         [HttpPost]
-        //public IActionResult Registrate()
-        //{
-        //    return View();
-        //}
+        public IActionResult Registrate(RegistrateViewModel viewModel)
+
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            dataManager.AddCustomer(viewModel);
+            return RedirectToAction("index");
+            
+        }
         [HttpPost]
         public IActionResult Index(LoginViewModel userLogin)
         {
