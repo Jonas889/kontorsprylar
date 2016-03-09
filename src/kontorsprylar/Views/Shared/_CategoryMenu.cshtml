@@ -18,13 +18,20 @@
                 <li class="dropdown active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@item.Name<span class="caret"></span></a>
                     <ul class="dropdown-menu text-capitalize">
-                        <li><a href="#"></a></li>
-                        <li><a href="#"> Something else here</a></li>
-                        <li role="separator" class="divider"></li>
+                        @foreach (var sub1 in item.SubCategories)
+                        {
+                        <li><a href="#">@sub1.Name</a></li>
+                        <ul class="dropdown-toggle text-capitalize">
+                            @foreach (var sub2 in sub1.SubCategories)
+                            {
+                                <li><a href="#">@sub1.Name</a></li>
+                            }
+                        </ul>
                         <li><a href="#"> Separated link</a></li>
+                        }
                         <li role="separator" class="divider"></li>
-                        <li><a href="#"> One more separated link</a></li>
                     </ul>
+
                 </li>
             }      
         </ul>
