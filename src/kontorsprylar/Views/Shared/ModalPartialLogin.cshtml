@@ -1,0 +1,48 @@
+﻿@model LoginViewModel
+
+
+
+<script>
+    $(document).ready(function(){
+
+        
+        $("#loginModal").animate({ opacity: 'toggle' }, 400);
+        
+
+    })
+</script>
+
+
+
+<!-- Modal -->
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Login</h4>
+            </div>
+
+            <fieldset>
+                <div>@Html.LabelFor(u => u.Email)</div>
+                <div>
+                    @Html.TextBoxFor(u => u.Email)
+                    @Html.ValidationMessageFor(u => u.Email)
+                </div>
+                <div>@Html.LabelFor(u => u.Password)</div>
+                <div>
+                    @Html.TextBoxFor(u => u.Password)
+                    @Html.ValidationMessageFor(u => u.Password)
+                </div>
+            </fieldset>
+
+            <div class="modal-footer">
+                <input id="SubmitLogin" type="submit" value="submit" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
