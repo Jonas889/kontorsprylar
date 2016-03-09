@@ -34,7 +34,7 @@ namespace kontorsprylar.ViewModels
         public bool ForSale { get; set; }
 
         [Display(Name = "Rabatt")]
-        public int DiscountPercentage { get; set; }
+        public float DiscountPercentage { get; set; }
 
         [Display(Name = "Kategorier")]
         public List<CategoryMenuViewModel> Categories { get; set; }
