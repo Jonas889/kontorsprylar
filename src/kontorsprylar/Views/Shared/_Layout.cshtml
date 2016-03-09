@@ -7,6 +7,8 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/script/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/jquery.validate.js"></script>
+    <script src="~/script/jquery.validate.unobtrusive.js"></script>
 
 
 </head>
@@ -29,7 +31,7 @@
                     <h5>Kundvagn</h5>
                 </div>
                 <div class="col-md-2">
-                    <button id="login" type="button" class="btn btn-primary">Log In</button>
+                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
                 </div>
             </div> @*TOP ROW (1)*@
             <div class="row" id="row2">
@@ -174,7 +176,6 @@
         $(document).ready(function () {
             $("#login").click(function () {
                 $.get("/login/index", { 'id': this.id }, function (data) {
-                    $("#modal").text(data);
                     element = document.getElementById("modal");
                     element.innerHTML = data;
                     alert(data);
@@ -182,6 +183,10 @@
                 });
             });
         });
+
+      
+
+
     </script>
 
 </body>
