@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using kontorsprylar.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,6 +19,7 @@ namespace kontorsprylar.Controllers
         [HttpGet]
         public IActionResult Registrate()
         {
+            
             return View();
         }
         //[HttpPost]
