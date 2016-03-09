@@ -29,8 +29,11 @@
                     <h5>Kundvagn</h5>
                 </div>
                 <div class="col-md-2">
-                    <button id="login" type="button" class="btn btn-primary">Log In</button>
+                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
                 </div>
+            <div class="col-md-2">
+                <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
+            </div>
             </div> @*TOP ROW (1)*@
             <div class="row" id="row2">
                 @*MENU ROW (2)*@
@@ -179,6 +182,19 @@
                     element.innerHTML = data;
                     alert(data);
                     $('#loginModal').modal('show');
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#registrate").click(function () {
+                $.get("/registrate/index", { 'id': this.id }, function (data) {
+                    $("#modal").text(data);
+                    element = document.getElementById("modal");
+                    element.innerHTML = data;
+                    alert(data);
+                    $('#myModal').modal('show');
                 });
             });
         });
