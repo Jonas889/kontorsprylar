@@ -161,5 +161,12 @@
             </div>
         </div> @*FOOTER ROW (4)*@
     </div> @*CONTAINER-FLUID*@
+    @*Render Modal area*@
+    @if (IsSectionDefined("modal"))
+    {
+        @RenderSection("modal")
+    }
+    else {
+    }
 </body>
 </html>
