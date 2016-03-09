@@ -40,8 +40,17 @@ namespace kontorsprylar.Controllers
                 return View(viewModel);
             }
 
-            var dataManager = new DataManager(context);
 
+            bool checkBox2 = Convert.ToBoolean(Request.Form["realIsTrue"]);
+
+            var checkBox = Request.Form["reaIsTrue"];
+
+            if (checkBox == "true")
+            {
+                viewModel.ForSale = true;
+            }
+
+            var dataManager = new DataManager(context);
             dataManager.AddProduct(viewModel);
 
             return RedirectToAction(nameof(LoginController.Index));
