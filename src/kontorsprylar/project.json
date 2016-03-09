@@ -1,4 +1,4 @@
-{
+﻿{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -13,7 +13,8 @@
     "Microsoft.AspNet.Tooling.Razor": "1.0.0-rc1-final",
     "Microsoft.AspNet.StaticFiles": "1.0.0-rc1-final",
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-    "WindowsAzure.Storage": "6.2.0"
+    "WindowsAzure.Storage": "6.2.0",
+    "SimpleCrypto": "0.3.30.26"
   },
 
   "commands": {
