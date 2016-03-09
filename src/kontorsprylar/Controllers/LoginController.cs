@@ -33,8 +33,7 @@ namespace kontorsprylar.Controllers
         public IActionResult Registrate(RegistrateViewModel viewModel)
 
         {
-            //ett problem just nu att modalen stängs om något av textfälten inte validerar då hela sidan laddar om och man måste trycka på en knapp för att få upp modalen. om vi lägger knappen i exemeplvis headern och kör att modalen poppar
-            //upp på pageload på registratesidan så borde detta vara lugnt. 
+            
             if (!ModelState.IsValid)
             {
                 return View(viewModel);
