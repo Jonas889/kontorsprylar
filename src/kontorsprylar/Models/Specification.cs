@@ -14,3 +14,4 @@ namespace kontorsprylar.Models
         public string SpecValue { get; set; }
     }
 }
+
