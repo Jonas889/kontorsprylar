@@ -1,5 +1,6 @@
 ﻿using kontorsprylar.ViewModels;
 using System.Linq;
+using System;
 
 namespace kontorsprylar.Models
 {
@@ -23,6 +24,11 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     ProductName = p.ProductName
                 }).ToArray();
+        }
+
+        public  GetUser()
+        {
+            
         }
     }
 }

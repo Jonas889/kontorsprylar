@@ -10,13 +10,16 @@ namespace kontorsprylar.ViewModels
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Förnamn")]
         public string FirstName { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Gatuadress")]
         public string Street { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Postkod")]
         public string Zip { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Postort")]
         public string City { get; set; }
 
@@ -25,6 +28,7 @@ namespace kontorsprylar.ViewModels
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Mobilnummer")]
         public string CellPhone { get; set; }
+
         [Display(Name = "Fast telefon (valfritt)")]
         public string Phone { get; set; }
 
@@ -34,6 +38,7 @@ namespace kontorsprylar.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Lösenord")] //<-- fixas
         public string Password { get; set; }
 
-
+        [Display(Name = "Företag (valfritt)")]
+        public string CompanyName { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace kontorsprylar.ViewModels
     {
         public string ImgLink { get; set; }
         public string ProductName { get; set; }
-
+        
     }
 }
