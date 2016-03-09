@@ -20,11 +20,11 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Registrate(Task in en vymodell för registrering)
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public IActionResult Registrate(/*Task in en vymodell för registrering*/)
+        //{
+        //    return View();
+        //}
 
     }
 }
