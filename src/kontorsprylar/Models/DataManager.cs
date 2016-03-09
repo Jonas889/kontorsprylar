@@ -57,5 +57,23 @@ namespace kontorsprylar.Models
                 })
                 .ToList();
         }
+
+        public void AddCustomer(RegistrateViewModel viewModel)
+        {
+            var user = new User();
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            user.Address = viewModel.Street + ";" + viewModel.Zip + ";" + viewModel.City;
+            user.CellPhone = viewModel.CellPhone;
+            user.Phone = viewModel.Phone;
+            user.Email = viewModel.Email;
+            //user.Password = vad ?;
+            //user.PasswordSalt = vad ?:
+            user.CompanyName = viewModel.CompanyName;
+
+            //lägg till i databasen?
+        }
+
+
     }
 }
