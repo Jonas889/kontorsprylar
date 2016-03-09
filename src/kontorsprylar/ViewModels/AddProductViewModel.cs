@@ -28,7 +28,7 @@ namespace kontorsprylar.ViewModels
         public int StockQuantity { get; set; }
 
         [Display(Name = "Bild")]        
-        public string Picture { get; set; }
+        public string ImgLink { get; set; }
 
         [Display(Name = "Rea")]
         public bool ForSale { get; set; }

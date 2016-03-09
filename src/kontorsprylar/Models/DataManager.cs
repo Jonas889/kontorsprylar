@@ -74,6 +74,20 @@ namespace kontorsprylar.Models
             //lägg till i databasen?
         }
 
+        public void AddProduct(AddProductViewModel viewModel)
+        {
+            var product = new Product();
+            product.ProductName = viewModel.ProductName;
+            product.Description = viewModel.Description;
+            product.Price = viewModel.Price;
+            product.CampaignPrice = viewModel.CampaignPrice;
+            product.StockQuantity = viewModel.StockQuantity;
+            product.ImgLink = viewModel.ImgLink;
+            product.ForSale = viewModel.ForSale;
+
+            context.Products.Add(product);
+
+        }
 
     }
 }
