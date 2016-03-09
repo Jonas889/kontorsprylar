@@ -22,7 +22,7 @@ namespace kontorsprylar.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return PartialView("ModalPartialLogin");
         }
         [HttpGet]
         public IActionResult Registrate()
