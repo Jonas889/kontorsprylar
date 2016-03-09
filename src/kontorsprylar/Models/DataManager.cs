@@ -1,18 +1,19 @@
 ﻿using kontorsprylar.ViewModels;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        StoredDbContext context;
+        private StoredDbContext context;
 
         public DataManager(StoredDbContext context)
         {
             this.context = context;
         }
-        
+
         //Används av produkter som visas på första sidan
         public ProductViewModel[] GetProductPresentationData()
         {
@@ -26,12 +27,37 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
-        public string[]  GetUser(string eMail)
+        public string[] GetUser(string eMail)
         {
             return context.Users
                 .Where(u => u.Email == eMail)
                 .Select(u => new string[] { u.Password, u.PasswordSalt })
                 .SingleOrDefault();
+        }
+
+        public List<CategoryMenuViewModel> GetCategoryMenu()
+        {
+            var query = context.Categories
+                .OrderBy(c => c.CategoryID)
+                .Select(c => new CategoryMenuViewModel
+                {
+                    ID = c.CategoryID,
+                    Name = c.CategoryName,
+                    TopID = c.TopCategoryID,
+                })
+                .ToList();
+
+            var query2 = query
+                .Select(c => new CategoryMenuViewModel
+                {
+                    ID = c.ID,
+                    Name = c.Name,
+                    TopID = c.TopID,
+                    SubCategories = query.Where(o => o.TopID == c.ID).ToList()
+                })
+                .ToList();
+
+            return query2;
         }
     }
 }
