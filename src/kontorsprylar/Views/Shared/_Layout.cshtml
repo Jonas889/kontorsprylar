@@ -178,6 +178,7 @@
             $("#login").click(function () {
                 $.get("/login/index", { 'id': this.id }, function (data) {
                     $("#modal").html(data);
+                    $.validator.unobtrusive.parse($("#modal"));
                     $('#loginModal').modal('show');
                 });
             });

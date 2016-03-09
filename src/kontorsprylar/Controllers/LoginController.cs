@@ -31,7 +31,7 @@ namespace kontorsprylar.Controllers
         public IActionResult Index(LoginViewModel userLogin)
         {
             if (!ModelState.IsValid)
-                return View(userLogin);
+                return null;
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
             return View();
         }
