@@ -58,6 +58,12 @@
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password"></span>
                         <br />
+                        <div class="checkbox">
+
+                            <label asp-for="AcceptTerms"><input type="checkbox" asp-for="AcceptTerms">Jag accepterar de allmänna villkoren</label>
+                            <br />
+                            <span asp-validation-for="AcceptTerms"></span>
+                        </div>
                         <input id="submit" type="submit" value="Registrera" class="btn btn-default" />
                         <btn class="btn btn-default" data-dismiss="modal">Avbryt</btn>
                     </form>
