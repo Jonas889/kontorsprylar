@@ -21,7 +21,7 @@ namespace kontorsprylar.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var model = dataManager.GetProductPresentationData();
+            //var model = dataManager.GetProductPresentationData();
             //detta ersätter vi med datamanager osv senare
             var modelList = new List<ProductViewModel>();
             modelList.Add(new ProductViewModel());
