@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace kontorsprylar.ViewModels
 {
-    public class ProductsInCategoryViewModel
+    public class ProductDetailPageVM
     {
-        [Display(Name = "Produkter")]
-        public List<ProductViewModel> Products { get; set; }
+        [Display(Name = "Produkt")]
+        public ProductViewModel Product { get; set; }
 
         [Display(Name = "Kategori")]
         public List<CategoryMenuViewModel> CategoryToShow { get; set; }
-
-        [Display(Name = "Tekniska specifikationer")]
-        public List<Specification> Specifications { get; set; }
     }
 }

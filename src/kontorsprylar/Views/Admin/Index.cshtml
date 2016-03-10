@@ -3,12 +3,12 @@
 
 <script>
     window.onload = function() {
-            $("#row").hide();
+        $("#row1").hide();
+        $("#row2").hide();
+        $("#row3").hide();
     };
 </script>
-
-
-@*$("#id").css("visibility", "hidden");*@
+    
 
 <div asp-validation-summary="ValidationSummary.All"></div>
 <form onsubmit="isvaliduser(event);">
@@ -19,7 +19,7 @@
     <input asp-for="Password" class="form-control">
     <span asp-validation-for="Password"></span>
     <div class="modal-footer">
-        <input id="submit" type="submit" class="btn btn-primary" value="Logga in" />
+        <input id="submitAdmin" type="submit" class="btn btn-primary" value="Logga in" />
     </div>
 </form>
 

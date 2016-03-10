@@ -1,8 +1,9 @@
 ﻿function isvaliduser(e) {
     e.preventDefault();
     $.get("/login/testlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
-        alert(data);
-        if (data) {
+        
+        if (data != null) {
+            alert("Du har nu loggat in med E-post " + data)
             $('#loginModal').modal('hide');
         }
     });
@@ -15,6 +16,16 @@ function userregistrate(e) {
             $('#regmodal').modal('hide');
         }
     });
+}
 
+function isvaliduser(e) {
+    e.preventDefault();
+    $.get("/login/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
 
+        if (data != null) {
+            alert("Du har nu loggat in med E-post " + data)
+            $('#loginModal').modal('hide');
+            $(location).attr('href', '/admin/adminpage')
+        }
+    });
 }

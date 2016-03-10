@@ -13,11 +13,12 @@ namespace kontorsprylar.Controllers
 {
     public class LoginController : Controller
     {
-        static StoredDbContext context = new StoredDbContext();
-        DataManager dataManager = new DataManager(context);
-        public LoginController(StoredDbContext newContext)
+        static StoredDbContext context;
+        public static DataManager dataManager;
+        public LoginController(StoredDbContext newcontext)
         {
-            context = newContext;
+            context = newcontext;
+            dataManager = new DataManager(context);
         }
         // GET: /<controller>/
         [HttpGet]
@@ -28,16 +29,20 @@ namespace kontorsprylar.Controllers
 
  
         
-        public bool TestLogin(LoginViewModel userLogin)
+        public IActionResult TestLogin(LoginViewModel userLogin)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
-                return false;
+                return null;
             }
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
+
+            if (loggedIn)
+                return Json(userLogin.Email);
+
+            return null;
             
-            return loggedIn; 
         }
 
         private bool ValidateLogin(string eMail, string password)
