@@ -58,7 +58,7 @@ namespace kontorsprylar.Models
                 .ToList();
         }
 
-        public List<ProductsInCategoryViewModel> GetProductsInCategory()
+        public List<ProductsInCategoryViewModel> GetProductsInCategory(int categoryIDtoShow)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -81,7 +81,7 @@ namespace kontorsprylar.Models
             })
             .ToList();
 
-            var products = context.Products
+            var allProducts = context.Products
                 .OrderBy(p => p.ProductID)
                 .Select(p => new ProductsInCategoryViewModel
                 {
@@ -94,12 +94,14 @@ namespace kontorsprylar.Models
                     PictureSrc = p.ImgLink,
                     DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
-                    //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))),
+                    //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
+                    Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList()
+                    //Specifications = context.Specifications,
+                }).ToList();
 
-                    //Specifications = context.Specifications.Where(s => s.CategoryID)
-        }).ToList();
+            var selectedProducts = allProducts;
 
-            return products;
+            return selectedProducts;
         }
 
         public void AddCustomer(RegistrateViewModel viewModel)
