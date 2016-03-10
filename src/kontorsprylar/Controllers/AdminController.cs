@@ -9,24 +9,29 @@ using kontorsprylar.Models;
 
 namespace kontorsprylar.Controllers
 {
-    public class AdminPageController : Controller
+    public class AdminController : Controller
     {
         //Här ska vi ha metoder som hämtar data genom datamanager och kickar in till min AdminPageViewModel
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
 
         StoredDbContext context;
 
-        public AdminPageController(StoredDbContext context)
+        public AdminController(StoredDbContext context)
         {
             this.context = context;
         }
 
-        //public IActionResult Index()
-        //{
-        //    //Måste lägga in validering här, så att admin faktiskt har lyckats logga in. 
-        //    var dataManager = new DataManager(context);
-        //    //var model = dataManager.GetListboxItems(); //Skapa metoden....
-        //    //return View(model);
-        //}
+        public IActionResult Index()
+        {
+            //Måste lägga in validering här, så att admin faktiskt har lyckats logga in. 
+            //var dataManager = new DataManager(context);
+            //var model = dataManager.GetListboxItems(); //Skapa metoden....
+            return View();
+        }
+        public IActionResult AdminPage()
+        {
+   
+            return View();
+        }
     }
 }
