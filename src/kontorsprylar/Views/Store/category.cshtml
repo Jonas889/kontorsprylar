@@ -1,13 +1,13 @@
-﻿@model List<ProductsInCategoryViewModel>
+﻿@model ProductsInCategoryViewModel
 @{
-    ViewBag.Title = Model[0].Categories[0].Name;
+    ViewBag.Title = Model.CategoryToShow.Name;
 }
 <div class="row">
-    @foreach (var product in Model)
+    @foreach (var product in Model.Products)
     {
         <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="thumbnail">
-                <a href="/store/product/@product.ID"><img src="@product.PictureSrc" alt="@product.ProductName"></a>
+                <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
                 <div class="caption">
                     @if (product.CampaignPrice > 0)
                     {
@@ -29,7 +29,6 @@
                             else
                             {
                                 @product.ProductName
-
                             }
                         </a>
                     </h4>
@@ -67,11 +66,11 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            <li><a href="/store/@Model.CategoryToShow/?page=1">1</a></li>
+            <li><a href="/store/@Model.CategoryToShow/?page=2">2</a></li>
+            <li><a href="/store/@Model.CategoryToShow/?page=3">3</a></li>
+            <li><a href="/store/@Model.CategoryToShow/?page=4">4</a></li>
+            <li><a href="/store/@Model.CategoryToShow/?page=5">5</a></li>
             <li>
                 <a href="#" aria-label="Nästa">
                     <span aria-hidden="true">&raquo;</span>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleCrypto;
 
 namespace kontorsprylar.Models
 {
@@ -58,7 +59,8 @@ namespace kontorsprylar.Models
                 .ToList();
         }
 
-        public List<ProductsInCategoryViewModel> GetProductsInCategory(int categoryIDtoShow)
+        // Visar en kategorisida med produkter, samt specificationer knytna till kategorin
+        public ProductsInCategoryViewModel GetProductsInCategory(int categoryIDtoShow)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -69,7 +71,6 @@ namespace kontorsprylar.Models
                 TopID = c.TopCategoryID,
             })
             .ToList();
-
             // Skapa trädstrukturen för kategorierna
             var categoriesVM = categories
             .Select(c => new CategoryMenuViewModel
@@ -80,10 +81,26 @@ namespace kontorsprylar.Models
                 SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
             })
             .ToList();
+            // Välj ut kategori baserat på ID
+            CategoryMenuViewModel categoryFromQuery = categoriesVM
+                .Where(c => c.ID == categoryIDtoShow).First();
 
+            // Hämta specificationer för att lägga i en lista
+            var specificationsVM = context.Specifications
+                .Select(s => new Specification
+                {
+                    CategoryID = s.CategoryID,
+                    SpecKey = s.SpecKey,
+                    SpecValue = s.SpecValue
+                }).ToList();
+            // Sortera ut specs baserat på kategori
+            var categorySpecifications = specificationsVM
+                .Where(s => s.CategoryID == categoryIDtoShow).ToList();
+
+            // Hämta alla produkter från DB och lägg till kategori- och specification-lista
             var allProducts = context.Products
                 .OrderBy(p => p.ProductID)
-                .Select(p => new ProductsInCategoryViewModel
+                .Select(p => new ProductViewModel
                 {
                     ID = p.ProductID,
                     ProductName = p.ProductName,
@@ -91,21 +108,29 @@ namespace kontorsprylar.Models
                     Price = p.Price,
                     CampaignPrice = p.CampaignPrice,
                     StockQuantity = p.StockQuantity,
-                    PictureSrc = p.ImgLink,
+                    ImgLink = p.ImgLink,
                     DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
+                    CategoryID = categoryIDtoShow,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
-                    Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList()
-                    //Specifications = context.Specifications,
+                    //Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList(),
+                    Specifications = specificationsVM.Where(s => s.ProductID == p.ProductID).ToList()
                 }).ToList();
 
-            var selectedProducts = allProducts;
+            // Sortera alla produkter på kategoriID
+            var selectedProducts = allProducts
+                .Where(p => p.CategoryID == categoryIDtoShow).ToList();
 
-            return selectedProducts;
+
+            ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
+            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
+
+            return categoryToShow;
         }
 
         public void AddCustomer(RegistrateViewModel viewModel)
         {
+            PBKDF2 crypt = new PBKDF2();
             var user = new User();
             user.FirstName = viewModel.FirstName;
             user.LastName = viewModel.LastName;
@@ -113,11 +138,12 @@ namespace kontorsprylar.Models
             user.CellPhone = viewModel.CellPhone;
             user.Phone = viewModel.Phone;
             user.Email = viewModel.Email;
-            //user.Password = vad ?;
-            //user.PasswordSalt = vad ?:
+            user.Password = crypt.Compute(viewModel.Password);
+            user.PasswordSalt = crypt.Salt;
             user.CompanyName = viewModel.CompanyName;
-
-            //lägg till i databasen?
+            context.Users.Add(user);
+            context.SaveChanges();
+            
         }
 
         public void AddProduct(AddProductViewModel viewModel)

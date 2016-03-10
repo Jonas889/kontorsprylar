@@ -194,9 +194,8 @@
             $("#registrate").click(function () {
                 $.get("/registrate/index", { 'id': this.id }, function (data) {
                     $("#modal").html(data);
-                    alert(data);
                     $.validator.unobtrusive.parse($("#modal"));
-                    $('#myModal').modal('show');
+                    $('#regmodal').modal('show');
                 });
             });
         });

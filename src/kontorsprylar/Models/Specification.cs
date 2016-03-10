@@ -10,6 +10,7 @@ namespace kontorsprylar.Models
     {   //Vad betyder Key? /Sten
        [Key]
         public int CategoryID { get; set; }
+        public int ProductID { get; set; }
         public string SpecKey { get; set; }
         public string SpecValue { get; set; }
     }
