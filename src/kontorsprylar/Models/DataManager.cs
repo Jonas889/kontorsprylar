@@ -58,6 +58,52 @@ namespace kontorsprylar.Models
                 .ToList();
         }
 
+        public List<ProductsInCategoryViewModel> GetProductsInCategory(int categoryIDtoShow)
+        {
+            // Hämta kategorier för att lägga i en lista
+            var categories = context.Categories
+            .Select(c => new CategoryMenuViewModel
+            {
+                ID = c.CategoryID,
+                Name = c.CategoryName,
+                TopID = c.TopCategoryID,
+            })
+            .ToList();
+
+            // Skapa trädstrukturen för kategorierna
+            var categoriesVM = categories
+            .Select(c => new CategoryMenuViewModel
+            {
+                ID = c.ID,
+                Name = c.Name,
+                TopID = c.TopID,
+                SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
+            })
+            .ToList();
+
+            var allProducts = context.Products
+                .OrderBy(p => p.ProductID)
+                .Select(p => new ProductsInCategoryViewModel
+                {
+                    ID = p.ProductID,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CampaignPrice = p.CampaignPrice,
+                    StockQuantity = p.StockQuantity,
+                    PictureSrc = p.ImgLink,
+                    DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
+                    ForSale = p.ForSale,
+                    //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
+                    Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList()
+                    //Specifications = context.Specifications,
+                }).ToList();
+
+            var selectedProducts = allProducts;
+
+            return selectedProducts;
+        }
+
         public void AddCustomer(RegistrateViewModel viewModel)
         {
             var user = new User();
@@ -86,8 +132,6 @@ namespace kontorsprylar.Models
             product.ForSale = viewModel.ForSale;
 
             context.Products.Add(product);
-
         }
-
     }
 }

@@ -11,5 +11,6 @@ namespace kontorsprylar.ViewModels
         public int ID { get; set; }
         public int TopID { get; set; }
         public List<CategoryMenuViewModel> SubCategories { get; set; }
+        public List<int> productIDs { get; set; }
     }
 }

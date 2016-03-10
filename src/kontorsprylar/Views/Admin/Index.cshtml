@@ -1,0 +1,18 @@
+﻿@using kontorsprylar.ViewModels
+@model LoginViewModel
+
+<div asp-validation-summary="ValidationSummary.All"></div>
+<form asp-controller="Login" asp-action="Index" id="loginForm">
+    <label asp-for="Email"></label>
+    <input asp-for="Email" class="form-control">
+    <span asp-validation-for="Email"></span>
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" class="form-control">
+    <span asp-validation-for="Password"></span>
+</form>
+<div class="modal-footer">
+    <input id="SubmitLogin" type="submit" class="btn btn-primary" value="Logga in" />
+</div>
+
+

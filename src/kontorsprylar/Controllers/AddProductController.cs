@@ -20,7 +20,7 @@ namespace kontorsprylar.Controllers
             context = newContext;
         }
 
-        //Denna häntar in produktdata, och skickar tillbaka som array.
+        //Denna häntar in produktdata som ska visas vid edit.. Lös på bättre sätt
         public IActionResult Index()
         {
             var dataManager = new DataManager(context);
