@@ -35,9 +35,9 @@ namespace kontorsprylar.Controllers
                 ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
                 return false;
             }
-            // bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
+            bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
             
-            return true; 
+            return loggedIn; 
         }
 
         private bool ValidateLogin(string eMail, string password)

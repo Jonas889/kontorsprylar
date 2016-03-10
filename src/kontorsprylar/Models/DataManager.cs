@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleCrypto;
 
 namespace kontorsprylar.Models
 {
@@ -58,6 +59,7 @@ namespace kontorsprylar.Models
                 .ToList();
         }
 
+        // Visar en kategorisida med produkter, samt specificationer knytna till kategorin
         public ProductsInCategoryViewModel GetProductsInCategory(int categoryIDtoShow)
         {
             // Hämta kategorier för att lägga i en lista
@@ -69,7 +71,6 @@ namespace kontorsprylar.Models
                 TopID = c.TopCategoryID,
             })
             .ToList();
-
             // Skapa trädstrukturen för kategorierna
             var categoriesVM = categories
             .Select(c => new CategoryMenuViewModel
@@ -80,7 +81,6 @@ namespace kontorsprylar.Models
                 SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
             })
             .ToList();
-
             // Välj ut kategori baserat på ID
             CategoryMenuViewModel categoryFromQuery = categoriesVM
                 .Where(c => c.ID == categoryIDtoShow).First();
@@ -93,6 +93,9 @@ namespace kontorsprylar.Models
                     SpecKey = s.SpecKey,
                     SpecValue = s.SpecValue
                 }).ToList();
+            // Sortera ut specs baserat på kategori
+            var categorySpecifications = specificationsVM
+                .Where(s => s.CategoryID == categoryIDtoShow).ToList();
 
             // Hämta alla produkter från DB och lägg till kategori- och specification-lista
             var allProducts = context.Products
@@ -108,10 +111,10 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
-                    CategoryID = categoryIDtoShow
+                    CategoryID = categoryIDtoShow,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
                     //Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList(),
-                    //Specifications = specificationsVM.Where(s => s.CategoryID == p.ProductID).ToList()
+                    Specifications = specificationsVM.Where(s => s.ProductID == p.ProductID).ToList()
                 }).ToList();
 
             // Sortera alla produkter på kategoriID
@@ -120,13 +123,14 @@ namespace kontorsprylar.Models
 
 
             ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
-            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = specificationsVM };
+            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
 
             return categoryToShow;
         }
 
         public void AddCustomer(RegistrateViewModel viewModel)
         {
+            PBKDF2 crypt = new PBKDF2();
             var user = new User();
             user.FirstName = viewModel.FirstName;
             user.LastName = viewModel.LastName;
@@ -134,11 +138,12 @@ namespace kontorsprylar.Models
             user.CellPhone = viewModel.CellPhone;
             user.Phone = viewModel.Phone;
             user.Email = viewModel.Email;
-            //user.Password = vad ?;
-            //user.PasswordSalt = vad ?:
+            user.Password = crypt.Compute(viewModel.Password);
+            user.PasswordSalt = crypt.Salt;
             user.CompanyName = viewModel.CompanyName;
-
-            //lägg till i databasen?
+            context.Users.Add(user);
+            context.SaveChanges();
+            
         }
 
         public void AddProduct(AddProductViewModel viewModel)
