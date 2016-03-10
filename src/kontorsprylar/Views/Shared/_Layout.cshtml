@@ -12,11 +12,11 @@
 <body>
     <div class="container">
         <div class="container-fluid">
-            <div class="row" id="row1">
-                @*TOP ROW*@
                 <div class="col-md-2">
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
+            <div class="row" id="row1">
+                @*TOP ROW*@
                 <div class="col-md-4">
                     <form role="search">
                         <div class="form-group">
@@ -100,12 +100,12 @@
                     <p>PARTIAL VIEW - TAGGS / FILTER</p>
                     <p>PARTIAL VIEW - RELATED PRODUCTS</p>
                 </div>
+            </div> @*CONTENT ROW (3)*@
                 <div class="col-md-8 text-left">
                     <div>
                         @RenderBody()
                     </div>
                 </div>
-            </div> @*CONTENT ROW (3)*@
         </div>
     </div>
     <div class="container-fluid">
