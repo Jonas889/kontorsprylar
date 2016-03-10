@@ -42,5 +42,8 @@ namespace kontorsprylar.ViewModels
         [Display(Name = "Taggar")]
         public List<Tagg> Taggs { get; set; }
 
+        [Display(Name = "Specifikationer")]
+        public List<Specification> Specifications { get; set; }
+
     }
 }
