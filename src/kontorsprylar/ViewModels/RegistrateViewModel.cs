@@ -43,7 +43,7 @@ namespace kontorsprylar.ViewModels
         [Display(Name = "Företag (valfritt)")]
         public string CompanyName { get; set; }
 
-        [MustBeTrueAttribute(ErrorMessage = "Var god acceptera de allmänna villkoren")]
+        [MustBeTrue(ErrorMessage = "Var god acceptera de allmänna villkoren")]
         public bool AcceptTerms { get; set; }
     }
 }
