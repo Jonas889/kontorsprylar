@@ -322,32 +322,6 @@
         });
     };
 
-
-
-
-
-
-
-
-    //My jQval
-    $jQval.addMethod("mustbetrue", function (value, element, param) {
-        // check if dependency is met
-        if (!this.depend(param, element))
-            return "dependency-mismatch";
-        return element.checked;
-    });
-
-    jQuery.validator.unobtrusive.adapters.addBool("mustbetrue");
-    //End my jQval
-
-
-
-
-
-
-
-
-
     $jQval.addMethod("__dummy__", function (value, element, params) {
         return true;
     });

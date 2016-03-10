@@ -16,6 +16,7 @@ namespace kontorsprylar.ViewModels
 
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Field can't be empty")]
         [StringLength(20,MinimumLength = 6)]
         public string Password { get; set; }
     }

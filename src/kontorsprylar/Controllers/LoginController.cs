@@ -20,32 +20,18 @@ namespace kontorsprylar.Controllers
             context = newContext;
         }
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             return PartialView("ModalPartialLogin");
         }
-        [HttpGet]
-        //public IActionResult Registrate()
-        //{
-        //    return PartialView("RegistratePartial");
-        //}
-        //[HttpPost]
-        //public IActionResult Registrate(RegistrateViewModel viewModel)
 
-        //{   
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(viewModel);
-        //    }
-
-        //    dataManager.AddCustomer(viewModel);
-        //    return RedirectToAction("index");  
-        //}
+ 
         [HttpPost]
         public IActionResult Index(LoginViewModel userLogin)
         {
             if (!ModelState.IsValid)
-                return View(userLogin);
+                return null;
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
             return View();
         }
@@ -60,7 +46,6 @@ namespace kontorsprylar.Controllers
                 if (user[0] == crypt.Compute(password, user[1]))
                    isValidUser = true;
             }
-            //Loginvalidering här
             return isValidUser;
         }
     }
