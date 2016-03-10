@@ -1,111 +1,190 @@
-﻿
+﻿@{
+    Layout = null;
+}
 
-@*<script src="~/script/jqxlistbox.js"></script>
-<script src="~/script/jqx-all.js"></script>
+<html>
+<head>
 
-<script>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/jqx.base.css" rel="stylesheet" />
+    <script src="~/script/jquery.js"></script>
+    <script src="~/script/jqxcore.js"></script>
+    <script src="~/script/jqxlistbox.js"></script>
+    <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/jqxbuttons.js"></script>
+    <script src="~/script/jqxscrollbar.js"></script>
+    <script src="~/script/jqxdata.js"></script>
+    <script src="~/script/jqxsplitter.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    //Vad ska ViewModellen kicka in? När hämta vad från db och när göra ajax? Bilderna hämtas från Blob-storage.
+    @*Måste skicka in datan som lämplig array*@
 
-    $(document).ready(function () {
+    <script>
 
-        //Dela upp i tre....
-        $("#splitter").jqxSplitter({ width: '100%', height: '100%', panels: [{ size: '35%' }] });
-        //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
-        //Hur dela upp i tre istället för två?
-        //Ska ha två listboxes... En för kategorier och en för produkter.
+        //Vad ska ViewModellen kicka in? När hämta vad från db och när göra ajax? Bilderna hämtas från Blob-storage.
 
-        //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
-        var updatePanel = function (index) {
+        $(document).ready(function () {
 
-            //Måste göra nya left/right för hem och job-adresser
-            var container = $('<div style="margin: 5px;"></div>')
-            var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-            var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-            var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-            var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-            var undercolumn = $('<div style="width: 100%;height:100%"></div>');
+            //Dela upp i tre....
 
-            container.append(leftcolumn);
-            container.append(rightcolumn);
+            $("#splitter").jqxSplitter({  width: '800px', height: '800px', panels: [ { size: '50%' }] });
 
-            container.append(leftsecondcolumn);
-            container.append(rightsecondcolumn);
-            console.log(index);
-            //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
-            //via ett hidden field eller linande.
-            //
-            //var datarecord = JSON.parse(document.getElementById('dataSpan').innerText)[index];
-            //console.log(datarecord);
-            var produktHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
-            console.log("Inne innan");
-            var produktID = "<div style='margin: 10px;'><b>ProduktID:</b> " + "55415" + "</div>";
-          
-            //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
-            //Här lagrar jag id som hidden field eller liknande...
-            $(leftcolumn).append(nameHeader);
-            $(leftcolumn).append(produktID);
-        
-
-            //Här är blob-url + ImgLink från DB.
-            var imgurl = 'tv.jpg';
-            var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
-            $(rightcolumn).append(img);
-            //Ändra namn på dessa variabler
-            //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
-            //$(leftsecondcolumn).append(homeHeader);
-            var productName = "<div style='margin: 10px;'><b>Adress:</b> "+"Liten TV"+"</div>";
-          
-            //Gör en skiss för updatepanel
-            $(leftsecondcolumn).append(productName);
-         
-
-            var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
-            var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
-       
-            $(rightsecondcolumn).append(specHeader);
-            $(rightsecondcolumn).append(spec1);
+            //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
+            //Hur dela upp i tre istället för två?
+            //Ska ha två listboxes... En för kategorier och en för produkter.
 
 
-            //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
-            //container.append(comment);
-            container.append(undercolumn);
+            var data = new Array();
 
-            //$(undercolumn).append(comment);
-            $("#ContentPanel").html(container.html());
-        }
+            var productIDs = ["1", "2", "3"];
+            var productNames = ["Liten TV", "Också liten TV", "Lite mindre TV"];
+            var k = 0;
+            for (var i = 0; i < productIDs.length; i++) {
+                var row = {};
+                row["productid"] = productIDs[k];
+                row["productname"] = productNames[k];
 
-        //Från tidigare...
-        //$("#loginModal").animate({ opacity: 'toggle' }, 400);
+                data[i] = row;
+                k++;
+            }
 
-    })
-</script>*@
+            console.log(data);
+            var source =
+            {
+                localdata: data,
+                datatype: "array"
+            };
+
+            //Vet ej vad en JQuery dataadapter är för något.
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            $('#listbox').on('select', function (event) {
+                updatePanel(event.args.index);
+                console.log("Inne i select-funktionen...");
+                console.log(event.args.index);
+
+            });
+            //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
+            var updatePanel = function (index) {
+
+                //Måste göra nya left/right för hem och job-adresser
+                var container = $('<div style="margin: 5px;"></div>')
+                var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var undercolumn = $('<div style="width: 100%;height:100%"></div>');
+
+                container.append(leftcolumn);
+                container.append(rightcolumn);
+
+                container.append(leftsecondcolumn);
+                container.append(rightsecondcolumn);
+                console.log(index);
+                //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
+                //via ett hidden field eller linande.
+                //
+                var datarecord = data[index];
+                //console.log(datarecord);
+                var productHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
+                console.log("Inne innan");
+                var productID = "<div style='margin: 10px;'><b>ProduktID:</b> " + datarecord.productid + "</div>";
+
+                //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
+                //Här lagrar jag id som hidden field eller liknande...
+                $(leftcolumn).append(productHeader);
+                $(leftcolumn).append(productID);
+
+                console.log("Inne 2");
+
+                //Här är blob-url + ImgLink från DB.
+                var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
+                $(rightcolumn).append(img);
+                //Ändra namn på dessa variabler
+                //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
+                //$(leftsecondcolumn).append(homeHeader);
+                var productName = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.productname + "</div>";
+
+                //Gör en skiss för updatepanel
+                $(leftsecondcolumn).append(productName);
 
 
-Hej
+                //var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
+                //var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
 
-@*<div class="container-fluid">
-    <div class="col-sm-6" style="height: 600px">
-        <div id="splitter">
-            <div style="overflow: hidden;">
-                <div style="border: none;" id="listbox">
+                //$(rightsecondcolumn).append(specHeader);
+                //$(rightsecondcolumn).append(spec1);
+
+
+                //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
+                //container.append(comment);
+                container.append(undercolumn);
+                console.log("Inne 3");
+                //$(undercolumn).append(comment);
+                $("#ContentPanel").html(container.html());
+            }
+
+            //Skapar Listboxen. source väljer första till sista. tror jag.
+            $('#listbox').jqxListBox({
+                selectedIndex: 0, source: dataAdapter, displayMember: "productid", valueMember: "productname", itemHeight: 70, height: '100%', width: '100%',
+                renderer: function (index, label, value) {
+                    console.log(data.length);
+                    console.log(index);
+                    var datarecord = data[index];
+                    var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                    var img = '<img height="50" width="45" src="' + imgurl + '" />';
+                    //Här behöver donas så det responsiva fungerar
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + "Kategori" + " " + "TV" + '</td></tr></table>';
+
+                    return table;
+
+                }
+            });
+            updatePanel(0);
+
+        })
+
+
+
+    </script>
+
+
+</head>
+<body class='default'>
+    <div class="container-fluid">
+        <div class="col-sm-12" style="height: 600px">
+            <div id="splitter">
+                <div>
+                <div style="overflow: hidden;">
+                    <div style="border: none;" id="listbox">
+                    </div>
                 </div>
+                </div>
+                <div>
+                    <div style="overflow: hidden;" id="ContentPanel">
+                    </div>
+                </div>
+
+
             </div>
-            <div style="overflow: hidden;" id="ContentPanel">
-            </div>
         </div>
+
+        </div>
+        @*<div class="col-sm-2">
+            @*<div style="height: 5%; margin: 1%">
+                    <input type="button" id="addContact" value="Lägg till kontakt" onclick="addContactClick()" class="btn btn-primary" style="width: 140px" />
+                </div>
+                <div style="height: 5%; margin: 1%">
+                    <input type="button" id="editContact" value="Ändra kontakt" onclick="editContactClick()" class="btn btn-primary" style="width: 140px" />
+                </div>
+                <div style="height: 5%; margin: 1%">
+                    <input type="button" id="removeContact" value="Radera kontakt" onclick="deleteContactClick()" class="btn btn-danger" style="width: 140px" />
+                </div>*@
+        @*<div class="col-sm-4">
+                </div>
+            </div>*@
     </div>
-    <div class="col-sm-2">
-        <div style="height: 5%; margin: 1%">
-            <input type="button" id="addContact" value="Lägg till kontakt" onclick="addContactClick()" class="btn btn-primary" style="width: 140px" />
-        </div>
-        <div style="height: 5%; margin: 1%">
-            <input type="button" id="editContact" value="Ändra kontakt" onclick="editContactClick()" class="btn btn-primary" style="width: 140px" />
-        </div>
-        <div style="height: 5%; margin: 1%">
-            <input type="button" id="removeContact" value="Radera kontakt" onclick="deleteContactClick()" class="btn btn-danger" style="width: 140px" />
-        </div>
-    </div>
-    <div class="col-sm-4">
-    </div>
-</div>*@
+
+</body>
+</html>
