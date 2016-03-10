@@ -1,8 +1,8 @@
 ﻿using kontorsprylar.ViewModels;
+using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SimpleCrypto;
 
 namespace kontorsprylar.Models
 {
@@ -34,6 +34,7 @@ namespace kontorsprylar.Models
                 .Where(u => u.Email == eMail)
                 .Select(u => new string[] { u.Password, u.PasswordSalt })
                 .SingleOrDefault();
+               
         }
 
         public List<CategoryMenuViewModel> GetCategoryMenu()
@@ -82,14 +83,15 @@ namespace kontorsprylar.Models
             })
             .ToList();
             // Välj ut kategori baserat på ID
-            CategoryMenuViewModel categoryFromQuery = categoriesVM
-                .Where(c => c.ID == categoryIDtoShow).First();
+            var categoryFromQuery = categoriesVM
+                .Where(c => c.ID == categoryIDtoShow).ToList();
 
             // Hämta specificationer för att lägga i en lista
             var specificationsVM = context.Specifications
                 .Select(s => new Specification
                 {
                     CategoryID = s.CategoryID,
+                    ProductID = s.ProductID,
                     SpecKey = s.SpecKey,
                     SpecValue = s.SpecValue
                 }).ToList();
@@ -111,7 +113,7 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
-                    CategoryID = categoryIDtoShow,
+                    CategoryID = p.CategoryID,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
                     //Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList(),
                     Specifications = specificationsVM.Where(s => s.ProductID == p.ProductID).ToList()
@@ -121,11 +123,74 @@ namespace kontorsprylar.Models
             var selectedProducts = allProducts
                 .Where(p => p.CategoryID == categoryIDtoShow).ToList();
 
-
             ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
             { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
 
             return categoryToShow;
+        }
+
+        public ProductDetailPageVM GetProduct(int productIDtoShow)
+        {
+            // Hämta kategorier för att lägga i en lista
+            var categories = context.Categories
+            .Select(c => new CategoryMenuViewModel
+            {
+                ID = c.CategoryID,
+                Name = c.CategoryName,
+                TopID = c.TopCategoryID,
+            })
+            .ToList();
+            // Skapa trädstrukturen för kategorierna och välj ut baserat på produktID
+            var categoriesVM = categories
+                .Select(c => new CategoryMenuViewModel
+                {
+                    ID = c.ID,
+                    Name = c.Name,
+                    TopID = c.TopID,
+                    SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
+                })
+                .ToList();
+            var categoryToShow = categoriesVM
+                .Where(c => c.ID == (context.Products.Where(p => p.ProductID == productIDtoShow)
+                .Select(p => p.CategoryID)).First())
+                .ToList();
+
+            // Hämta specificationer för att lägga i en lista
+            var productSpecifications = context.Specifications
+                .Where(s => s.ProductID == productIDtoShow)
+                .Select(s => new Specification
+                {
+                    CategoryID = s.CategoryID,
+                    ProductID = s.ProductID,
+                    SpecKey = s.SpecKey,
+                    SpecValue = s.SpecValue
+                }).ToList();
+
+            // Hämta alla produkter från DB och lägg till kategori- och specification-lista
+            var productQuery = context.Products
+                .OrderBy(p => p.ProductID)
+                .Where(p => p.ProductID == productIDtoShow)
+                .Select(p => new ProductViewModel
+                {
+                    ID = p.ProductID,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Price = p.Price,
+                    CampaignPrice = p.CampaignPrice,
+                    StockQuantity = p.StockQuantity,
+                    ImgLink = p.ImgLink,
+                    DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
+                    ForSale = p.ForSale,
+                    CategoryID = p.CategoryID,
+                    //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
+                    //Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList(),
+                    Specifications = productSpecifications
+                }).First();
+
+            ProductDetailPageVM productToShow = new ProductDetailPageVM
+            { Product = productQuery, CategoryToShow = categoryToShow};
+
+            return productToShow;
         }
 
         public void AddCustomer(RegistrateViewModel viewModel)
@@ -143,7 +208,6 @@ namespace kontorsprylar.Models
             user.CompanyName = viewModel.CompanyName;
             context.Users.Add(user);
             context.SaveChanges();
-            
         }
 
         public void AddProduct(AddProductViewModel viewModel)
