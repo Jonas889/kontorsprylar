@@ -27,13 +27,17 @@ namespace kontorsprylar.Controllers
         }
 
  
-        [HttpPost]
-        public IActionResult Index(LoginViewModel userLogin)
+        
+        public bool TestLogin(LoginViewModel userLogin)
         {
             if (!ModelState.IsValid)
-                return null;
-            bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
-            return View();
+            {
+                ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
+                return false;
+            }
+            // bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
+            
+            return true; 
         }
 
         private bool ValidateLogin(string eMail, string password)

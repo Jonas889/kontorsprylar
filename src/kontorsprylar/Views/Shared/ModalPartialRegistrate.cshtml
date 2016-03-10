@@ -6,69 +6,83 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
+
         <div class="modal-content">
             <div class="modal-header">
-                <div class="form-group">
-                    <form asp-controller="Registrate" asp-action="Create">
+                <h4>Regstrera konto på kontorsprylar.se</h4>
+            </div>
+            <div class="container-fluid">
+                <form asp-controller="Registrate" asp-action="Create">
+                    <div class="col-xs-6">
                         <label asp-for="FirstName"></label>
                         <input asp-for="FirstName" class="form-control" />
                         <span asp-validation-for="FirstName"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-6">
                         <label asp-for="LastName"></label>
                         <input asp-for="LastName" class="form-control" />
                         <span asp-validation-for="LastName"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-12">
                         <label asp-for="CompanyName"></label>
                         <input asp-for="CompanyName" class="form-control" />
                         <span asp-validation-for="CompanyName"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-12">
                         <label asp-for="Street"></label>
                         <input asp-for="Street" class="form-control" />
                         <span asp-validation-for="Street"></span>
                         <br />
-                        
+                    </div>
+                    <div class="col-xs-4">
                         <label asp-for="Zip"></label>
                         <input asp-for="Zip" class="form-control" />
                         <span asp-validation-for="Zip"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-8">
                         <label asp-for="City"></label>
                         <input asp-for="City" class="form-control" />
                         <span asp-validation-for="City"></span>
                         <br />
-                        <label asp-for="Zip"></label>
-                        <input asp-for="Zip" class="form-control" />
-                        <span asp-validation-for="Zip"></span>
-                        <br />
+                    </div>
+                    <div class="col-xs-6">
                         <label asp-for="CellPhone"></label>
                         <input asp-for="CellPhone" class="form-control" />
                         <span asp-validation-for="CellPhone"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-6">
                         <label asp-for="Phone"></label>
                         <input asp-for="Phone" class="form-control" />
                         <span asp-validation-for="Phone"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-6">
                         <label asp-for="Email"></label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email"></span>
                         <br />
+                    </div>
+                    <div class="col-xs-6">
                         <label asp-for="Password"></label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password"></span>
                         <br />
-                        <div class="checkbox">
-
-                            <label asp-for="AcceptTerms"><input type="checkbox" asp-for="AcceptTerms">Jag accepterar de allmänna villkoren</label>
-                            <br />
-                            <span asp-validation-for="AcceptTerms"></span>
-                        </div>
+                    </div>
+                    <label asp-for="AcceptTerms"><input type="checkbox" asp-for="AcceptTerms" class="checkbox">Jag accepterar de allmänna villkoren</label>
+                    <br />
+                    <span asp-validation-for="AcceptTerms"></span>
+                    <div class="modal-footer">
                         <input id="submit" type="submit" value="Registrera" class="btn btn-default" />
                         <btn class="btn btn-default" data-dismiss="modal">Avbryt</btn>
-                    </form>
-
-
-
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+

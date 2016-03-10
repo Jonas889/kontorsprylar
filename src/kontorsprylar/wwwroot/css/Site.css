@@ -238,3 +238,8 @@ footer {
         height: auto;
     }
 }
+.half-width{
+    float:left !important;
+    width:50% !important;
+    padding:10px !important;
+}

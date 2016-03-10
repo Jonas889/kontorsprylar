@@ -12,22 +12,21 @@
             </div>            
             <div style="margin:30px;">
                 <div asp-validation-summary="ValidationSummary.All"></div>
-                <form asp-controller="Login" asp-action="Index">
+                <form onsubmit="isvaliduser(event);">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control">
+                    <input asp-for="Email" id="Email" class="form-control">
                     <span asp-validation-for="Email"></span>
                     <br />
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control">
+                    <input asp-for="Password" id="Password" class="form-control">
                     <span asp-validation-for="Password"></span>
                     <div class="modal-footer">
                         <input id="submit" type="submit" class="btn btn-primary" value="Logga in" />
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
                     </div>
                 </form>
-            </div>
-            
-            
+            </div>     
         </div>
     </div>
 </div>
+
