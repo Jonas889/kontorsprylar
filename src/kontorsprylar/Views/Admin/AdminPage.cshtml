@@ -1,4 +1,5 @@
-﻿
+﻿@model List<ProductViewModel>
+
 <script src="~/script/jqxlistbox.js"></script>
 <script src="~/script/jqx-all.js"></script>
 
@@ -34,64 +35,43 @@
             //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
             //via ett hidden field eller linande.
             //
-            var datarecord = JSON.parse(document.getElementById('dataSpan').innerText)[index];
-            console.log(datarecord);
-            var nameHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Kontakt</b></div>";
+            //var datarecord = JSON.parse(document.getElementById('dataSpan').innerText)[index];
+            //console.log(datarecord);
+            var produktHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
             console.log("Inne innan");
-            var firstname = "<div style='margin: 10px;'><b>Förnamn:</b> " + datarecord.firstname + "</div>";
-            console.log("Inne efter");
-            var lastname = "<div style='margin: 10px;'><b>Efternamn:</b> " + datarecord.lastname + "</div";
-            var title = "<div style='margin: 10px;'><b>Titel:</b> " + datarecord.title + "</div>";
-            var ssn = "<div style='margin: 10px;'><b>Personnummer:</b> " + datarecord.ssn + "</div>";
-            var email = "<div style='margin: 10px;'><b>E-mail:</b> " + datarecord.email + "</div>";
+            var produktID = "<div style='margin: 10px;'><b>ProduktID:</b> " + "55415" + "</div>";
+          
             //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
             //Här lagrar jag id som hidden field eller liknande...
             $(leftcolumn).append(nameHeader);
-            $(leftcolumn).append(firstname);
-            $(leftcolumn).append(lastname);
-            $(leftcolumn).append(title);
-            $(leftcolumn).append(ssn);
-            $(leftcolumn).append(email);
+            $(leftcolumn).append(produktID);
+        
 
             //Här är blob-url + ImgLink från DB.
-            var imgurl = 'noimg.jpg';
+            var imgurl = 'tv.jpg';
             var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
             $(rightcolumn).append(img);
             //Ändra namn på dessa variabler
-            var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
-            $(leftsecondcolumn).append(homeHeader);
-            var street = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.street + "</div>";
-            var postalcode = "<div style='margin: 10px;'><b>Postnummer:</b> " + datarecord.postalcode + "</div>";
-            var city = "<div style='margin: 10px;'><b>Stad:</b> " + datarecord.city + "</div>";
-            var homephone = "<div style='margin: 10px;'><b>Hem:</b> " + datarecord.homephone + "</div>";
-            var homecellphone = "<div style='margin: 10px;'><b>Mobil privat:</b> " + datarecord.homecellphone + "</div>";
-
+            //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
+            //$(leftsecondcolumn).append(homeHeader);
+            var productName = "<div style='margin: 10px;'><b>Adress:</b> "+"Liten TV"+"</div>";
+          
             //Gör en skiss för updatepanel
-            $(leftsecondcolumn).append(street);
-            $(leftsecondcolumn).append(postalcode);
-            $(leftsecondcolumn).append(city);
-            $(leftsecondcolumn).append(homephone);
-            $(leftsecondcolumn).append(homecellphone);
+            $(leftsecondcolumn).append(productName);
+         
 
-            var jobHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Jobbadress</b></div>";
-            var jobstreet = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.jobstreet + "</div>";
-            var jobpostalcode = "<div style='margin: 10px;'><b>Postnummer:</b> " + datarecord.jobpostalcode + "</div>";
-            var jobcity = "<div style='margin: 10px;'><b>Stad:</b> " + datarecord.jobcity + "</div>";
-            var jobphone = "<div style='margin: 10px;'><b>Arbete:</b> " + datarecord.jobphone + "</div>";
-            var jobcellphone = "<div style='margin: 10px;'><b>Mobil arbete:</b> " + datarecord.jobcellphone + "</div>";
+            var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
+            var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
+       
+            $(rightsecondcolumn).append(specHeader);
+            $(rightsecondcolumn).append(spec1);
 
-            $(rightsecondcolumn).append(jobHeader);
-            $(rightsecondcolumn).append(jobstreet);
-            $(rightsecondcolumn).append(postalcode);
-            $(rightsecondcolumn).append(city);
-            $(rightsecondcolumn).append(jobphone);
-            $(rightsecondcolumn).append(jobcellphone);
 
-            var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
+            //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
             //container.append(comment);
             container.append(undercolumn);
 
-            $(undercolumn).append(comment);
+            //$(undercolumn).append(comment);
             $("#ContentPanel").html(container.html());
         }
 
