@@ -26,15 +26,15 @@ namespace kontorsprylar.Controllers
         }
 
         [HttpGet]
-        public IActionResult Category(int ID)
+        public IActionResult Category(int id)
         {
-            var model = dataManager.GetProductsInCategory(ID);
+            var model = dataManager.GetProductsInCategory(id);
             return View(model);
         }
         [HttpGet]
-        public IActionResult Product(int ID)
+        public IActionResult Product(int id)
         {
-            var model = dataManager.GetProduct(ID);
+            var model = dataManager.GetProduct(id);
             return View(model);
         }
     }
