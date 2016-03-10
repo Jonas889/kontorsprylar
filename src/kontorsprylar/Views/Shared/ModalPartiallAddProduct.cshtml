@@ -1,61 +1,178 @@
 ﻿@model AddProductViewModel
 
-@section modal{
-    <script>
-    $(document).ready(function(){
 
-        $("#loginModal").animate({ opacity: 'toggle' }, 400);
+
+
+
+<script src="~/script/jqxlistbox.js"></script>
+<script src="~/script/jqx-all.js"></script>
+
+<script>
+
+    //Vad ska ViewModellen kicka in? När hämta vad från db och när göra ajax? Bilderna hämtas från Blob-storage.
+
+    $(document).ready(function () {
+
+        //Dela upp i tre....
+        $("#splitter").jqxSplitter({ width: '100%', height: '100%', panels: [{ size: '35%' }] });
+        //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
+        //Hur dela upp i tre istället för två?
+        //Ska ha två listboxes... En för kategorier och en för produkter.
+
+        //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
+        var updatePanel = function (index) {
+
+            //Måste göra nya left/right för hem och job-adresser
+            var container = $('<div style="margin: 5px;"></div>')
+            var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+            var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+            var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+            var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+            var undercolumn = $('<div style="width: 100%;height:100%"></div>');
+
+            container.append(leftcolumn);
+            container.append(rightcolumn);
+
+            container.append(leftsecondcolumn);
+            container.append(rightsecondcolumn);
+            console.log(index);
+            //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
+            //via ett hidden field eller linande.
+            //
+            var datarecord = JSON.parse(document.getElementById('dataSpan').innerText)[index];
+            console.log(datarecord);
+            var nameHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Kontakt</b></div>";
+            console.log("Inne innan");
+            var firstname = "<div style='margin: 10px;'><b>Förnamn:</b> " + datarecord.firstname + "</div>";
+            console.log("Inne efter");
+            var lastname = "<div style='margin: 10px;'><b>Efternamn:</b> " + datarecord.lastname + "</div";
+            var title = "<div style='margin: 10px;'><b>Titel:</b> " + datarecord.title + "</div>";
+            var ssn = "<div style='margin: 10px;'><b>Personnummer:</b> " + datarecord.ssn + "</div>";
+            var email = "<div style='margin: 10px;'><b>E-mail:</b> " + datarecord.email + "</div>";
+            //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
+            //Här lagrar jag id som hidden field eller liknande...
+            $(leftcolumn).append(nameHeader);
+            $(leftcolumn).append(firstname);
+            $(leftcolumn).append(lastname);
+            $(leftcolumn).append(title);
+            $(leftcolumn).append(ssn);
+            $(leftcolumn).append(email);
+
+            //Här är blob-url + ImgLink från DB.
+            var imgurl = 'noimg.jpg';
+            var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
+            $(rightcolumn).append(img);
+            //Ändra namn på dessa variabler
+            var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
+            $(leftsecondcolumn).append(homeHeader);
+            var street = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.street + "</div>";
+            var postalcode = "<div style='margin: 10px;'><b>Postnummer:</b> " + datarecord.postalcode + "</div>";
+            var city = "<div style='margin: 10px;'><b>Stad:</b> " + datarecord.city + "</div>";
+            var homephone = "<div style='margin: 10px;'><b>Hem:</b> " + datarecord.homephone + "</div>";
+            var homecellphone = "<div style='margin: 10px;'><b>Mobil privat:</b> " + datarecord.homecellphone + "</div>";
+
+            //Gör en skiss för updatepanel
+            $(leftsecondcolumn).append(street);
+            $(leftsecondcolumn).append(postalcode);
+            $(leftsecondcolumn).append(city);
+            $(leftsecondcolumn).append(homephone);
+            $(leftsecondcolumn).append(homecellphone);
+
+            var jobHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Jobbadress</b></div>";
+            var jobstreet = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.jobstreet + "</div>";
+            var jobpostalcode = "<div style='margin: 10px;'><b>Postnummer:</b> " + datarecord.jobpostalcode + "</div>";
+            var jobcity = "<div style='margin: 10px;'><b>Stad:</b> " + datarecord.jobcity + "</div>";
+            var jobphone = "<div style='margin: 10px;'><b>Arbete:</b> " + datarecord.jobphone + "</div>";
+            var jobcellphone = "<div style='margin: 10px;'><b>Mobil arbete:</b> " + datarecord.jobcellphone + "</div>";
+
+            $(rightsecondcolumn).append(jobHeader);
+            $(rightsecondcolumn).append(jobstreet);
+            $(rightsecondcolumn).append(postalcode);
+            $(rightsecondcolumn).append(city);
+            $(rightsecondcolumn).append(jobphone);
+            $(rightsecondcolumn).append(jobcellphone);
+
+            var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
+            //container.append(comment);
+            container.append(undercolumn);
+
+            $(undercolumn).append(comment);
+            $("#ContentPanel").html(container.html());
+        }
+
+        //Från tidigare...
+        //$("#loginModal").animate({ opacity: 'toggle' }, 400);
 
     })
-    </script>
+</script>
 
-    
-    <!-- Modal för add product -->
-    <div id="loginModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add product</h4>
+
+
+<div class="container-fluid">
+    <div class="col-sm-6" style="height: 600px">
+        <div id="splitter">
+            @*Vad betyder overflow?*@
+            <div style="overflow: hidden;">
+                <div style="border: none;" id="listbox">
                 </div>
-
-                <div asp-validation-summary="ValidationSummary.All"></div>
-                <form asp-controller="Login" asp-action="Index">
-                    <label asp-for="ProductName"></label>
-                    <input asp-for="ProductName">
-                    <span asp-validation-for="ProductName"></span>
-
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description">
-                    <span asp-validation-for="Description"></span>
-
-                    <label asp-for="Price"></label>
-                    <input asp-for="Price">
-                    <span asp-validation-for="Price"></span>
-
-                    <label asp-for="CampaignPrice"></label>
-                    <input asp-for="CampaignPrice">
-
-                    <label asp-for="StockQuantity"></label>
-                    <input asp-for="StockQuantity">
-                    <span asp-validation-for="StockQuantity"></span>
-                    
-                    <label asp-for="ImgLink"></label>
-                    <input asp-for="ImgLink">
-
-                    <label asp-for="ForSale"></label>
-                    <input id="Checkbox1" type="checkbox" name="reaIsTrue" />
-                    <input asp-for="ForSale">
-                </form>
-
-                <div class="modal-footer">
-                    <input id="SubmitProduct" type="submit" value="Add product" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+                @*Här ska vi få in en till listbox för produkter*@
             </div>
-
+            <div style="overflow: hidden;" id="ContentPanel">
+            </div>
         </div>
     </div>
-}
+    <div class="col-sm-2">
+        <div style="height: 5%; margin: 1%">
+            <input type="button" id="addContact" value="Lägg till kontakt" onclick="addContactClick()" class="btn btn-primary" style="width: 140px" />
+        </div>
+        <div style="height: 5%; margin: 1%">
+            <input type="button" id="editContact" value="Ändra kontakt" onclick="editContactClick()" class="btn btn-primary" style="width: 140px" />
+        </div>
+        <div style="height: 5%; margin: 1%">
+            <input type="button" id="removeContact" value="Radera kontakt" onclick="deleteContactClick()" class="btn btn-danger" style="width: 140px" />
+        </div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+</div>
+
+@*<!-- Modal för add product -->
+        <div id="loginModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add product</h4>
+                    </div>
+                    <div asp-validation-summary="ValidationSummary.All"></div>
+                    <form asp-controller="Login" asp-action="Index">
+                        <label asp-for="ProductName"></label>
+                        <input asp-for="ProductName">
+                        <span asp-validation-for="ProductName"></span>
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description">
+                        <span asp-validation-for="Description"></span>
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price">
+                        <span asp-validation-for="Price"></span>
+                        <label asp-for="CampaignPrice"></label>
+                        <input asp-for="CampaignPrice">
+                        <label asp-for="StockQuantity"></label>
+                        <input asp-for="StockQuantity">
+                        <span asp-validation-for="StockQuantity"></span>
+                        <label asp-for="ImgLink"></label>
+                        <input asp-for="ImgLink">
+                        <label asp-for="ForSale"></label>
+                        <input id="Checkbox1" type="checkbox" name="reaIsTrue" />
+                        <input asp-for="ForSale">
+                    </form>
+                    <div class="modal-footer">
+                        <input id="SubmitProduct" type="submit" value="Add product" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@

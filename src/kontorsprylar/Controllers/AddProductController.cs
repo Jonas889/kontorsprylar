@@ -19,6 +19,8 @@ namespace kontorsprylar.Controllers
         {
             context = newContext;
         }
+
+        //Denna häntar in produktdata, och skickar tillbaka som array.
         public IActionResult Index()
         {
             var dataManager = new DataManager(context);
