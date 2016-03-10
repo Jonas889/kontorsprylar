@@ -7,6 +7,7 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/script/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/sitescript.js"></script>
 </head>
 <body>
     <div class="container">
@@ -193,12 +194,39 @@
             $("#registrate").click(function () {
                 $.get("/registrate/index", { 'id': this.id }, function (data) {
                     $("#modal").html(data);
+                    alert(data);
                     $.validator.unobtrusive.parse($("#modal"));
                     $('#myModal').modal('show');
                 });
             });
         });
     </script>
+    <script type="text/javascript">
+        var $jQval = $.validator,
+            adapters,
+            data_validation = "unobtrusiveValidation";
+
+        function setValidationValues(options, ruleName, value) {
+            options.rules[ruleName] = value;
+            if (options.message) {
+                options.messages[ruleName] = options.message;
+            }
+        }
+
+        $jQval.addMethod("mustbetrue", function (value, element, param) {
+            // check if dependency is met
+            if (!this.depend(param, element))
+                return "dependency-mismatch";
+            return element.checked;
+        });
+
+        $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
+            setValidationValues(options, "mustbetrue", true);
+        });
+
+        $jQval.unobtrusive.parse();
+    </script>
+
 
 </body>
 </html>
