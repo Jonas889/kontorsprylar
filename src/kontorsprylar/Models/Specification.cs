@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace kontorsprylar.Models
 {
     public class Specification
-    {   //Vad betyder detta?
+    {   //Vad betyder Key? /Sten
        [Key]
         public int CategoryID { get; set; }
         public string SpecKey { get; set; }
