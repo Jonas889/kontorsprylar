@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimpleCrypto;
 
 namespace kontorsprylar.Models
 {
@@ -129,6 +130,7 @@ namespace kontorsprylar.Models
 
         public void AddCustomer(RegistrateViewModel viewModel)
         {
+            PBKDF2 crypt = new PBKDF2();
             var user = new User();
             user.FirstName = viewModel.FirstName;
             user.LastName = viewModel.LastName;
@@ -136,11 +138,12 @@ namespace kontorsprylar.Models
             user.CellPhone = viewModel.CellPhone;
             user.Phone = viewModel.Phone;
             user.Email = viewModel.Email;
-            //user.Password = vad ?;
-            //user.PasswordSalt = vad ?:
+            user.Password = crypt.Compute(viewModel.Password);
+            user.PasswordSalt = crypt.Salt;
             user.CompanyName = viewModel.CompanyName;
-
-            //lägg till i databasen?
+            context.Users.Add(user);
+            context.SaveChanges();
+            
         }
 
         public void AddProduct(AddProductViewModel viewModel)
