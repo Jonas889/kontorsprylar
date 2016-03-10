@@ -20,13 +20,14 @@ namespace kontorsprylar.Controllers
         {
             this.context = context;
         }
-
+        /*
         public IActionResult Index()
         {
             //Måste lägga in validering här, så att admin faktiskt har lyckats logga in. 
             var dataManager = new DataManager(context);
-            var model = dataManager.GetListboxItems(); //Skapa metoden....
+           // var model = dataManager.GetListboxItems(); //Skapa metoden....
             return View(model);
         }
+        */
     }
 }
