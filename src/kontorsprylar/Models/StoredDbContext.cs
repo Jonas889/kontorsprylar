@@ -14,7 +14,6 @@ namespace kontorsprylar.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Specification> Specifications { get; set; }
-       
 
         //public DbSet<ProductsViewdByCustomer> ProductsViewdByCustomers { get; set; }
         //public DbSet<WishList> WishLists { get; set; }

@@ -15,5 +15,6 @@ namespace kontorsprylar.Models
         public string Description { get; set; }
         public int StockQuantity { get; set; }
         public bool ForSale { get; set; }
+        public int CategoryID { get; set; }
     }
 }
