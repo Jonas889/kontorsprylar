@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <div class="container-fluid">
-                <div class="col-md-2">
-                    <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
-                </div>
+            <div class="col-md-2">
+                <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
+            </div>
             <div class="row" id="row1">
                 @*TOP ROW*@
                 <div class="col-md-4">
@@ -27,12 +27,19 @@
                 <div class="col-md-2">
                     <h5>Kundvagn</h5>
                 </div>
-                <div class="col-md-2">
-                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                <div id="loginstate" class="col-md-2">
+                    @if (Context.Request.Cookies["Email"].Count != 0)
+                    {
+                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
+                    }
+                    else
+                    {
+                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                    }
                 </div>
-            <div class="col-md-2">
-                <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
-            </div>
+                <div class="col-md-2">
+                    <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
+                </div>
             </div> @*TOP ROW (1)*@
             <div class="row" id="row2">
                 @*MENU ROW (2)*@
@@ -101,11 +108,11 @@
                     <p>PARTIAL VIEW - RELATED PRODUCTS</p>
                 </div>
             </div> @*CONTENT ROW (3)*@
-                <div class="col-md-8 text-left">
-                    <div>
-                        @RenderBody()
-                    </div>
+            <div class="col-md-8 text-left">
+                <div>
+                    @RenderBody()
                 </div>
+            </div>
         </div>
     </div>
     <div class="container-fluid">
@@ -185,7 +192,7 @@
             });
         });
 
-      
+
 
 
     </script>
