@@ -13,8 +13,13 @@ namespace kontorsprylar.Controllers
     
     public class RegistrateController : Controller
     {
-        static StoredDbContext context = new StoredDbContext();
-        DataManager dataManager = new DataManager(context);
+        static StoredDbContext context;
+        public static DataManager dataManager;
+        public RegistrateController(StoredDbContext newcontext)
+        {
+            context = newcontext;
+            dataManager = new DataManager(context);
+        }
 
         // GET: /<controller>/
         [HttpGet]
@@ -29,11 +34,10 @@ namespace kontorsprylar.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return Json(false);
             }
-
             dataManager.AddCustomer(viewModel);
-            return RedirectToAction("index");
+            return Json(viewModel.Email);
         }
     }
 }
