@@ -15,6 +15,4 @@ function userregistrate(e) {
             $('#regmodal').modal('hide');
         }
     });
-
-
 }
