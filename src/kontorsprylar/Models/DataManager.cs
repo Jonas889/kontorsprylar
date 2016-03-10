@@ -34,6 +34,7 @@ namespace kontorsprylar.Models
                 .Where(u => u.Email == eMail)
                 .Select(u => new string[] { u.Password, u.PasswordSalt })
                 .SingleOrDefault();
+               
         }
 
         public List<CategoryMenuViewModel> GetCategoryMenu()
