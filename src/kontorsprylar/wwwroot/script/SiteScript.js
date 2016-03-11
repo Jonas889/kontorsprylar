@@ -18,15 +18,3 @@ function userregistrate(e) {
         }
     });
 }
-
-function isvaliduserAdmin(e) {
-    e.preventDefault();
-    $.get("/admin/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
-
-        if (data != null) {
-            alert("Du har nu loggat in med E-post " + data)
-            $('#loginModal').modal('hide');
-            $(location).attr('href', '/admin/adminpage')
-        }
-    });
-}

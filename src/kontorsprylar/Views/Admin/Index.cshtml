@@ -11,8 +11,9 @@
 </script>
     
 
-<div asp-validation-summary="ValidationSummary.All"></div>
+
 <form asp-controller="admin" asp-action="TestAdminLogin">
+    <div asp-validation-summary="ValidationSummary.All"></div>
     <label asp-for="Email"></label>
     <input asp-for="Email" class="form-control">
     <span asp-validation-for="Email"></span>
