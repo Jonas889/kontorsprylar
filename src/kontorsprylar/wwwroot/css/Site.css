@@ -243,3 +243,8 @@ footer {
       height:300px;
       margin: auto;
   }
+.shoppingcart {
+    outline: 1px solid orange;
+    z-index:5;
+}
+
