@@ -212,7 +212,8 @@ footer {
       margin: auto;
   }
 .shoppingcart {
-    outline: 1px solid orange;
+    
     z-index:5;
+    width:400px;
 }
 
