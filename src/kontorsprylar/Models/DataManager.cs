@@ -269,6 +269,7 @@ namespace kontorsprylar.Models
             product.ForSale = viewModel.ForSale;
 
             context.Products.Add(product);
+            context.SaveChanges();
         }
     }
 }
