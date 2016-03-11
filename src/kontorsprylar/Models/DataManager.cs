@@ -8,6 +8,7 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
+        //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f }, new ShoppingCartVM { ProductName = "test2", Price = 3f } };
         static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
@@ -42,6 +43,11 @@ namespace kontorsprylar.Models
                 }).SingleOrDefault();
             kundvagn.Add(product);
             }
+            return kundvagn;
+        }
+
+        public List<ShoppingCartVM> GetMyShoppingCart()
+        {
             return kundvagn;
         }
 
