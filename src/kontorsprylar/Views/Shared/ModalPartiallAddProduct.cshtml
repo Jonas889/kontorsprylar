@@ -3,41 +3,44 @@
 
 
 <!-- Modal för add product -->
-        <div id="loginModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add product</h4>
-                    </div>
+<div id="addProductModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add product</h4>
+            </div>
+
+            <form asp-controller="Login" asp-action="Index">
+                <div class="container-fluid">
                     <div asp-validation-summary="ValidationSummary.All"></div>
-                    <form asp-controller="Login" asp-action="Index">
-                        <label asp-for="ProductName"></label>
-                        <input asp-for="ProductName">
-                        <span asp-validation-for="ProductName"></span>
-                        <label asp-for="Description"></label>
-                        <input asp-for="Description">
-                        <span asp-validation-for="Description"></span>
-                        <label asp-for="Price"></label>
-                        <input asp-for="Price">
-                        <span asp-validation-for="Price"></span>
-                        <label asp-for="CampaignPrice"></label>
-                        <input asp-for="CampaignPrice">
-                        <label asp-for="StockQuantity"></label>
-                        <input asp-for="StockQuantity">
-                        <span asp-validation-for="StockQuantity"></span>
-                        <label asp-for="ImgLink"></label>
-                        <input asp-for="ImgLink">
-                        <label asp-for="ForSale"></label>
-                        <input id="Checkbox1" type="checkbox" name="reaIsTrue" />
-                        <input asp-for="ForSale">
+                    <label asp-for="ProductName"></label>
+                    <input asp-for="ProductName">
+                    <span asp-validation-for="ProductName"></span>
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description">
+                    <span asp-validation-for="Description"></span>
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price">
+                    <span asp-validation-for="Price"></span>
+                    <label asp-for="CampaignPrice"></label>
+                    <input asp-for="CampaignPrice">
+                    <label asp-for="StockQuantity"></label>
+                    <input asp-for="StockQuantity">
+                    <span asp-validation-for="StockQuantity"></span>
+                    <label asp-for="ImgLink"></label>
+                    <input asp-for="ImgLink">
+                    <label asp-for="ForSale"></label>
+                    <input id="Checkbox1" type="checkbox" name="saleIsTrue" />
+                    <input asp-for="ForSale">
                     <div class="modal-footer">
                         <input id="SubmitProduct" type="submit" value="Add product" />
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                    </form>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
     }
