@@ -33,8 +33,10 @@ namespace kontorsprylar.Controllers
        
         public IActionResult SearchResult(string query)
         {
+            //p.Price == (float)Convert.ToDouble(query) || p.ProductID == Convert.ToInt32(query) || //dessa checkar måste göras innan
+
             var products = context.Products
-                .Where(p => (p.ProductName.Contains(query)) || p.Price == (float)Convert.ToDouble(query))
+                .Where(p => (p.ProductName.Contains(query)) || p.Description.Contains(query) && p.ForSale == true)
                 .Select(p => new ViewModels.ProductViewModel
                 {
                     ProductName = p.ProductName,
