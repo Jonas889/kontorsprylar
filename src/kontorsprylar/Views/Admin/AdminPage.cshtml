@@ -32,7 +32,7 @@
             //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
             //Hur dela upp i tre istället för två?
             //Ska ha två listboxes... En för kategorier och en för produkter.
-
+            //VAD VILL JAG HA IN FÖR DATA?
             var data = new Array();
             var categories = ["Elgrej", "Elgrej", "Elgrej"]
             var productIDs = ["1", "2", "3"];
@@ -55,7 +55,8 @@
                 datatype: "array"
             };
 
-            //Vet ej vad en JQuery dataadapter är för något.
+            //Här ska vi fylla på vad som finns i listboxProd vid onselect
+            //Måste skriva en sån funktion och skapa en instans av den. 
             var dataAdapter = new $.jqx.dataAdapter(source);
             $('#listboxCat').on('select', function (event) {
                 updatePanel(event.args.index);
@@ -63,6 +64,7 @@
                 console.log(event.args.index);
 
             });
+            //Här ändrar vi updatepanel beroende på vald produkt
             $('#listboxProd').on('select', function (event) {
                 updatePanel(event.args.index);
                 console.log("Inne i select-funktionen...");
@@ -146,25 +148,34 @@
 
             });
             $('#listboxCat').jqxListBox({
-                selectedIndex: 0, source: dataAdapter, displayMember: "productid", valueMember: "productname", itemHeight: 70, height: '100%', width: '100%',
+                selectedIndex: 0, source: dataAdapter, displayMember: "productid", valueMember: "productname", itemHeight: 30, height: '100%', width: '100%',
                 renderer: function (index, label, value) {
                     console.log(data.length);
                     console.log(index);
                     var datarecord = data[index];
-                    var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
-                    var img = '<img height="50" width="45" src="' + imgurl + '" />';
+
                     //Här behöver donas så det responsiva fungerar
-                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + datarecord.category + '</td></tr></table>';
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2"></td><td>' + "  " + datarecord.category + '</td></tr></table>';
                     return table;
                 }
 
             });
             updatePanel(0);
-
         })
     </script>
+
+
+
+
+
 </head>
+
 <body class='default'>
+    <div class="container-fluid">
+        <div class="col-sm-12" style="height:100px">
+            <img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" class="center-block" style="margin-top:10px"/>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="col-sm-6">
             <div id="splitter">
@@ -176,10 +187,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             Tjohoo. Här ska vi ordna en CONTENTPANEL
         </div>
-    </div>
+        <div class="col-sm-1">
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="addProduct" value="Lägg till produkt" class="btn btn-primary" style="width: 140px" />
+            </div>
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="editProduct" value="Ändra produkt" class="btn btn-primary" style="width: 140px" />
+            </div>
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="removeProduct" value="Radera produkt" class="btn btn-danger" style="width: 140px" />
+            </div>
 
+        </div>
+    </div>
 </body>
 </html>
