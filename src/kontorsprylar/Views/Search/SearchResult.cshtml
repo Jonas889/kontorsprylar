@@ -1,0 +1,9 @@
+﻿@model List<ProductViewModel>
+
+<table class="table table-striped">
+    <tr><th>Produkt</th><th>Pris</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td><a href="/store/product/@item.ID">@item.ProductName</a> </td><td>@item.Price</td></tr>
+    }
+</table>
