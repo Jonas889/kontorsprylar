@@ -1,0 +1,9 @@
+﻿@model List<ShoppingCartVM>
+
+<table class="table table-striped">
+    <tr><th>Namn</th><th>Pris</th><td></td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.ProductName</td><td>@item.Price</td><td><input id="submit" type="submit" value="Ta bort" /><input id="numberOfItems" type="number" placeholder="@item.Price"/></td></tr>
+    }
+</table>

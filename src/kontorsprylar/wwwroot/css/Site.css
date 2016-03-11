@@ -35,6 +35,11 @@
     color: #ededed;
     width: auto;
 }
+
+#productPricePanel {
+    padding-top:30px;
+}
+
 /* --- MENU ----*/
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
@@ -187,7 +192,10 @@ a {
 
 .campaignprice {
     color: #ff0000;
-    text-decoration: solid;
+}
+
+.leverans {
+    text-size: 8px;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -220,7 +228,8 @@ footer {
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
-    .sidenav {
+    .sidenav 
+    {
         height: auto;
         padding: 15px;
     }
