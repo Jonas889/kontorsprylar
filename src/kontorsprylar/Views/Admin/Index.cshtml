@@ -1,23 +1,6 @@
-﻿@*
-    @using kontorsprylar.ViewModels
-    @model LoginViewModel
-    @{
-        Layout = "_LayoutHomePage";
-    }
-    <script>
-        window.onload = function() {
-            //$("#row1").hide();
-            //$("#row2").hide();
-        };
-    </script>
-*@   
-
-
-@using kontorsprylar.ViewModels
+﻿@using kontorsprylar.ViewModels
 @model LoginViewModel
-@{
-    Layout = null;
-}
+
 
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -29,7 +12,7 @@
     <script src="~/script/sitescript.js"></script>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <br />
         <div class="col-md-2">
             <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
@@ -107,7 +90,12 @@
                     </div>
                 </div>
             </div>
-        </div> @*FOOTER ROW (4)*@
-    </div> @*CONTAINER-FLUID*@
-
+        </div> 
+    </div> 
+    <div class="row footer" id="row5">
+        @*FOOTER ROW (5)*@
+        <div class="container text-center">
+            <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
+        </div>
+    </div>
 </body>

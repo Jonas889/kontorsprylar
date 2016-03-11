@@ -3,10 +3,10 @@
     ViewBag.Title = Model.CategoryToShow[0].Name;
     Layout = "_LayoutHomePage";
 }
-<div class="row text-left">
+<div id="breadcrumbRow" class="row text-left">
     <ol class="breadcrumb">
         <li><a href="/home/">Hem</a></li>
-        <li class="active"><a href="/category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
+        <li class="active"><a href="/store  /category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
     </ol>
 </div>
 

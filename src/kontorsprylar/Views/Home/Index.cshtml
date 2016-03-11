@@ -17,7 +17,7 @@
 
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         @*för att ändra vilka bilder som ska visas i karusellen kontrollerar vi här vilka index vi vill visa*@
-        @for (int i = 1; i < Model.Count; i++)
+        @for (int i = 1; i < 4; i++)
             {
             <li data-target="#myCarousel" data-slide-to=@i.ToString()></li>
 
@@ -27,14 +27,17 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
 
+        @{string firstImage = "https://duke.blob.core.windows.net/images/" + @Model[0].ImgLink;}
         <div class="item active">
-            <img src="@Model[0].ImgLink">
+            <a href="/store/product/@Model[0].ID"><img src=@firstImage></a>
         </div>
 
         @for (int i = 1; i < Model.Count; i++)
         {
+            string img = "https://duke.blob.core.windows.net/images/";
+            img += Model[i].ImgLink;
             <div class="item">
-                <img src="@Model[i].ImgLink">
+                <a href="/store/product/@Model[i].ID"><img src=@img></a>
             </div>
         }
 
@@ -53,16 +56,19 @@
 
 <div class="container-fluid">
 
+
+
     <div class="row">
-        @{string test = "</div><div class=\"row\">";}
+     
 
         @for (var i = 0; i < 8 && i < Model.Count; i++)
         {
-            <div class="col-lg-3"><img src="@Model[i].ImgLink" width="200" height="200" /><br /><h5>@Model[i].ProductName</h5></div>
-            @if (i == 3)
-            {
-                @test;
-            }
+            string img = "https://duke.blob.core.windows.net/images/";
+            img += Model[i].ImgLink;
+            <div class="col-lg-3">
+                <a href="/store/product/@Model[i].ID"><img src=@img width="200" height="200" /></a>
+                <br /><h5>@Model[i].ProductName</h5>
+            </div>
         }
 
     </div>

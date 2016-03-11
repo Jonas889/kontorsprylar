@@ -1,0 +1,52 @@
+﻿@using kontorsprylar.ViewModels
+@model AddProductViewModel
+@{
+    ViewBag.Title = "Lägg till produkt";
+    Layout = "_LayoutHomePage";
+}
+
+<form asp-controller="admin" asp-action="addproduct">
+    <div asp-validation-summary="ValidationSummary.All"></div>
+    <div class="col-xs-6">
+        <label asp-for="ProductName"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName"></span>
+        <br />
+    </div>
+    <div class="col-xs-6">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description"></span>
+        <br />
+    </div>
+    <div class="col-xs-12">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price"></span>
+        <br />
+    </div>
+    <div class="col-xs-12">
+        <label asp-for="CampaignPrice"></label>
+        <input asp-for="CampaignPrice" class="form-control" />
+        <span asp-validation-for="CampaignPrice"></span>
+        <br />
+    </div>
+    <div class="col-xs-4">
+        <label asp-for="StockQuantity"></label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity"></span>
+        <br />
+    </div>
+    <div class="col-xs-8">
+        <label asp-for="ImgLink"></label>
+        <input asp-for="ImgLink" class="form-control" />
+        <span asp-validation-for="ImgLink"></span>
+        <br />
+    </div>
+    <div class="col-xs-6">
+        <label asp-for="ForSale"></label>
+        <input asp-for="ForSale" class="form-control" />
+        <br />
+    </div>
+    <br />
+</form>

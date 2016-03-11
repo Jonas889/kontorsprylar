@@ -1,0 +1,84 @@
+﻿@model ProductDetailPageVM
+@{
+    ViewBag.Title = Model.Product.ProductName;
+    Layout = "_LayoutHomePage";
+}
+<div id="breadcrumbRow" class="row text-left">
+    <ol class="breadcrumb">
+        <li><a href="/home/">Hem</a></li>
+        <li class="active"><a href="/store/category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
+    </ol>
+</div>
+
+<div id="productPage" class="row">
+    <div id="productImage" class="col-md-4">
+        <img alt="@Model.Product.ProductName" src="@Model.Product.ImgLink" class="img-responsive">
+    </div>
+
+    <div id="productDetails" class="col-md-5 text-justify">
+        <h4>@Model.Product.ProductName</h4>
+        <p>@Model.Product.Description</p>
+    </div>
+
+    <div id="productPricePanel" class="col-md-3 pull-right text-left">
+        <div id="productPrice">
+            @if (Model.Product.CampaignPrice > 0)
+            {
+            <s class="oldPrice">@Model.Product.Price:-</s>
+            <h1 class="campaignprice">@Model.Product.CampaignPrice:-</h1>
+            }
+            else
+            {
+            <h1 class="ordinaryPrice">@Model.Product.Price:-</h1>
+            }
+            inkl moms.
+        </div>
+        <div class="clear"></div>
+        <div id="productBuy">
+            <div id="addToCart">
+                <form asp-controller="AddProduct" asp-action="AddToCart">
+                    <fieldset>
+                            <div id="productQuantity">
+                                <div style="float:left;" class="counterWrapper">
+                                    <input value="1" name="quantity" id="productCountLarge" style="display: none;" original-title="Ange kvantitet">
+                                    <select id="productCount" style="padding: 0;"><option>1 st</option><option>2 st</option><option>3 st</option><option>4 st</option><option>5 st</option><option>6 st</option><option>7 st</option><option>8 st</option><option>9 st</option><option>10+</option></select>
+                                </div>
+                            </div>
+                        <br />
+                        <br />
+                        <div>
+                            <input type="submit" value="Lägg i varukorg" class="btn btn-success">
+                            <input type="hidden" value="@Model.Product.ID" name="id">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div id="productPropertiesPanel2">
+            <div style="padding:10px 0 5px; clear: both;" class="clearfix"></div>
+            <div id="productDeliveryStatus"><span class="glyphicon glyphicon-thumbs-up"></span> Skickas omgående<p class="leverans">Leverans 1-2 dagar</p></div>
+            <span>Lagervaror som beställs innan <br> 17 skickas samma dag.</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="well">
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Specifikation</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var spec in @Model.Product.Specifications)
+                    {
+                    <tr>
+                        <td>@spec.SpecKey</td>
+                        <td>@spec.SpecValue</td>
+                    </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
