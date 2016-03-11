@@ -187,7 +187,10 @@ a {
 
 .campaignprice {
     color: #ff0000;
-    text-decoration: solid;
+}
+
+.leverans {
+    text-size: 8px;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
