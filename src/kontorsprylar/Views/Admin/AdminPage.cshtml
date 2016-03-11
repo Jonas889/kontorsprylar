@@ -211,3 +211,15 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#addProduct").click(function () {
+                $.get("/login/index", { 'id': this.id }, function (data) {
+                    $("#modal").html(data);
+                    $.validator.unobtrusive.parse($("#modal"));
+                    $('#loginModal').modal('show');
+                });
+            });
+        });
+</script>
