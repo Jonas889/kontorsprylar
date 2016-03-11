@@ -1,64 +1,70 @@
 ﻿@model ProductsInCategoryViewModel
 @{
     ViewBag.Title = Model.CategoryToShow[0].Name;
+    Layout = "_LayoutHomePage";
 }
 <div class="row">
-    @foreach (var product in Model.Products)
-    {
-    <div class="col-sm-6 col-md-4 col-lg-4">
-        <div class="thumbnail">
-            <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
-            <div class="caption">
-                @if (product.CampaignPrice > 0)
+    <div class="col-md-2">
+        @Html.Partial("_CategoryMenu", Model.CategoryToShow)
+    </div>
+    <div class="col-md-10">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="thumbnail">
+                    <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
+                    <div class="caption">
+                        @if (product.CampaignPrice > 0)
                 {
-                <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
-                }
-                else
-                {
-                <h4 class="pull-right">@product.Price</h4>
-                }
-                <h4>
-                    <a href="/store/product/@product.ID">
-                        @if (@product.ProductName.ToArray().Length > 14)
-                        {
-                        @for (int i = 0; i < 14; i++)
-                        {
-                        @product.ProductName.ToArray()[i]
-                        }
+                            <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
                         }
                         else
                         {
-                        @product.ProductName
+                            <h4 class="pull-right">@product.Price</h4>
                         }
-                    </a>
-                </h4>
-                <p>
-                    @if (@product.Description.ToArray().Length > 110)
+                        <h4>
+                            <a href="/store/product/@product.ID">
+                                @if (@product.ProductName.ToArray().Length > 14)
+                                {
+                                    @for (int i = 0; i < 14; i++)
+                                    {
+                                        @product.ProductName.ToArray()[i]
+                                    }
+                                }
+                                else
+                                {
+                                    @product.ProductName
+                                }
+                            </a>
+                        </h4>
+                        <p>
+                            @if (@product.Description.ToArray().Length > 110)
+                            {
+                                @for (int i = 0; i < 110; i++)
                     {
-                    @for (int i = 0; i < 110; i++)
-                    {
-                    @product.Description.ToArray()[i]
-                    }
-                    }
-                    else
-                    {
-                    @product.Description
-                    }
-                </p>
+                                    @product.Description.ToArray()[i]
+                                }
+                            }
+                            else
+                            {
+                                @product.Description
+                            }
+                        </p>
+                    </div>
+                    <div class="ratings">
+                        <p class="pull-right">@product.Specifications.Count specs</p>
+                        <p>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="ratings">
-                <p class="pull-right">@product.Specifications.Count specs</p>
-                <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                </p>
-            </div>
-        </div>
+        }
     </div>
-    }
 </div>
 <div class="row">
     <nav>
@@ -80,7 +86,4 @@
             </li>
         </ul>
     </nav> @*PAGINATION*@
-</div>
-<div class="row">
-    @Html.Partial("_CategoryMenu", Model.CategoryToShow)
 </div>
