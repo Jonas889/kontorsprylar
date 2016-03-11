@@ -235,3 +235,8 @@ footer {
     width: 50% !important;
     padding: 10px !important;
 }
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      height:300px;
+      margin: auto;
+  }
