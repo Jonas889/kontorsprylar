@@ -25,13 +25,15 @@ namespace kontorsprylar
                   options.UseSqlServer(connString));
 
             services.AddMvc();
-           
+            services.AddCaching(); 
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            
+            app.UseSession();
             app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();

@@ -271,4 +271,5 @@ namespace kontorsprylar.Models
             context.Products.Add(product);
         }
     }
+   
 }
