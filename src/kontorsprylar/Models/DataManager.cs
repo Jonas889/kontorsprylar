@@ -71,20 +71,37 @@ namespace kontorsprylar.Models
         // Visar en kategorisida med produkter, samt specificationer knytna till kategorin
         public ProductsInCategoryViewModel GetProductsInCategory(int categoryIDtoShow)
         {
-            List<CategoryMenuViewModel> categories = GetCategoriesToList();
+            // Hämta alla kategorier
+            List<CategoryMenuViewModel> categories = GetCategoriesToList(categoryIDtoShow);
 
             // Välj ut kategori baserat på ID
             var categoryFromQuery = categories
                 .Where(c => c.ID == categoryIDtoShow).ToList();
-
+  
+            // Hämta alla specificationer
             List<Specification> specifications = GetAllSpecifications();
             
             // Sortera ut specs baserat på kategori
             var categorySpecifications = specifications
                 .Where(s => s.CategoryID == categoryIDtoShow).ToList();
+            
+            // Hämta alla produkter och lägg till specs
+            List<ProductViewModel> allProducts = GetAllProducts(specifications);   
 
-            // Hämta alla produkter från DB och lägg till kategori- och specification-lista
-            var allProducts = context.Products
+            // Sortera alla produkter på kategoriID
+            var selectedProducts = allProducts
+                .Where(p => p.CategoryID == categoryIDtoShow).ToList();
+
+            ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
+            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
+
+            return categoryToShow;
+        }
+
+        private List<ProductViewModel> GetAllProducts(List<Specification> specifications)
+        {
+            // Hämta alla produkter från DB och lägg till specification-lista
+            return context.Products
                 .OrderBy(p => p.ProductID)
                 .Select(p => new ProductViewModel
                 {
@@ -95,22 +112,13 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     Description = p.Description,
                     StockQuantity = p.StockQuantity,
-                    DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
+                    //DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
                     CategoryID = p.CategoryID,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
                     //Categories = categoriesVM.Where(c => c.productIDs.Contains(p.ProductID)).ToList(),
                     Specifications = specifications.Where(s => s.ProductID == p.ProductID).ToList()
                 }).ToList();
-
-            // Sortera alla produkter på kategoriID
-            var selectedProducts = allProducts
-                .Where(p => p.CategoryID == categoryIDtoShow).ToList();
-
-            ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
-            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
-
-            return categoryToShow;
         }
 
         private List<Specification> GetAllSpecifications()
@@ -126,7 +134,7 @@ namespace kontorsprylar.Models
                 }).ToList();
         }
 
-        private List<CategoryMenuViewModel> GetCategoriesToList()
+        private List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoShow)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -144,6 +152,7 @@ namespace kontorsprylar.Models
                 ID = c.ID,
                 Name = c.Name,
                 TopID = c.TopID,
+                IsActive = c.ID == categoryIDtoShow ? true : false,
                 SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
             })
             .ToList();
