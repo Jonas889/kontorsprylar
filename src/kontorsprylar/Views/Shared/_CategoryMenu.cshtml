@@ -18,7 +18,7 @@
                     @foreach (var cat in Model)
                     {
                         <li>
-                            <a href="/store/category/@cat.Name/@cat.ID" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
+                            <a href="/store/category/@cat.ID" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
                                 @if (cat.SubCategories.Count > 0)
                                 {
                                     <span class="glyphicon glyphicon-plus"></span>
@@ -32,7 +32,7 @@
                                         @foreach (var sub1 in cat.SubCategories)
                                         {
                                             <li>
-                                                <a href="/store/category/@sub1.Name/@sub1.ID">@sub1.Name</a>
+                                                <a href="/store/category/@sub1.ID">@sub1.Name</a>
                                                 @if (sub1.SubCategories.Count > 0)
                                                 {
                                                     <div class="collapse" id="toggleDemo" style="height: 0px;">
@@ -40,7 +40,7 @@
                                                             @foreach (var sub2 in sub1.SubCategories)
                                                             {
                                                                 <li>
-                                                                    <a href="/store/category/@sub2.Name/@sub2.ID">@sub2.Name</a>
+                                                                    <a href="/store/category/@sub2.ID">@sub2.Name</a>
                                                                 </li>
                                                             }
                                                         </ul>

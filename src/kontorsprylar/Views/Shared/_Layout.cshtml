@@ -39,8 +39,15 @@
                 <div class="col-md-2">
                     <h5>Kundvagn</h5>
                 </div>
-                <div class="col-md-2">
-                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                <div id="loginstate" class="col-md-2">
+                    @if (Context.Request.Cookies["Email"].Count != 0)
+                    {
+                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
+                    }
+                    else
+                    {
+                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                    }
                 </div>
                 <div class="col-md-2">
                     <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
@@ -108,7 +115,7 @@
                     <p><a href="#">Kategori</a></p>
                     <p><a href="#">Underkategori</a></p>
                     <p><a href="#">Underkategori</a></p>
-                    @*<p>@Html.Partial("_CategoryMenu", item)</p>*@
+                    <p>@Html.Partial("_CategoryMenu", item)</p>
                     <p>PARTIAL VIEW - TAGGS / FILTER</p>
                     <p>PARTIAL VIEW - RELATED PRODUCTS</p>
                 </div>
