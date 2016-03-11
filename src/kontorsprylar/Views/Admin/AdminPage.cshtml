@@ -1,13 +1,4 @@
-﻿@*
-    
-@if (cookie != exist)
-{
-
-}
-else { 
-    *@
-
-@{
+﻿@{
     Layout = null;
 }
 
@@ -37,15 +28,13 @@ else {
 
             //Dela upp i tre....
 
-            $("#splitter").jqxSplitter({  width: '800px', height: '800px', panels: [ { size: '50%' }] });
-
+            $("#splitter").jqxSplitter({ width: '800px', height: '800px', panels: [{ size: '50%' }] });
             //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
             //Hur dela upp i tre istället för två?
             //Ska ha två listboxes... En för kategorier och en för produkter.
 
-
             var data = new Array();
-
+            var categories = ["Elgrej", "Elgrej", "Elgrej"]
             var productIDs = ["1", "2", "3"];
             var productNames = ["Liten TV", "Också liten TV", "Lite mindre TV"];
             var k = 0;
@@ -53,6 +42,7 @@ else {
                 var row = {};
                 row["productid"] = productIDs[k];
                 row["productname"] = productNames[k];
+                row["category"] = categories[k];
 
                 data[i] = row;
                 k++;
@@ -67,7 +57,13 @@ else {
 
             //Vet ej vad en JQuery dataadapter är för något.
             var dataAdapter = new $.jqx.dataAdapter(source);
-            $('#listbox').on('select', function (event) {
+            $('#listboxCat').on('select', function (event) {
+                updatePanel(event.args.index);
+                console.log("Inne i select-funktionen...");
+                console.log(event.args.index);
+
+            });
+            $('#listboxProd').on('select', function (event) {
                 updatePanel(event.args.index);
                 console.log("Inne i select-funktionen...");
                 console.log(event.args.index);
@@ -118,13 +114,11 @@ else {
                 //Gör en skiss för updatepanel
                 $(leftsecondcolumn).append(productName);
 
-
                 //var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
                 //var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
 
                 //$(rightsecondcolumn).append(specHeader);
                 //$(rightsecondcolumn).append(spec1);
-
 
                 //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
                 //container.append(comment);
@@ -135,7 +129,23 @@ else {
             }
 
             //Skapar Listboxen. source väljer första till sista. tror jag.
-            $('#listbox').jqxListBox({
+            $('#listboxProd').jqxListBox({
+                selectedIndex: 0, source: dataAdapter, displayMember: "category", valueMember: "category", itemHeight: 70, height: '100%', width: '100%',
+                renderer: function (index, label, value) {
+                    console.log(data.length);
+                    console.log(index);
+                    var datarecord = data[index];
+                    var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                    var img = '<img height="50" width="45" src="' + imgurl + '" />';
+                    //Här behöver donas så det responsiva fungerar
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + datarecord.productid + " " + datarecord.productname + '</td></tr></table>';
+
+                    return table;
+
+                }
+
+            });
+            $('#listboxCat').jqxListBox({
                 selectedIndex: 0, source: dataAdapter, displayMember: "productid", valueMember: "productname", itemHeight: 70, height: '100%', width: '100%',
                 renderer: function (index, label, value) {
                     console.log(data.length);
@@ -144,57 +154,32 @@ else {
                     var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
                     var img = '<img height="50" width="45" src="' + imgurl + '" />';
                     //Här behöver donas så det responsiva fungerar
-                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + "Kategori" + " " + "TV" + '</td></tr></table>';
-
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + datarecord.category + '</td></tr></table>';
                     return table;
-
                 }
+
             });
             updatePanel(0);
 
         })
-
-
-
     </script>
-
-
 </head>
 <body class='default'>
     <div class="container-fluid">
-        <div class="col-sm-12" style="height: 600px">
+        <div class="col-sm-6">
             <div id="splitter">
-                <div>
                 <div style="overflow: hidden;">
-                    <div style="border: none;" id="listbox">
+                    <div style="border: none;" id="listboxCat">
                     </div>
                 </div>
+                <div style="overflow: hidden;" id="listboxProd">
                 </div>
-                <div>
-                    <div style="overflow: hidden;" id="ContentPanel">
-                    </div>
-                </div>
-
-
             </div>
         </div>
-
+        <div class="col-sm-6">
+            Tjohoo. Här ska vi ordna en CONTENTPANEL
         </div>
-        @*<div class="col-sm-2">
-            @*<div style="height: 5%; margin: 1%">
-                    <input type="button" id="addContact" value="Lägg till kontakt" onclick="addContactClick()" class="btn btn-primary" style="width: 140px" />
-                </div>
-                <div style="height: 5%; margin: 1%">
-                    <input type="button" id="editContact" value="Ändra kontakt" onclick="editContactClick()" class="btn btn-primary" style="width: 140px" />
-                </div>
-                <div style="height: 5%; margin: 1%">
-                    <input type="button" id="removeContact" value="Radera kontakt" onclick="deleteContactClick()" class="btn btn-danger" style="width: 140px" />
-                </div>*@
-        @*<div class="col-sm-4">
-                </div>
-            </div>*@
-  
+    </div>
 
 </body>
 </html>
-    

@@ -20,14 +20,68 @@ namespace kontorsprylar.Controllers
         }
         public IActionResult Index(string query)
         {
-            
-            var products = from p in context.Products select p; //vet ej om detta fungerar? är väldigt osäker på context
-            //just nu endast sök på produkter, inte kategorier osv
+
+            var products = from p in context.Products select p;
+
             if (!string.IsNullOrEmpty(query))
             {
                 products = products.Where(p => p.ProductName.Contains(query));
             }
             return View(products);
         }
+
+       
+        public IActionResult SearchResult(string query)
+        {
+            var products = context.Products
+                .Where(p => (p.ProductName.Contains(query)) || p.Price == (float)Convert.ToDouble(query))
+                .Select(p => new ViewModels.ProductViewModel
+                {
+                    ProductName = p.ProductName,
+                    ID = p.ProductID,
+                    Price = p.Price
+
+                }).ToList();
+
+            return View(products);
+
+
+            //if (!string.IsNullOrEmpty(query))
+            //{
+            //    products = products.Where(p => p.ProductName.Contains(query));
+            //}
+
+
+
+
+        }
+
+        //sök efter pris
+
+        //public IActionResult SearchResult(string query)
+        //{
+        //    double q = Convert.ToDouble(query);
+        //    var products = context.Products
+        //        .Where(p => p.Price == (float)q)
+        //        .Select(p => new ViewModels.ProductViewModel
+        //        {
+        //            ProductName = p.ProductName,
+        //            ID = p.ProductID,
+        //            //Price = p.Price
+
+        //        }).ToList();
+
+        //    return View(products);
+
+
+        //    //if (!string.IsNullOrEmpty(query))
+        //    //{
+        //    //    products = products.Where(p => p.ProductName.Contains(query));
+        //    //}
+
+
+
+
+        //}
     }
 }
