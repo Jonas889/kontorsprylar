@@ -60,9 +60,30 @@ namespace kontorsprylar.Controllers
             }
             return isValidUser;
         }
+
         public IActionResult AdminPage()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            //var model = dataManager.GetProductPresentationData();
+            //return View(model);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddProduct(AddProductViewModel viewModel)
+        {
+            if (!ModelState.IsValid) // kollar valideringen, returnerar ErrorMsges
+            {
+                return View(viewModel);
+            }
+
+            dataManager.AddProduct(viewModel);
+
+            return RedirectToAction(nameof(AdminController.AddProduct));
         }
     }
 }
