@@ -9,6 +9,7 @@
         }
         else {
             $("summary").html("Felaktiga inloggningsuppgifter");
+            
         }
     });
 }
@@ -22,14 +23,9 @@ function userregistrate(e) {
     });
 }
 
-//function isvaliduser(e) {
-//    e.preventDefault();
-//    $.get("/login/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
+function addtocart(pid) {
+    $.get("/ShoppingCart/AddToCart", { 'PID': pid }, function (data) {
+        //retunerat data till collapseble div
+    });
+}
 
-//        if (data != null) {
-//            alert("Du har nu loggat in med E-post " + data)
-//            $('#loginModal').modal('hide');
-//            $(location).attr('href', '/admin/adminpage')
-//        }
-//    });
-//}

@@ -8,6 +8,7 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
+        static List<Product> kundvagn = new List<Product>();
         private StoredDbContext context;
 
         public DataManager(StoredDbContext context)

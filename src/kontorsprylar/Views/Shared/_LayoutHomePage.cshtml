@@ -35,7 +35,12 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <h5>Kundvagn</h5>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>Kundvagn</button>
+                    <div id="shoppingcart" class="collapse">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
