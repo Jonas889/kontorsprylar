@@ -72,7 +72,7 @@ namespace kontorsprylar.Models
         public ProductsInCategoryViewModel GetProductsInCategory(int categoryIDtoShow)
         {
             // Hämta alla kategorier
-            List<CategoryMenuViewModel> categories = GetCategoriesToList();
+            List<CategoryMenuViewModel> categories = GetCategoriesToList(categoryIDtoShow);
 
             // Välj ut kategori baserat på ID
             var categoryFromQuery = categories
@@ -134,7 +134,7 @@ namespace kontorsprylar.Models
                 }).ToList();
         }
 
-        private List<CategoryMenuViewModel> GetCategoriesToList()
+        private List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoShow)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -152,6 +152,7 @@ namespace kontorsprylar.Models
                 ID = c.ID,
                 Name = c.Name,
                 TopID = c.TopID,
+                IsActive = c.ID == categoryIDtoShow ? true : false,
                 SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
             })
             .ToList();
