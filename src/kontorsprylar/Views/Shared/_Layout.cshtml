@@ -18,41 +18,17 @@
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
                 <div class="col-md-4">
-
-                    <div class="form-group">
-
-
-                        @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
-
-
-                        <div>
-                            <form asp-controller="Search" asp-action="SearchResult">
-                                <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
-                                @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
-                            </form>
+                    <form role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg..">
                         </div>
-
-
-                    </div>
-
+                    </form>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon-shopping-cart">Kundvagn</span></button>
-                    <div id="shoppingcart" class="collapse">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
+                    <h5>Kundvagn</h5>
                 </div>
-                <div id="loginstate" class="col-md-2">
-                    @if (Context.Request.Cookies["Email"].Count != 0)
-                    {
-                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
-                    }
-                    else
-                    {
-                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
-                    }
+                <div class="col-md-2">
+                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
                 </div>
                 <div class="col-md-2">
                     <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
@@ -120,7 +96,7 @@
                     <p><a href="#">Kategori</a></p>
                     <p><a href="#">Underkategori</a></p>
                     <p><a href="#">Underkategori</a></p>
-                    <p>@Html.Partial("_CategoryMenu", item)</p>
+                    @*<p>@Html.Partial("_CategoryMenu", item)</p>*@
                     <p>PARTIAL VIEW - TAGGS / FILTER</p>
                     <p>PARTIAL VIEW - RELATED PRODUCTS</p>
                 </div>
