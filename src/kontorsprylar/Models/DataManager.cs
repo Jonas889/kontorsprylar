@@ -66,7 +66,6 @@ namespace kontorsprylar.Models
                 .Where(u => u.Email == eMail)
                 .Select(u => new string[] { u.Password, u.PasswordSalt, u.Accessability })
                 .SingleOrDefault();
-
         }
 
         // Visar en kategorisida med produkter, samt specificationer knytna till kategorin

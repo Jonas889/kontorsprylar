@@ -45,7 +45,6 @@ namespace kontorsprylar.Controllers
                 return RedirectToAction(nameof(AdminController.AdminPage));
 
             return View(userLogin);
-
         }
 
         //Get and check accessibility
@@ -53,10 +52,10 @@ namespace kontorsprylar.Controllers
         {
             bool isValidUser = false;
             PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetUser(eMail); //GetAdmin()
+            var user = dataManager.GetAdmin(eMail); //GetAdmin()
             if (user != null)
             {
-                if (user[0] == crypt.Compute(password, user[1])) //&& user[2] == "admin"
+                if (user[0] == crypt.Compute(password, user[1]) && user[2] == "admin") //&& user[2] == "admin"
                     isValidUser = true;
             }
             return isValidUser;
@@ -65,6 +64,5 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
-       
     }
 }
