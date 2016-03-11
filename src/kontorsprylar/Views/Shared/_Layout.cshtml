@@ -18,11 +18,23 @@
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
                 <div class="col-md-4">
-                    <form role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg..">
+
+                    <div class="form-group">
+
+
+                        @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
+
+
+                        <div>
+                            <form asp-controller="Search" asp-action="SearchResult">
+                                <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
+                                @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
+                            </form>
                         </div>
-                    </form>
+
+
+                    </div>
+
                 </div>
                 <div class="col-md-2">
                     <h5>Kundvagn</h5>
