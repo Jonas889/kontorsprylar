@@ -44,6 +44,7 @@ namespace kontorsprylar.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("Error", "Felaktiga inloggningsuppgifter");
                 return null;
             }
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
@@ -54,7 +55,7 @@ namespace kontorsprylar.Controllers
                 Response.Cookies.Append("Email", userLogin.Email, myCookie);
                 return Json(userLogin.Email);
             }
-            ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
+            ModelState.AddModelError("Error", "Felaktiga inloggningsuppgifter");
             return null;
 
         }

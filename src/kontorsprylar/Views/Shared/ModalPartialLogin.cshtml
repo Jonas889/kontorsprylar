@@ -14,6 +14,7 @@
             <form onsubmit="isvaliduser(event);">
                 <div class="modal-body">
                     <div asp-validation-summary="ValidationSummary.All"></div>
+                    <div id="summary"></div>
                     <div class="container-fluid">
                         <label asp-for="Email"></label>
                         <input asp-for="Email" id="Email" class="form-control">

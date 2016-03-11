@@ -5,7 +5,10 @@
         if (data != null) {
             alert("Du har nu loggat in med E-post " + data)
             $('#loginModal').modal('hide');
-            $("#loginstate").html(" <a href=\"/login/logout\" class=\"btn btn-danger\">Logga ut</a>")
+            $("#loginstate").html(" <a href=\"/login/logout\" class=\"btn btn-danger\">Logga ut</a>");
+        }
+        else {
+            $("summary").html("Felaktiga inloggningsuppgifter");
         }
     });
 }
@@ -19,14 +22,14 @@ function userregistrate(e) {
     });
 }
 
-function isvaliduser(e) {
-    e.preventDefault();
-    $.get("/login/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
+//function isvaliduser(e) {
+//    e.preventDefault();
+//    $.get("/login/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
 
-        if (data != null) {
-            alert("Du har nu loggat in med E-post " + data)
-            $('#loginModal').modal('hide');
-            $(location).attr('href', '/admin/adminpage')
-        }
-    });
-}
+//        if (data != null) {
+//            alert("Du har nu loggat in med E-post " + data)
+//            $('#loginModal').modal('hide');
+//            $(location).attr('href', '/admin/adminpage')
+//        }
+//    });
+//}
