@@ -56,7 +56,7 @@
             };
 
             //Här ska vi fylla på vad som finns i listboxProd vid onselect
-            //Måste skriva en sån funktion och skapa en instans av den. 
+            //Måste skriva en sån funktion och skapa en instans av den.
             var dataAdapter = new $.jqx.dataAdapter(source);
             $('#listboxCat').on('select', function (event) {
                 updatePanel(event.args.index);
@@ -172,9 +172,15 @@
 
 <body class='default'>
     <div class="container-fluid">
-        <div class="col-sm-12" style="height:100px">
-            <img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" class="center-block" style="margin-top:10px"/>
+        <div class="col-sm-4" style="height:100px">
+            <label style="font: bold 20px Arial;color:darkblue;margin-top:40px">Administration av e-handelsida</label>
         </div>
+        <div class="col-sm-4" style="height:100px">
+
+            <img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" style="margin-top:10px" />
+
+        </div>
+
     </div>
     <div class="container-fluid">
         <div class="col-sm-6">
