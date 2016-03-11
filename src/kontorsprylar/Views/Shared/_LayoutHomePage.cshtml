@@ -4,8 +4,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title | Kontorsprylar.se</title>
     <link href="~/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
-    
+    <link href="~/css/site.css" rel="stylesheet" /> 
     <script src="~/script/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
     <script src="~/script/sitescript.js"></script>
@@ -20,23 +19,20 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-
-
                         @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
-
-
                         <div>
                             <form asp-controller="Search" asp-action="SearchResult">
                                 <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
                                 @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
                             </form>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <h5>Kundvagn</h5>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>Kundvagn</button>
+                    <div id="shoppingcart" class="collapse">
+                        
+                    </div>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
