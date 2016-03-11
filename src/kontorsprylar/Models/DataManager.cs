@@ -34,7 +34,6 @@ namespace kontorsprylar.Models
                 .Where(u => u.Email == eMail)
                 .Select(u => new string[] { u.Password, u.PasswordSalt })
                 .SingleOrDefault();
-               
         }
 
         public List<CategoryMenuViewModel> GetCategoryMenu()
@@ -69,7 +68,7 @@ namespace kontorsprylar.Models
             {
                 ID = c.CategoryID,
                 Name = c.CategoryName,
-                TopID = c.TopCategoryID,
+                TopID = c.TopCategoryID
             })
             .ToList();
             // Skapa trädstrukturen för kategorierna
@@ -106,11 +105,11 @@ namespace kontorsprylar.Models
                 {
                     ID = p.ProductID,
                     ProductName = p.ProductName,
-                    Description = p.Description,
                     Price = p.Price,
                     CampaignPrice = p.CampaignPrice,
-                    StockQuantity = p.StockQuantity,
                     ImgLink = p.ImgLink,
+                    Description = p.Description,
+                    StockQuantity = p.StockQuantity,
                     DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
                     CategoryID = p.CategoryID,
@@ -176,10 +175,10 @@ namespace kontorsprylar.Models
                     ProductName = p.ProductName,
                     Description = p.Description,
                     Price = p.Price,
-                    CampaignPrice = p.CampaignPrice,
+                    //CampaignPrice = p.CampaignPrice,
                     StockQuantity = p.StockQuantity,
                     ImgLink = p.ImgLink,
-                    DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
+                    //DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
                     CategoryID = p.CategoryID,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
@@ -188,7 +187,7 @@ namespace kontorsprylar.Models
                 }).First();
 
             ProductDetailPageVM productToShow = new ProductDetailPageVM
-            { Product = productQuery, CategoryToShow = categoryToShow};
+            { Product = productQuery, CategoryToShow = categoryToShow };
 
             return productToShow;
         }
