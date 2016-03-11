@@ -1,148 +1,55 @@
-﻿@model AddProductViewModel
+﻿@using kontorsprylar.ViewModels
+@model AddProductViewModel
 @{
-    Layout = null;
+    ViewBag.Title = "Lägg till produkt";
+    Layout = "_LayoutHomePage";
 }
 
-<html>
-<head>
-    <
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title | Kontorsprylar.se</title>
-    <link href="~/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" />
-    <script src="~/script/jquery.js"></script>
-    <script src="~/script/bootstrap.js"></script>
-    <script src="~/script/sitescript.js"></script>
-        
-</head>
-<body>
+<form asp-controller="admin" asp-action="addproduct">
+    <div asp-validation-summary="ValidationSummary.All"></div>
+    <div class="col-xs-6">
+        <label asp-for="ProductName"></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName"></span>
+        <br />
+    </div>
+    <div class="col-xs-6">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description"></span>
+        <br />
+    </div>
+    <div class="col-xs-2">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price"></span>
+        <br />
+    </div>
+    <div class="col-xs-2">
+        <label asp-for="CampaignPrice"></label>
+        <input asp-for="CampaignPrice" class="form-control" />
+        <span asp-validation-for="CampaignPrice"></span>
+        <br />
+    </div>
+    <div class="col-xs-2">
+        <label asp-for="StockQuantity"></label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity"></span>
+        <br />
+    </div>
+    <div class="col-xs-6">
+        <label asp-for="ImgLink"></label>
+        <input asp-for="ImgLink" class="form-control" />
+        <span asp-validation-for="ImgLink"></span>
+        <br />
+    </div>
+    <div class="col-xs-6">
+        <label asp-for="ForSale"></label>
+        <input asp-for="ForSale" class="form-control" />
+        <br />
+    </div>
+    <br />
+    <br />
 
-    <div class="container">
-        
-        <!--
-        <br />
-        <div class="col-md-2">
-            <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
-        </div>
-            -->
-        <br />
-        <br />
-        <br />
-        <form asp-controller="admin" asp-action="TestAdminLogin">
-            <div asp-validation-summary="ValidationSummary.All"></div>
-                <div class="col-xs-6">
-                    <label asp-for="ProductName"></label>
-                    <input asp-for="ProductName" class="form-control" />
-                    <span asp-validation-for="ProductName"></span>
-                    <br />
-                </div>
-                <div class="col-xs-6">
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description"></span>
-                    <br />
-                </div>
-                <div class="col-xs-12">
-                    <label asp-for="Price"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price"></span>
-                    <br />
-                </div>
-                <div class="col-xs-12">
-                    <label asp-for="CampaignPrice"></label>
-                    <input asp-for="CampaignPrice" class="form-control" />
-                    <span asp-validation-for="CampaignPrice"></span>
-                    <br />
-                </div>
-                <div class="col-xs-4">
-                    <label asp-for="StockQuantity"></label>
-                    <input asp-for="StockQuantity" class="form-control" />
-                    <span asp-validation-for="StockQuantity"></span>
-                    <br />
-                </div>
-                <div class="col-xs-8">
-                    <label asp-for="ImgLink"></label>
-                    <input asp-for="ImgLink" class="form-control" />
-                    <span asp-validation-for="ImgLink"></span>
-                    <br />
-                </div>
-                <div class="col-xs-6">
-                    <label asp-for="ForSale"></label>
-                    <input asp-for="ForSale" class="form-control" />
-                    <span asp-validation-for="ForSale"></span>
-                    <br />
-                </div>
-                <div class="col-xs-12">
-                    <label asp-for="ForSale"><input type="checkbox" asp-for="ForSale" class="checkbox">Till salu</label>
-                </div>
-                <br />
-        </form>
-    </div>
-        
-    <!--
-    <div class="container-fluid">
-        <div class="row footer" id="row4">
-            @*FOOTER ROW (4)*@
-            <div class="container">
-                <div class="col-md-3 text-center">
-                    <p><a href="#"><img src="~/img/tryggehandel_visa_mastercard_kontorsprylar.se.png" id="footerImageTryggEhandel" /></a> </p>
-                    <p class="footerText">
-                        Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
-                    </p>
-                </div>
-                <div class="text-justify" id="footerLinksContainer">
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent1">
-                            <h4>Kundcenter</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Kontakta oss</a></li>
-                                <li><a href="/information/varakataloger">Våra kataloger</a> </li>
-                                <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
-                                <li><a href="/information/betalning">Betalningsalternativ</a> </li>
-                                <li><a href="/information/specialorder">Specialbeställning</a> </li>
-                                <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
-                                <li><a href="/information/cookieinformation">Information om cookies</a> </li>
-                                <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent2">
-                            <h4>Kontorsprylar.se</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="/information/omoss">Om oss</a> </li>
-                                <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
-                                <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
-                                <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
-                                <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent3">
-                            <h4>Tjänster &amp; produkter</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
-                                <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
-                                <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
-                                <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
-                                <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
-                                <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
-                                <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
-                                <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row footer" id="row5">
-        @*FOOTER ROW (5)*@
-        <div class="container text-center">
-            <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
-        </div>
-    </div>
-        -->
-</body>
-</html>
+    <input id="submitProduct" type="submit" class="btn btn-primary" value="Add product" />
+</form>

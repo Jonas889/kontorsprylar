@@ -8,8 +8,8 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f }, new ShoppingCartVM { ProductName = "test2", Price = 3f } };
-        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
+        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f }, new ShoppingCartVM { ProductName = "test2", Price = 3f } };
+        //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
         public DataManager(StoredDbContext context)
@@ -32,16 +32,18 @@ namespace kontorsprylar.Models
 
         public List<ShoppingCartVM> GetMyShoppingCart(int pID)
         {
-            if(pID != 0)
+            if (pID != 0)
             {
-            ShoppingCartVM product = context.Products
-                .Where(p => p.ProductID == pID)
-                .Select(p => new ShoppingCartVM
-                {
-                    ProductName = p.ProductName,
-                    Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price
-                }).SingleOrDefault();
-            kundvagn.Add(product);
+                ShoppingCartVM product = context.Products
+                    .Where(p => p.ProductID == pID)
+                    .Select(p => new ShoppingCartVM
+                    {
+                        ProductName = p.ProductName,
+                        Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
+                        ProductID = p.ProductID,
+                        ProductQuantity = 1
+                    }).SingleOrDefault();
+                kundvagn.Add(product);
             }
             return kundvagn;
         }
@@ -99,16 +101,16 @@ namespace kontorsprylar.Models
             // Välj ut kategori baserat på ID
             var categoryFromQuery = categories
                 .Where(c => c.ID == categoryIDtoShow).ToList();
-  
+
             // Hämta alla specificationer
             List<Specification> specifications = GetAllSpecifications();
 
             // Sortera ut specs baserat på kategori
             var categorySpecifications = specifications
                 .Where(s => s.CategoryID == categoryIDtoShow).ToList();
-            
+
             // Hämta alla produkter och lägg till specs
-            List<ProductViewModel> allProducts = GetAllProducts(specifications);   
+            List<ProductViewModel> allProducts = GetAllProducts(specifications);
 
             // Sortera alla produkter på kategoriID
             var selectedProducts = allProducts
@@ -235,4 +237,5 @@ namespace kontorsprylar.Models
             context.SaveChanges();
         }
     }
+   
 }

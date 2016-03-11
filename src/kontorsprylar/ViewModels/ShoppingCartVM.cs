@@ -9,5 +9,7 @@ namespace kontorsprylar.ViewModels
     {
         public string ProductName { get; set; }
         public float Price { get; set; }
+        public int ProductQuantity { get; set; }
+        public int ProductID { get; set; }
     }
 }
