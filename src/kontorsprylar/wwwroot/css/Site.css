@@ -1,20 +1,10 @@
 ﻿body {
+    background-image: url(https://www.komplett.se/mlf/skins/komplettse/bg/kse_gen_bg_q116.jpg);
+    background-repeat: no-repeat;
 }
 
 .container-fluid {
     background-color: #ffffff;
-}
-
-.combox {
-    border-radius: 25px;
-    position: absolute;
-    right: 30px;
-    top: 200px;
-    width: 200px;
-    height: 300px;
-    background-color: #2b5497;
-    color: white;
-    padding: 15px;
 }
 
 .footerText {
@@ -194,9 +184,10 @@ a {
         color: #ededed !important;
         text-decoration: none !important;
     }
+
 .campaignprice {
-    color:#ff0000;
-    text-decoration:solid;
+    color: #ff0000;
+    text-decoration: solid;
 }
 
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -238,8 +229,9 @@ footer {
         height: auto;
     }
 }
-.half-width{
-    float:left !important;
-    width:50% !important;
-    padding:10px !important;
+
+.half-width {
+    float: left !important;
+    width: 50% !important;
+    padding: 10px !important;
 }
