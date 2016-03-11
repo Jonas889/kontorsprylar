@@ -17,16 +17,16 @@
 function userregistrate(e) {
     e.preventDefault();
     $.post("Registrate/index", $("#regform").serialize(), function (data) {
-        alert(data);
         if (data) {
             $('#regmodal').modal('hide');
+            $("#loginstate").html(" <a href=\"/login/logout\" class=\"btn btn-danger\">Logga ut</a>");
         }
     });
 }
 
 function addtocart(pid) {
     $.get("/ShoppingCart/AddToCart", { 'PID': pid }, function (data) {
-        //retunerat data till collapseble div
+        $("#shoppingcart").html(data)
     });
 }
 
