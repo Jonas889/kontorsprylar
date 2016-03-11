@@ -42,8 +42,9 @@ namespace kontorsprylar.Controllers
 
         public IActionResult Delete(int productID)
         {
+           
             var result = dataManager.DeleteFromCart(productID);
-            return View(result);
+            return RedirectToAction("index", result);
         }
 
         public IActionResult Update(int productID)
