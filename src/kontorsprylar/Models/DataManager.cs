@@ -8,7 +8,7 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        static List<Product> kundvagn = new List<Product>();
+        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
         public DataManager(StoredDbContext context)
@@ -27,6 +27,22 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     ProductName = p.ProductName
                 }).ToArray();
+        }
+
+        public List<ShoppingCartVM> GetMyShoppingCart(int pID)
+        {
+            if(pID != 0)
+            {
+            ShoppingCartVM product = context.Products
+                .Where(p => p.ProductID == pID)
+                .Select(p => new ShoppingCartVM
+                {
+                    ProductName = p.ProductName,
+                    Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price
+                }).SingleOrDefault();
+            kundvagn.Add(product);
+            }
+            return kundvagn;
         }
 
         public string[] GetUser(string eMail)
@@ -80,7 +96,7 @@ namespace kontorsprylar.Models
   
             // Hämta alla specificationer
             List<Specification> specifications = GetAllSpecifications();
-            
+
             // Sortera ut specs baserat på kategori
             var categorySpecifications = specifications
                 .Where(s => s.CategoryID == categoryIDtoShow).ToList();
@@ -156,7 +172,7 @@ namespace kontorsprylar.Models
                 SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
             })
             .ToList();
-           
+
         }
 
         public ProductDetailPageVM GetProduct(int productIDtoShow)

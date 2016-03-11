@@ -1,0 +1,13 @@
+﻿@model List<ShoppingCartVM>
+<div class="shoppingcart">
+    @foreach (var p in Model)
+    {
+        <div class="row">
+            <div class="col-xs-9">@p.ProductName</div>
+            <div class="col-xs-3">@p.Price</div>
+        </div>
+    }
+    <div class="col-xs-9">Summa:</div>
+    <div class="col-xs-3">@Model.Sum(p => p.Price);</div>
+    <input id="submit" onclick="window.location.href='/checkout/index'" class="btn-group-sm btn-primary" value="Kassan" />
+</div>
