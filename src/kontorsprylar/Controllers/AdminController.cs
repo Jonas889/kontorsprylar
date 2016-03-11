@@ -35,8 +35,7 @@ namespace kontorsprylar.Controllers
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
 
             if (loggedIn)
-                return View();
-                //return RedirectToAction(nameof(AdminController.AdminPage));
+                return RedirectToAction(nameof(AdminController.AdminPage));
 
             return null;
 

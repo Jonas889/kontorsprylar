@@ -91,19 +91,8 @@
             </div> @*MENU ROW (2)*@
             <div class="row content text-center" id="row3">
                 @*CONTENT ROW (3)*@
-                <div class="col-md-3 sidenav text-justify">
-                    <h4>Kategorier</h4>
-                    <p><a href="#">Kategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    @*<p>@Html.Partial("_CategoryMenu", item)</p>*@
-                    <p>PARTIAL VIEW - TAGGS / FILTER</p>
-                    <p>PARTIAL VIEW - RELATED PRODUCTS</p>
-                </div>
-                <div class="col-md-9 text-left">
-                    <div>
-                        @RenderBody()
-                    </div>
+                <div class="col-md-12">
+                    @RenderBody()
                 </div>
             </div> @*CONTENT ROW (3)*@
         </div>
