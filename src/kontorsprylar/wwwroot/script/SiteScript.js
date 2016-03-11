@@ -18,9 +18,9 @@ function userregistrate(e) {
     });
 }
 
-function isvaliduser(e) {
+function isvaliduserAdmin(e) {
     e.preventDefault();
-    $.get("/login/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
+    $.get("/admin/testadminlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
 
         if (data != null) {
             alert("Du har nu loggat in med E-post " + data)

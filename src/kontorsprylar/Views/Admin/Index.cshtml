@@ -1,17 +1,18 @@
 ﻿@using kontorsprylar.ViewModels
 @model LoginViewModel
-
+@{ 
+    Layout = "_LayoutHomePage";
+}
 <script>
     window.onload = function() {
-        $("#row1").hide();
-        $("#row2").hide();
-        $("#row3").hide();
+        //$("#row1").hide();
+        //$("#row2").hide();
     };
 </script>
     
 
 <div asp-validation-summary="ValidationSummary.All"></div>
-<form onsubmit="isvaliduser(event);">
+<form asp-controller="admin" asp-action="TestAdminLogin">
     <label asp-for="Email"></label>
     <input asp-for="Email" class="form-control">
     <span asp-validation-for="Email"></span>

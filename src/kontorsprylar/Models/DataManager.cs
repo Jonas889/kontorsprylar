@@ -69,7 +69,7 @@ namespace kontorsprylar.Models
             {
                 ID = c.CategoryID,
                 Name = c.CategoryName,
-                TopID = c.TopCategoryID,
+                TopID = c.TopCategoryID
             })
             .ToList();
             // Skapa trädstrukturen för kategorierna
