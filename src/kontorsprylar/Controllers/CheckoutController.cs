@@ -29,7 +29,10 @@ namespace kontorsprylar.Controllers
                 .Select(p => new ShoppingCartVM
                 {
                     ProductName = p.ProductName,
-                    Price = p.Price
+                    Price = p.Price,
+                    ProductQuantity = p.ProductQuantity,
+                    ProductID = p.ProductID
+                    
                 }).ToList();
 
             return View(shoppingList);
