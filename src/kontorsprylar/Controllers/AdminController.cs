@@ -52,10 +52,10 @@ namespace kontorsprylar.Controllers
         {
             bool isValidUser = false;
             PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetAdmin(eMail); //GetAdmin()
+            var user = dataManager.GetAdmin(eMail); //Hämtar Password, PasswordSalt och Accessability
             if (user != null)
             {
-                if (user[0] == crypt.Compute(password, user[1]) && user[2] == "admin") //&& user[2] == "admin"
+                if (user[0] == crypt.Compute(password, user[1]) && user[2] == "admin") //Sätter ihop password och passwordsalt samt kollar att det var en admin
                     isValidUser = true;
             }
             return isValidUser;
