@@ -17,28 +17,34 @@ namespace kontorsprylar.Controllers
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
         //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen. 
 
-        StoredDbContext context;
+        static StoredDbContext context;
         public static DataManager dataManager;
-
-        public AdminController(StoredDbContext context)
+        public AdminController(StoredDbContext newcontext)
         {
-            this.context = context;
+            context = newcontext;
+            dataManager = new DataManager(context);
         }
 
-        public IActionResult TestAdminLogin(LoginViewModel userLogin)
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(LoginViewModel userLogin)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
-                return null;
+                return View(userLogin);
             }
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
-
+        
             if (loggedIn)
                 return RedirectToAction(nameof(AdminController.AdminPage));
 
-            return null;
-
+            return View(userLogin);
         }
 
         //Get and check accessibility
@@ -46,10 +52,10 @@ namespace kontorsprylar.Controllers
         {
             bool isValidUser = false;
             PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetUser(eMail);
+            var user = dataManager.GetAdmin(eMail); //Hämtar Password, PasswordSalt och Accessability
             if (user != null)
             {
-                if (user[0] == crypt.Compute(password, user[1]))
+                if (user[0] == crypt.Compute(password, user[1]) && user[2] == "admin") //Sätter ihop password och passwordsalt samt kollar att det var en admin
                     isValidUser = true;
             }
             return isValidUser;
@@ -58,10 +64,5 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }        
     }
 }

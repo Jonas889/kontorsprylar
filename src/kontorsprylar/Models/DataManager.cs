@@ -8,6 +8,7 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
+        static List<Product> kundvagn = new List<Product>();
         private StoredDbContext context;
 
         public DataManager(StoredDbContext context)
@@ -57,6 +58,14 @@ namespace kontorsprylar.Models
                     SubCategories = query.Where(o => o.TopID == c.ID).ToList()
                 })
                 .ToList();
+        }
+
+        public string[] GetAdmin(string eMail)
+        {
+            return context.Users
+                .Where(u => u.Email == eMail)
+                .Select(u => new string[] { u.Password, u.PasswordSalt, u.Accessability })
+                .SingleOrDefault();
         }
 
         // Visar en kategorisida med produkter, samt specificationer knytna till kategorin

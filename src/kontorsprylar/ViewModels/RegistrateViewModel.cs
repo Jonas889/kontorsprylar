@@ -38,6 +38,7 @@ namespace kontorsprylar.ViewModels
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Obligatoriskt"), Display(Name = "Lösenord")] //<-- fixas
         [DataType(DataType.Password)]
+        [StringLength(20, MinimumLength = 6)]
         public string Password { get; set; }
 
         [Display(Name = "Företag (valfritt)")]
