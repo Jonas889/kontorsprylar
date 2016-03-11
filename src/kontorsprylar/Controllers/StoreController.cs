@@ -34,7 +34,7 @@ namespace kontorsprylar.Controllers
         [HttpGet]
         public IActionResult Product(int id)
         {
-            var model = dataManager.GetProduct(id);
+            var model = dataManager.GetProductsInCategory(id);
             return View(model);
         }
     }
