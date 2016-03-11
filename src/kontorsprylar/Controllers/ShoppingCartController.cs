@@ -13,7 +13,7 @@ namespace kontorsprylar.Controllers
         // GET: /<controller>/
         public IActionResult AddToCart(int PID)
         {
-            return View();
+            return PartialView("ShoppingCartPartial");
         }
     }
 }

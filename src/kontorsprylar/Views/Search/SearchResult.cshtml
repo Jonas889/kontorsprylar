@@ -6,7 +6,7 @@
     {
         if (item.CampaignPrice != 0)
         {
-            <tr><td><a href="/store/product/@item.ID">@item.ProductName</a> </td><td style="color: red;">@item.CampaignPrice</td></tr>
+            <tr><td><a href="/store/product/@item.ID">@item.ProductName</a> </td><td><text style="text-decoration: line-through">@item.Price</text><text style="color: red"> @item.CampaignPrice</text></td></tr>
         }
         else
         {

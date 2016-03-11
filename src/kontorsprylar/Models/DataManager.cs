@@ -236,6 +236,7 @@ namespace kontorsprylar.Models
             user.Password = crypt.Compute(viewModel.Password);
             user.PasswordSalt = crypt.Salt;
             user.CompanyName = viewModel.CompanyName;
+            user.Accessability = "user";
             context.Users.Add(user);
             context.SaveChanges();
         }
