@@ -8,25 +8,29 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Logga in på kontorsprylar.se</h3>
-            </div>            
-            <div style="margin:30px;">
-                <div asp-validation-summary="ValidationSummary.All"></div>
-                <form onsubmit="isvaliduser(event);">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" id="Email" class="form-control">
-                    <span asp-validation-for="Email"></span>
-                    <br />
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" id="Password" class="form-control">
-                    <span asp-validation-for="Password"></span>
-                    <div class="modal-footer">
-                        <input id="submit" type="submit" class="btn btn-primary" value="Logga in" />
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
+                <h4><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logga in</h4>
+            </div>
+
+            <form onsubmit="isvaliduser(event);">
+                <div class="modal-body">
+                    <div asp-validation-summary="ValidationSummary.All"></div>
+                    <div class="container-fluid">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" id="Email" class="form-control">
+                        <span asp-validation-for="Email"></span>
+                        <br />
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" id="Password" class="form-control">
+                        <span asp-validation-for="Password"></span>
                     </div>
-                </form>
-            </div>     
+                </div>
+                <div class="modal-footer">
+                    <input id="submit" type="submit" class="btn btn-primary" value="Logga in" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Stäng</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 

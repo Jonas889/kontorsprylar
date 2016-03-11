@@ -5,6 +5,7 @@
         if (data != null) {
             alert("Du har nu loggat in med E-post " + data)
             $('#loginModal').modal('hide');
+            $("#loginstate").html(" <a href=\"/login/logout\" class=\"btn btn-danger\">Logga ut</a>")
         }
     });
 }
