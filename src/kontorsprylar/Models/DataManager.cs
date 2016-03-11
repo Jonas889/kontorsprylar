@@ -41,7 +41,7 @@ namespace kontorsprylar.Models
                         ProductName = p.ProductName,
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
-                        ProductQuantity = p.StockQuantity
+                        ProductQuantity = 1
                     }).SingleOrDefault();
                 kundvagn.Add(product);
             }
