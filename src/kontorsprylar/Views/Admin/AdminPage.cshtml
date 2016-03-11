@@ -9,24 +9,65 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/jqx.base.css" rel="stylesheet" />
     <script src="~/script/jquery.js"></script>
-    <script src="~/script/jqxcore.js"></script>
-    <script src="~/script/jqxlistbox.js"></script>
-    <script src="~/script/bootstrap.js"></script>
-    <script src="~/script/jqxbuttons.js"></script>
-    <script src="~/script/jqxscrollbar.js"></script>
-    <script src="~/script/jqxdata.js"></script>
-    <script src="~/script/jqxsplitter.js"></script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    @*Måste skicka in datan som lämplig array*@
 
     <script>
 
-        //Vad ska ViewModellen kicka in? När hämta vad från db och när göra ajax? Bilderna hämtas från Blob-storage.
-
         $(document).ready(function () {
+            // Create jqxTree
 
-            //Dela upp i tre....
+            var treeData = [
+                {
+                    "id": "2",
+                    "parentid": "1",
+                    "text": "Papper",
+                    "value": "$2.3"
+                }, {
+                    "id": "3",
+                    "parentid": "1",
+                    "text": "Block",
+                    "value": "$2.3"
+                }, {
+                    "text": "Papper & Block",
+                    "id": "1",
+                    "parentid": "-1",
+                    "value": "$2.3"
+                }, {
+                    "id": "6",
+                    "text": "Vassa saker",
+                    "parentid": "-1",
+                    "value": "$2.3"
+                }];
+            
+            
+            var source =
+            {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'parentid' },
+                        { name: 'text' },
+                        { name: 'value' }
+                    ],
+                    id: 'id',
+                    localdata: treeData
+            };
+            console.log(source)
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // perform Data Binding.
+            dataAdapter.dataBind();
+            // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents 
+            // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
+            // specifies the mapping between the 'text' and 'label' fields.  
+            var records = dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+            $('#jqxWidget').jqxTree({ source: records, width: '300px' });
+
+            //Blir knas när de heter samma sak.
+
+
+
+
 
             $("#splitter").jqxSplitter({ width: '800px', height: '800px', panels: [{ size: '50%' }] });
             //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
@@ -54,16 +95,9 @@
                 localdata: data,
                 datatype: "array"
             };
-
-            //Här ska vi fylla på vad som finns i listboxProd vid onselect
-            //Måste skriva en sån funktion och skapa en instans av den.
             var dataAdapter = new $.jqx.dataAdapter(source);
-            $('#listboxCat').on('select', function (event) {
-                updatePanel(event.args.index);
-                console.log("Inne i select-funktionen...");
-                console.log(event.args.index);
 
-            });
+
             //Här ändrar vi updatepanel beroende på vald produkt
             $('#listboxProd').on('select', function (event) {
                 updatePanel(event.args.index);
@@ -146,22 +180,10 @@
 
                 }
 
-            });
-            $('#listboxCat').jqxListBox({
-                selectedIndex: 0, source: dataAdapter, displayMember: "productid", valueMember: "productname", itemHeight: 30, height: '100%', width: '100%',
-                renderer: function (index, label, value) {
-                    console.log(data.length);
-                    console.log(index);
-                    var datarecord = data[index];
-
-                    //Här behöver donas så det responsiva fungerar
-                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2"></td><td>' + "  " + datarecord.category + '</td></tr></table>';
-                    return table;
-                }
-
-            });
+            })
+           
             updatePanel(0);
-        })
+            });
     </script>
 
 
@@ -185,8 +207,8 @@
     <div class="container-fluid">
         <div class="col-sm-6">
             <div id="splitter">
-                <div style="overflow: hidden;">
-                    <div style="border: none;" id="listboxCat">
+                <div style="overflow: hidden">
+                    <div id="jqxWidget">
                     </div>
                 </div>
                 <div style="overflow: hidden;" id="listboxProd">
@@ -194,7 +216,7 @@
             </div>
         </div>
         <div class="col-sm-5">
-            Tjohoo. Här ska vi ordna en CONTENTPANEL
+            In med grejjor här
         </div>
         <div class="col-sm-1">
             <div style="height: 5%; margin: 1%">
@@ -209,17 +231,17 @@
 
         </div>
     </div>
+    <script src="~/script/jqxcore.js"></script>
+    <script src="~/script/jqxlistbox.js"></script>
+    <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/jqxbuttons.js"></script>
+    <script src="~/script/jqxscrollbar.js"></script>
+    <script src="~/script/jqxdata.js"></script>
+    <script src="~/script/jqxsplitter.js"></script>
+    <script src="~/script/jqxtree.js"></script>
+    <script src="~/script/jqxexpander.js"></script>
+    <script src="~/script/jqxpanel.js"></script>
+    <script src="~/script/demos.js"></script>
 </body>
 </html>
 
-<script type="text/javascript">
-        $(document).ready(function () {
-            $("#addProduct").click(function () {
-                $.get("/login/index", { 'id': this.id }, function (data) {
-                    $("#modal").html(data);
-                    $.validator.unobtrusive.parse($("#modal"));
-                    $('#loginModal').modal('show');
-                });
-            });
-        });
-</script>
