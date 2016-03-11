@@ -24,7 +24,7 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
-
+            
         [HttpGet]
         public IActionResult Category(int id)
         {
