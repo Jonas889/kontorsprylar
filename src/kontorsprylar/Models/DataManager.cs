@@ -118,7 +118,7 @@ namespace kontorsprylar.Models
                     ImgLink = p.ImgLink,
                     Description = p.Description,
                     StockQuantity = p.StockQuantity,
-                    DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
+                    //DiscountPercentage = (1 - (p.CampaignPrice / p.Price)),
                     ForSale = p.ForSale,
                     CategoryID = p.CategoryID,
                     //Categories = categoriesVM.Where(c => (context.ProductsInCategory.Where(m => m.ProductID == p.ProductID).Select(m => m.CategoryID).ToList().Contains(c.ID))).ToList(),
