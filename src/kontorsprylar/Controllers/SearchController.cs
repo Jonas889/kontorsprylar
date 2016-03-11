@@ -41,7 +41,8 @@ namespace kontorsprylar.Controllers
                 {
                     ProductName = p.ProductName,
                     ID = p.ProductID,
-                    Price = p.Price
+                    Price = p.Price,
+                    CampaignPrice = p.CampaignPrice
 
                 }).ToList();
 
