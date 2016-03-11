@@ -1,35 +1,35 @@
-﻿@model ProductsInCategoryViewModel
+﻿@model ProductDetailPageVM
 @{
-    ViewBag.Title = Model.Products[0].ProductName;
+    ViewBag.Title = Model.Product.ProductName;
     Layout = "_LayoutHomePage";
 }
 <div id="breadcrumbRow" class="row text-left">
     <ol class="breadcrumb">
         <li><a href="/home/">Hem</a></li>
-        <li class="active"><a href="/category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
+        <li class="active"><a href="/store/category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
     </ol>
 </div>
 
 <div id="productPage" class="row">
     <div id="productImage" class="col-md-4">
-        <img alt="@Model.Products[0].ProductName" src="@Model.Products[0].ImgLink" class="img-responsive">
+        <img alt="@Model.Product.ProductName" src="@Model.Product.ImgLink" class="img-responsive">
     </div>
 
     <div id="productDetails" class="col-md-5 text-justify">
-        <h4>@Model.Products[0].ProductName</h4>
-        <p>@Model.Products[0].Description</p>
+        <h4>@Model.Product.ProductName</h4>
+        <p>@Model.Product.Description</p>
     </div>
 
     <div id="productPricePanel" class="col-md-3 pull-right text-left">
         <div id="productPrice">
-            @if (Model.Products[0].CampaignPrice > 0)
+            @if (Model.Product.CampaignPrice > 0)
             {
-            <s class="oldPrice">@Model.Products[0].Price:-</s>
-            <h1 class="campaignprice">@Model.Products[0].CampaignPrice:-</h1>
+            <s class="oldPrice">@Model.Product.Price:-</s>
+            <h1 class="campaignprice">@Model.Product.CampaignPrice:-</h1>
             }
             else
             {
-            <h1 class="ordinaryPrice">@Model.Products[0].Price:-</h1>
+            <h1 class="ordinaryPrice">@Model.Product.Price:-</h1>
             }
             inkl moms.
         </div>
@@ -48,7 +48,7 @@
                         <br />
                         <div>
                             <input type="submit" value="Lägg i varukorg" class="btn btn-success">
-                            <input type="hidden" value="@Model.Products[0].ID" name="id">
+                            <input type="hidden" value="@Model.Product.ID" name="id">
                         </div>
                     </fieldset>
                 </form>
@@ -71,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var spec in @Model.Products[0].Specifications)
+                @foreach (var spec in @Model.Product.Specifications)
                     {
                     <tr>
                         <td>@spec.SpecKey</td>
