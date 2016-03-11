@@ -35,6 +35,11 @@
     color: #ededed;
     width: auto;
 }
+
+#productPricePanel {
+    padding-top:30px;
+}
+
 /* --- MENU ----*/
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
