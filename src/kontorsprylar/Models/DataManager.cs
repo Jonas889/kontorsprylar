@@ -60,6 +60,14 @@ namespace kontorsprylar.Models
                 .ToList();
         }
 
+        public string[] GetAdmin(string eMail)
+        {
+            return context.Users
+                .Where(u => u.Email == eMail)
+                .Select(u => new string[] { u.Password, u.PasswordSalt, u.Accessability })
+                .SingleOrDefault();
+        }
+
         // Visar en kategorisida med produkter, samt specificationer knytna till kategorin
         public ProductsInCategoryViewModel GetProductsInCategory(int categoryIDtoShow)
         {
