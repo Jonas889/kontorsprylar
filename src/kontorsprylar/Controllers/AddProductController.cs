@@ -56,6 +56,7 @@ namespace kontorsprylar.Controllers
             dataManager.AddProduct(viewModel);
 
             return RedirectToAction(nameof(LoginController.Index));
+
         }
 
 
