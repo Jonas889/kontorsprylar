@@ -1,6 +1,7 @@
-﻿@model List<ShoppingCartVM>
+﻿@model ShopingCart
+
 <div class="shoppingcart">
-    @foreach (var p in Model)
+    @foreach (var p in Model.KundVagn)
     {
         <div class="row">
             <div class="col-xs-9">@p.ProductName</div>
@@ -8,7 +9,7 @@
         </div>
     }
     <div class="col-xs-9"><h4>Summa:</h4></div>
-    <div class="col-xs-3"><h4>@Model.Sum(p => p.Price) Kr</h4></div>
+    <div class="col-xs-3"><h4>@Model.KundVagn.Sum(p => p.Price) Kr</h4></div>
 
     <div class="col-xs-3" style="float:right">
         <button type="button" onclick="window.location.href='/checkout/index'" class="btn btn-sm btn-success">Kassa</button>

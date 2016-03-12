@@ -1,8 +1,8 @@
-﻿@model List<ShoppingCartVM>
+﻿@model ShopingCart
 
 <table class="table table-striped">
     <tr><th>Namn</th><th>Pris</th><td></td></tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.KundVagn)
     {
         <tr>
             <td>@item.ProductName</td>
