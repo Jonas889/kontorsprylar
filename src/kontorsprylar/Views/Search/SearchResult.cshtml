@@ -1,0 +1,17 @@
+﻿@model List<ProductViewModel>
+
+<table class="table table-striped">
+    <tr><th>Produkt</th><th>Pris</th></tr>
+    @foreach (var item in Model)
+    {
+        if (item.CampaignPrice != 0)
+        {
+            <tr><td><a href="/store/product/@item.ID">@item.ProductName</a> </td><td><text style="text-decoration: line-through">@item.Price</text><text style="color: red"> @item.CampaignPrice</text></td></tr>
+        }
+        else
+        {
+            <tr><td><a href="/store/product/@item.ID">@item.ProductName</a> </td><td>@item.Price</td></tr>
+
+        }
+    }
+</table>

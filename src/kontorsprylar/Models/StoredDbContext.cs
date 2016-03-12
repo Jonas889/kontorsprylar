@@ -14,7 +14,17 @@ namespace kontorsprylar.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Specification> Specifications { get; set; }
-        public DbSet<ProductsInCategory> ProductsInCategory { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Order>().ToTable("Order");
+            modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<Specification>().ToTable("Specification");
+        }
+
+
 
         //public DbSet<ProductsViewdByCustomer> ProductsViewdByCustomers { get; set; }
         //public DbSet<WishList> WishLists { get; set; }

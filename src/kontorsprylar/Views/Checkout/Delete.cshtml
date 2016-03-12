@@ -1,0 +1,19 @@
+﻿@model List<ShoppingCartVM>
+
+<table class="table table-striped">
+    <tr><th>Namn</th><th>Pris</th><td></td></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.Price</td>
+
+            <td>
+
+
+                <a href="~/Checkout/Delete/@item.ProductID"><input id="delete" type="submit" value="Ta bort" name="id" /></a>
+
+            </td>
+        </tr>
+    }
+</table>

@@ -19,9 +19,10 @@ namespace kontorsprylar.Controllers
         {
             context = newContext;
         }
+
+        //Denna häntar in produktdata som ska visas vid edit.. Lös på bättre sätt
         public IActionResult Index()
         {
-            var dataManager = new DataManager(context);
             var model = dataManager.GetProductPresentationData();
             return View(model);
         }
@@ -40,20 +41,9 @@ namespace kontorsprylar.Controllers
                 return View(viewModel);
             }
 
-
-            bool checkBox2 = Convert.ToBoolean(Request.Form["realIsTrue"]);
-
-            var checkBox = Request.Form["reaIsTrue"];
-
-            if (checkBox == "true")
-            {
-                viewModel.ForSale = true;
-            }
-
-            var dataManager = new DataManager(context);
             dataManager.AddProduct(viewModel);
 
-            return RedirectToAction(nameof(LoginController.Index));
+            return RedirectToAction(nameof(AddProductController.Add));
         }
 
 

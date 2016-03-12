@@ -1,0 +1,19 @@
+﻿@model ShopingCart
+
+<table class="table table-striped">
+    <tr><th>Namn</th><th>Pris</th><td></td></tr>
+    @foreach (var item in Model.KundVagn)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>@item.Price</td>
+
+            <td>
+
+
+                <a href="~/Checkout/Delete/?productID=@item.ProductID"><input id="id" type="button" value="Ta bort" name="id"/></a>
+
+            </td>
+        </tr>
+    }
+</table>

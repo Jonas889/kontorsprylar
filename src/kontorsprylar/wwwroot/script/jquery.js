@@ -61,7 +61,7 @@ var hasOwn = class2type.hasOwnProperty;
 
 var support = {};
 
-
+//var jqxBaseFramework = window.minQuery || window.jQuery;
 
 var
 	// Use the correct document accordingly with window argument (sandbox)

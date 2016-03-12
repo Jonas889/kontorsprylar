@@ -7,6 +7,7 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="~/script/jquery.js"></script>
     <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/sitescript.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,21 +18,45 @@
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
                 <div class="col-md-4">
-                    <form role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg..">
+
+                    <div class="form-group">
+
+
+                        @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
+
+
+                        <div>
+                            <form asp-controller="Search" asp-action="SearchResult">
+                                <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
+                                @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
+                            </form>
                         </div>
-                    </form>
+
+
+                    </div>
+
                 </div>
                 <div class="col-md-2">
-                    <h5>Kundvagn</h5>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon-shopping-cart"></span>Kundvagn</button>
+                    <div id="shoppingcart" class="collapse">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+                <div id="loginstate" class="col-md-2">
+                    @if (Context.Request.Cookies["Email"].Count != 0)
+                    {
+                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
+                    }
+                    else
+                    {
+                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                    }
                 </div>
                 <div class="col-md-2">
-                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                    <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
                 </div>
-            <div class="col-md-2">
-                <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
-            </div>
             </div> @*TOP ROW (1)*@
             <div class="row" id="row2">
                 @*MENU ROW (2)*@
@@ -90,16 +115,15 @@
             </div> @*MENU ROW (2)*@
             <div class="row content text-center" id="row3">
                 @*CONTENT ROW (3)*@
-                <div class="col-md-3 sidenav text-justify">
+                @*<div class="col-md-3 sidenav text-justify">
                     <h4>Kategorier</h4>
                     <p><a href="#">Kategori</a></p>
                     <p><a href="#">Underkategori</a></p>
                     <p><a href="#">Underkategori</a></p>
-                    <p>PARTIAL VIEW - KATEGORIER</p>
                     <p>PARTIAL VIEW - TAGGS / FILTER</p>
                     <p>PARTIAL VIEW - RELATED PRODUCTS</p>
-                </div>
-                <div class="col-md-8 text-left">
+                </div>*@
+                <div class="col-md-12 text-left">
                     <div>
                         @RenderBody()
                     </div>
@@ -173,6 +197,7 @@
     <script src="~/script/jquery.validate.js"></script>
     <script src="~/script/jquery.validate.unobtrusive.js"></script>
     <div id="modal"></div>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#login").click(function () {
@@ -182,11 +207,8 @@
                     $('#loginModal').modal('show');
                 });
             });
+
         });
-
-      
-
-
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -194,11 +216,35 @@
                 $.get("/registrate/index", { 'id': this.id }, function (data) {
                     $("#modal").html(data);
                     $.validator.unobtrusive.parse($("#modal"));
-                    $('#myModal').modal('show');
+                    $('#regmodal').modal('show');
                 });
             });
         });
     </script>
+    <script type="text/javascript">
+        var $jQval = $.validator,
+            adapters,
+            data_validation = "unobtrusiveValidation";
 
+        function setValidationValues(options, ruleName, value) {
+            options.rules[ruleName] = value;
+            if (options.message) {
+                options.messages[ruleName] = options.message;
+            }
+        }
+
+        $jQval.addMethod("mustbetrue", function (value, element, param) {
+            // check if dependency is met
+            if (!this.depend(param, element))
+                return "dependency-mismatch";
+            return element.checked;
+        });
+
+        $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
+            setValidationValues(options, "mustbetrue", true);
+        });
+
+        $jQval.unobtrusive.parse();
+    </script>
 </body>
 </html>

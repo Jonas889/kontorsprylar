@@ -1,82 +1,157 @@
-﻿@model List<ProductsInCategoryViewModel>
+﻿@model ProductsInCategoryViewModel
 @{
-    ViewBag.Title = Model[0].Categories[0].Name;
+    ViewBag.Title = Model.CategoryToShow[0].Name;
+    Layout = "_LayoutHomePage";
 }
 <div class="row">
-    @foreach (var product in Model)
-    {
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="thumbnail">
-                <a href="/store/product/@product.ID"><img src="@product.PictureSrc" alt="@product.ProductName"></a>
-                <div class="caption">
-                    @if (product.CampaignPrice > 0)
-                    {
-                        <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
-                    }
-                    else
-                    {
-                        <h4 class="pull-right">@product.Price</h4>
-                    }
-                    <h4>
-                        <a href="/store/product/@product.ID">
-                            @if (@product.Description.ToArray().Length > 17)
-                            {
-                                @for (int i = 0; i < 17; i++)
+    <div class="col-md-12">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home/index">Hem</a>
+            </div>
+            <div class="collapse navbar-collapse js-navbar-collapse">
+                @foreach (var cat in Model.CategoryToShow)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                @foreach (var sub1 in cat.SubCategories)
                                 {
-                                    @product.ProductName.ToArray()[i]
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
+                                            @foreach (var sub2 in sub1.SubCategories)
+                                            {
+                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
                                 }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+            <!-- /.nav-collapse -->
+        </nav>
+    </div>
+</div>
+<div id="breadcrumbRow" class="row text-left">
+    <ol class="breadcrumb">
+        <li><a href="/home/">Hem</a></li>
+        @foreach (var category in Model.CategoryToShow)
+        {
+            if (category.IsActive)
+            {
+        <li class="active"><a href="/store/category/@category.IsActive">@category.Name</a></li>
+            }
+
+        }
+    </ol>
+</div>
+
+<div class="row affix-row">
+    <div class="col-sm-3 col-md-2 affix-sidebar">
+        @*@Html.Partial("_CategoryMenu", Model.CategoryToShow)*@
+    </div>
+    @if (Model.Products.Count < 1)
+    {
+        <div class="col-md-9 affix-content">
+            <h1>Ops! Det verkar inte finnas några produkter i denna kategorin!</h1>
+            <h4>Prova gärna att söka på något i sökrutan ovan, varför inte notes?</h4>
+        </div>
+    }
+    <div class="col-md-9 affix-content">
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="thumbnail">
+                        <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
+                        <div class="caption">
+                            @if (product.CampaignPrice > 0)
+                            {
+                                <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
                             }
                             else
                             {
-                                @product.ProductName
-
+                                <h4 class="pull-right">@product.Price</h4>
                             }
-                        </a>
-                    </h4>
-                    <p>
-                        @if (@product.Description.ToArray().Length > 110)
-                        {
-                        @for (int i = 0; i < 110; i++)
-                            {
-                        @product.Description.ToArray()[i]
-                            }
-                        }
-                        else
-                        {
-                        @product.Description
-                        }
-                    </p>
+                            <h4>
+                                <a href="/store/product/@product.ID">
+                                    @if (@product.ProductName.ToArray().Length > 14)
+                                    {
+                                        @for (int i = 0; i < 14; i++)
+                                        {
+                                            @product.ProductName.ToArray()[i]
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @product.ProductName
+                                    }
+                                </a>
+                            </h4>
+                            <p>
+                                @if (@product.Description.ToArray().Length > 110)
+                                {
+                                    @for (int i = 0; i < 110; i++)
+                                    {
+                                        @product.Description.ToArray()[i]
+                                    }
+                                }
+                                else
+                                {
+                                    @product.Description
+                                }
+                            </p>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">@product.Specifications.Count specs</p>
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                        <div class="productbuttons">
+                            <a class="btn btn-success" onclick="addtocart(@product.ID)"><span class="glyphicon glyphicon-shopping-cart"></span>Lägg till i kundvagn</a>
+                            <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-info-sign"></span>Mer Info</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="ratings">
-                    <p class="pull-right">@product.Taggs.Count taggar</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                    </p>
-                </div>
-            </div>
+            }
         </div>
-    }
-    <nav>
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Föregående">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Nästa">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav> @*PAGINATION*@
+        <div class="row text-center">
+            <nav>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Föregående">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="/store/@Model.CategoryToShow[0].ID/?page=1">1</a></li>
+                    <li><a href="/store/@Model.CategoryToShow[0].ID/?page=2">2</a></li>
+                    <li><a href="/store/@Model.CategoryToShow[0].ID/?page=3">3</a></li>
+                    <li><a href="/store/@Model.CategoryToShow[0].ID/?page=4">4</a></li>
+                    <li><a href="/store/@Model.CategoryToShow[0].ID/?page=5">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Nästa">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav> @*PAGINATION*@
+        </div>
+    </div>
 </div>

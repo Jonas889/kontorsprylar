@@ -9,38 +9,11 @@ namespace kontorsprylar.ViewModels
 {
     public class ProductsInCategoryViewModel
     {
-        [Display(Name = "ProductID")]
-        public int ID { get; set; }
+        [Display(Name = "Produkter")]
+        public List<ProductViewModel> Products { get; set; }
 
-        [Display(Name = "Produktnamn")]
-        public string ProductName { get; set; }
-
-        [Display(Name = "Produktbeskrivning")]
-        public string Description { get; set; }
-
-        [Display(Name = "Pris")]
-        public float Price { get; set; }
-
-        [Display(Name = "Kampanjpris")]
-        public float CampaignPrice { get; set; }
-
-        [Display(Name = "Lagersaldo")]
-        public int StockQuantity { get; set; }
-
-        [Display(Name = "Produktbild")]
-        public string PictureSrc { get; set; }
-
-        [Display(Name = "Tillgänglig")]
-        public bool ForSale { get; set; }
-
-        [Display(Name = "Rabatt")]
-        public float DiscountPercentage { get; set; }
-
-        [Display(Name = "Kategorier")]
-        public List<CategoryMenuViewModel> Categories { get; set; }
-
-        [Display(Name = "Taggar")]
-        public List<Tagg> Taggs { get; set; }
+        [Display(Name = "Kategori")]
+        public List<CategoryMenuViewModel> CategoryToShow { get; set; }
 
         [Display(Name = "Tekniska specifikationer")]
         public List<Specification> Specifications { get; set; }

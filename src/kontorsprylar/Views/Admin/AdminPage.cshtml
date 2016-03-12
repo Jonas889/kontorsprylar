@@ -1,0 +1,247 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/jqx.base.css" rel="stylesheet" />
+    <script src="~/script/jquery.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script>
+
+        $(document).ready(function () {
+            // Create jqxTree
+
+            var treeData = [
+                {
+                    "id": "2",
+                    "parentid": "1",
+                    "text": "Papper",
+                    "value": "$2.3"
+                }, {
+                    "id": "3",
+                    "parentid": "1",
+                    "text": "Block",
+                    "value": "$2.3"
+                }, {
+                    "text": "Papper & Block",
+                    "id": "1",
+                    "parentid": "-1",
+                    "value": "$2.3"
+                }, {
+                    "id": "6",
+                    "text": "Vassa saker",
+                    "parentid": "-1",
+                    "value": "$2.3"
+                }];
+            
+            
+            var source =
+            {
+                    datatype: "json",
+                    datafields: [
+                        { name: 'id' },
+                        { name: 'parentid' },
+                        { name: 'text' },
+                        { name: 'value' }
+                    ],
+                    id: 'id',
+                    localdata: treeData
+            };
+            console.log(source)
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // perform Data Binding.
+            dataAdapter.dataBind();
+            // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents 
+            // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
+            // specifies the mapping between the 'text' and 'label' fields.  
+            var records = dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+            $('#jqxWidget').jqxTree({ source: records, width: '300px' });
+
+            //Blir knas när de heter samma sak.
+
+
+
+
+
+            $("#splitter").jqxSplitter({ width: '800px', height: '800px', panels: [{ size: '50%' }] });
+            //Här vill jag göra ett ajax-anrop och läsa in alla kategorier... De ska sparas i array med objekt.
+            //Hur dela upp i tre istället för två?
+            //Ska ha två listboxes... En för kategorier och en för produkter.
+            //VAD VILL JAG HA IN FÖR DATA?
+            var data = new Array();
+            var categories = ["Elgrej", "Elgrej", "Elgrej"]
+            var productIDs = ["1", "2", "3"];
+            var productNames = ["Liten TV", "Också liten TV", "Lite mindre TV"];
+            var k = 0;
+            for (var i = 0; i < productIDs.length; i++) {
+                var row = {};
+                row["productid"] = productIDs[k];
+                row["productname"] = productNames[k];
+                row["category"] = categories[k];
+
+                data[i] = row;
+                k++;
+            }
+
+            console.log(data);
+            var source =
+            {
+                localdata: data,
+                datatype: "array"
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+
+            //Här ändrar vi updatepanel beroende på vald produkt
+            $('#listboxProd').on('select', function (event) {
+                updatePanel(event.args.index);
+                console.log("Inne i select-funktionen...");
+                console.log(event.args.index);
+
+            });
+            //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
+            var updatePanel = function (index) {
+
+                //Måste göra nya left/right för hem och job-adresser
+                var container = $('<div style="margin: 5px;"></div>')
+                var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var undercolumn = $('<div style="width: 100%;height:100%"></div>');
+
+                container.append(leftcolumn);
+                container.append(rightcolumn);
+
+                container.append(leftsecondcolumn);
+                container.append(rightsecondcolumn);
+                console.log(index);
+                //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
+                //via ett hidden field eller linande.
+                //
+                var datarecord = data[index];
+                //console.log(datarecord);
+                var productHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
+                console.log("Inne innan");
+                var productID = "<div style='margin: 10px;'><b>ProduktID:</b> " + datarecord.productid + "</div>";
+
+                //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
+                //Här lagrar jag id som hidden field eller liknande...
+                $(leftcolumn).append(productHeader);
+                $(leftcolumn).append(productID);
+
+                console.log("Inne 2");
+
+                //Här är blob-url + ImgLink från DB.
+                var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
+                $(rightcolumn).append(img);
+                //Ändra namn på dessa variabler
+                //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
+                //$(leftsecondcolumn).append(homeHeader);
+                var productName = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.productname + "</div>";
+
+                //Gör en skiss för updatepanel
+                $(leftsecondcolumn).append(productName);
+
+                //var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
+                //var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
+
+                //$(rightsecondcolumn).append(specHeader);
+                //$(rightsecondcolumn).append(spec1);
+
+                //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
+                //container.append(comment);
+                container.append(undercolumn);
+                console.log("Inne 3");
+                //$(undercolumn).append(comment);
+                $("#ContentPanel").html(container.html());
+            }
+
+            //Skapar Listboxen. source väljer första till sista. tror jag.
+            $('#listboxProd').jqxListBox({
+                selectedIndex: 0, source: dataAdapter, displayMember: "category", valueMember: "category", itemHeight: 70, height: '100%', width: '100%',
+                renderer: function (index, label, value) {
+                    console.log(data.length);
+                    console.log(index);
+                    var datarecord = data[index];
+                    var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                    var img = '<img height="50" width="45" src="' + imgurl + '" />';
+                    //Här behöver donas så det responsiva fungerar
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + datarecord.productid + " " + datarecord.productname + '</td></tr></table>';
+
+                    return table;
+
+                }
+
+            })
+           
+            updatePanel(0);
+            });
+    </script>
+
+
+
+
+
+</head>
+
+<body class='default'>
+    <div class="container-fluid">
+        <div class="col-sm-4" style="height:100px">
+            <label style="font: bold 20px Arial;color:darkblue;margin-top:40px">Administration av e-handelsida</label>
+        </div>
+        <div class="col-sm-4" style="height:100px">
+
+            <img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" style="margin-top:10px" />
+
+        </div>
+
+    </div>
+    <div class="container-fluid">
+        <div class="col-sm-6">
+            <div id="splitter">
+                <div style="overflow: hidden">
+                    <div id="jqxWidget">
+                    </div>
+                </div>
+                <div style="overflow: hidden;" id="listboxProd">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            In med grejjor här
+        </div>
+        <div class="col-sm-1">
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="addProduct" value="Lägg till produkt" class="btn btn-primary" style="width: 140px" />
+            </div>
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="editProduct" value="Ändra produkt" class="btn btn-primary" style="width: 140px" />
+            </div>
+            <div style="height: 5%; margin: 1%">
+                <input type="button" id="removeProduct" value="Radera produkt" class="btn btn-danger" style="width: 140px" />
+            </div>
+
+        </div>
+    </div>
+    <script src="~/script/jqxcore.js"></script>
+    <script src="~/script/jqxlistbox.js"></script>
+    <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/jqxbuttons.js"></script>
+    <script src="~/script/jqxscrollbar.js"></script>
+    <script src="~/script/jqxdata.js"></script>
+    <script src="~/script/jqxsplitter.js"></script>
+    <script src="~/script/jqxtree.js"></script>
+    <script src="~/script/jqxexpander.js"></script>
+    <script src="~/script/jqxpanel.js"></script>
+    <script src="~/script/demos.js"></script>
+</body>
+</html>
+
