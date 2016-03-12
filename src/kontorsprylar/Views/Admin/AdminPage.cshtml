@@ -24,11 +24,11 @@
             // Create jqxTree
             //Matchar bra
          
-            var array = @Html.Raw(JsonConvert.SerializeObject(Model));
+            var categoriesArray = @Html.Raw(JsonConvert.SerializeObject(Model));
             @*var array = JSON.parse('@Html.Raw(Model)');*@
 
 
-            var jsonArray = JSON.stringify(array);
+            var jsonArray = JSON.stringify(categoriesArray);
 
 
             var source =
@@ -46,11 +46,50 @@
             var dataAdapter = new $.jqx.dataAdapter(source);
             // perform Data Binding.
             dataAdapter.dataBind();
+
             // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents
             // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter
             // specifies the mapping between the 'text' and 'label' fields.
-            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' }]);
-            $('#jqxWidget').jqxTree({ source: records, width: '300px' });
+            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' },{ name: 'ID', map: 'id' },{ name: 'TopID', map: 'topid' }]);
+            $('#jqxTree').jqxTree({ source: records, width: '400px' });
+
+            //Behöver någon onselect-metod på jqxTree som fyller produktlistan med en ajax-request. 
+            //OBS saknar scroll-funnktion...
+            $('#jqxTree').on('select', function (event) {
+                var args = event.args;
+                var item = $('#jqxTree').jqxTree('getItem', args.element);
+                var label = item.label;
+                //Alright, hur lista ut ifall den har några childnodes? Loopa igenom alla topID, ifall ID inte finns med
+                //är det en "last node".
+                var childnodes = 0;
+                for (var i = 0; i < categoriesArray.length; i++) {
+                    if (item.id==categoriesArray[i].TopID)
+                    {
+                        childnodes++;
+                    }
+                }
+
+                //
+                if (childnodes == 0)
+                {
+                    console.log("Gör Ajax-get id " + item.id);
+
+                    var url = "/Admin/GetProductlistByCategory"
+                    $.get(url,{categoryID:item.id}, function (data){
+
+                        console.log(data);
+                    });
+
+                    
+                    //Sedan fylla på listboxProd på något smidigt sätt.
+                }
+
+
+
+            });
+
+
+
 
 
 
@@ -158,6 +197,7 @@
                     console.log(data.length);
                     console.log(index);
                     var datarecord = data[index];
+                    //datarecord.ImgLink
                     var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
                     var img = '<img height="50" width="45" src="' + imgurl + '" />';
                     //Här behöver donas så det responsiva fungerar
@@ -195,7 +235,7 @@
         <div class="col-sm-6">
             <div id="splitter">
                 <div style="overflow: hidden">
-                    <div id="jqxWidget">
+                    <div id="jqxTree">
                     </div>
                 </div>
                 <div style="overflow: hidden;" id="listboxProd">

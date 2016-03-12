@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-
+using Newtonsoft.Json;
 
 namespace kontorsprylar.Models
 {
@@ -290,6 +290,9 @@ namespace kontorsprylar.Models
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        //Denna används för att i AdminPage kunna ladda in alla produkter givet en vald kategori
+
     }
    
 }
