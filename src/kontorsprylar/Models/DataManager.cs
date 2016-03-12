@@ -191,7 +191,7 @@ namespace kontorsprylar.Models
             })
             .ToList();
 
-            // Skapa trädstrukturen för kategorierna
+            // Skapa trädstrukturen för kategorierna (tre nivåer)
             var parentNodes = categories
                 .Where(c => c.TopID == 0)
                 .Select(c => new CategoryMenuViewModel

@@ -12,14 +12,12 @@ namespace kontorsprylar.Controllers
 {
     public class HomeController : Controller
     {
-        private static StoredDbContext context;
-
+        static StoredDbContext context;
         public HomeController(StoredDbContext newcontext)
         {
             context = newcontext;
             dataManager = new DataManager(context);
         }
-
         //Denna körs innan context ovan är instansierad.. Då skickar vi in context = null till konstruktorn för DataManager
         public static DataManager dataManager; // = new DataManager(context);
 

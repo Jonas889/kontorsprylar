@@ -11,20 +11,20 @@ namespace kontorsprylar.Controllers
 {
     public class StoreController : Controller
     {
-            static StoredDbContext context;
-            public StoreController(StoredDbContext newcontext)
-            {
-                context = newcontext;
-                dataManager = new DataManager(context);
-            }
-            //Denna körs innan context ovan är instansierad.. Då skickar vi in context = null till konstruktorn för DataManager
-            public static DataManager dataManager; // = new DataManager(context);
-                                                   // GET: /<controller>/
-            public IActionResult Index()
+        static StoredDbContext context;
+        public StoreController(StoredDbContext newcontext)
+        {
+            context = newcontext;
+            dataManager = new DataManager(context);
+        }
+        //Denna körs innan context ovan är instansierad.. Då skickar vi in context = null till konstruktorn för DataManager
+        public static DataManager dataManager; // = new DataManager(context);
+                                               // GET: /<controller>/
+        public IActionResult Index()
         {
             return View();
         }
-            
+
         [HttpGet]
         public IActionResult Category(int id)
         {
