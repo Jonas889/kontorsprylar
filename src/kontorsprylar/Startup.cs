@@ -23,11 +23,10 @@ namespace kontorsprylar
                 .AddSqlServer()
                 .AddDbContext<StoredDbContext>(options =>
                   options.UseSqlServer(connString));
-
-            services.AddMvc();
+            
             services.AddCaching(); 
             services.AddSession();
-
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

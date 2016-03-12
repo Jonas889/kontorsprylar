@@ -1,14 +1,16 @@
 ﻿using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Http;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Mvc;
+
 
 namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f, ProductQuantity=2, ProductID=345 }, new ShoppingCartVM { ProductName = "test2", Price = 3f, ProductQuantity=1, ProductID=123 } };
         //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
@@ -30,12 +32,12 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
-        public List<ShoppingCartVM> DeleteFromCart(int productID)
+        public ShopingCart DeleteFromCart(ShopingCart kundVagn,int productID)
         {
             int saveIndex = -1;
-            for(int i = 0; i < kundvagn.Count; i++)
+            for(int i = 0; i < kundVagn.KundVagn.Count; i++)
             {
-                if (kundvagn[i].ProductID == productID)
+                if (kundVagn.KundVagn[i].ProductID == productID)
                 {
                     saveIndex = i;
                     break;
@@ -44,13 +46,14 @@ namespace kontorsprylar.Models
             }
             if (saveIndex > -1)
             {
-                kundvagn.RemoveAt(saveIndex);
+                kundVagn.KundVagn.RemoveAt(saveIndex);
             }
-            return kundvagn;
+            return kundVagn;
         }
 
-        public List<ShoppingCartVM> GetMyShoppingCart(int pID)
+        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID)
         {
+            
             if (pID != 0)
             {
                 ShoppingCartVM product = context.Products
@@ -63,15 +66,15 @@ namespace kontorsprylar.Models
                         ProductQuantity = 1
 
                     }).SingleOrDefault();
-                kundvagn.Add(product);
+                kundVagn.KundVagn.Add(product);
             }
-            return kundvagn;
+            return kundVagn;
         }
 
-        public List<ShoppingCartVM> GetMyShoppingCart()
-        {
-            return kundvagn;
-        }
+        //public ShopingCart GetMyShoppingCart(ShopingCart)
+        //{
+        //    return kundvagn;
+        //}
 
         public string[] GetUser(string eMail)
         {
