@@ -93,7 +93,7 @@ namespace kontorsprylar.Controllers
         public string GetProductlistByCategory(int categoryID)
         {
             var result = context.Products
-                .Where(p => p.ProductID == categoryID)
+                .Where(p => p.CategoryID == categoryID)
                 .OrderBy(p => p.ProductID)
                 .Select(p => new ProductViewModel
                 {
