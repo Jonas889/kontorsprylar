@@ -8,7 +8,7 @@ namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f }, new ShoppingCartVM { ProductName = "test2", Price = 3f } };
+        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f, ProductQuantity=2, ProductID=345 }, new ShoppingCartVM { ProductName = "test2", Price = 3f, ProductQuantity=1, ProductID=123 } };
         //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
@@ -30,6 +30,25 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
+        public List<ShoppingCartVM> DeleteFromCart(int productID)
+        {
+            int saveIndex = -1;
+            for(int i = 0; i < kundvagn.Count; i++)
+            {
+                if (kundvagn[i].ProductID == productID)
+                {
+                    saveIndex = i;
+                    break;
+                }
+    
+            }
+            if (saveIndex > -1)
+            {
+                kundvagn.RemoveAt(saveIndex);
+            }
+            return kundvagn;
+        }
+
         public List<ShoppingCartVM> GetMyShoppingCart(int pID)
         {
             if (pID != 0)
@@ -41,7 +60,8 @@ namespace kontorsprylar.Models
                         ProductName = p.ProductName,
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
-                        ProductQuantity = p.StockQuantity
+                        ProductQuantity = 1
+
                     }).SingleOrDefault();
                 kundvagn.Add(product);
             }

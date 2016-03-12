@@ -81,7 +81,7 @@ namespace kontorsprylar.Controllers
                 return View(viewModel);
             }
 
-            dataManager.AddProduct(viewModel);
+            dataManager.AddProduct(viewModel); //Lägger till en produkt till databasen
 
             return RedirectToAction(nameof(AdminController.AddProduct));
         }
