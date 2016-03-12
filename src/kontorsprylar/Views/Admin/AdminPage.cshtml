@@ -26,41 +26,21 @@
          
             var array = @Html.Raw(JsonConvert.SerializeObject(Model));
             @*var array = JSON.parse('@Html.Raw(Model)');*@
-            console.log(array);
+
 
             var jsonArray = JSON.stringify(array);
-            console.log(jsonArray);
-
-            var treeData = [
-                {
-                    "id": "2",
-                    "parentid": "1",
-                    "text": "Papper"
-                }, {
-                    "id": "3",
-                    "parentid": "1",
-                    "text": "Block"
-                }, {
-                    "text": "Papper & Block",
-                    "id": "1",
-                    "parentid": "0"
-                }, {
-                    "id": "6",
-                    "text": "Vassa saker",
-                    "parentid": "0"
-                }];
 
 
             var source =
             {
                     datatype: "json",
                     datafields: [
-                        { name: 'id' },
-                        { name: 'parentid' },
-                        { name: 'text' }
+                        { name: 'ID' },
+                        { name: 'TopID' },
+                        { name: 'Name' }
                     ],
-                    id: 'id',
-                    localdata: treeData
+                    id: 'ID',
+                    localdata: jsonArray
             };
             console.log(source)
             var dataAdapter = new $.jqx.dataAdapter(source);
@@ -69,10 +49,8 @@
             // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents
             // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter
             // specifies the mapping between the 'text' and 'label' fields.
-            var records = dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' }]);
             $('#jqxWidget').jqxTree({ source: records, width: '300px' });
-
-            //Blir knas när de heter samma sak.
 
 
 
