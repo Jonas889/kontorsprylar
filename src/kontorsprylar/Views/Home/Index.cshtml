@@ -22,40 +22,35 @@
                 <a class="navbar-brand" href="/home/index">Hem</a>
             </div>
             <div class="collapse navbar-collapse js-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown mega-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Vad letar du efter? <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
-                        <ul class="dropdown-menu mega-dropdown-menu row">
-                            @foreach (var cat in Model.CategoryToShow)
-                            {
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header"><a href="/store/category/@cat.ID">@cat.Name</a></li>
-                                        @foreach (var sub1 in cat.SubCategories)
-                                        {
-                                            <li><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
-                                        }
-                                        <li class="divider"></li>
-                                    </ul>
-                                </li>
-                            }
-                            <li class="col-sm-3">
-                                <form class="form" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Skriv in email">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                @foreach (var cat in Model.CategoryToShow)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                @foreach (var sub1 in cat.SubCategories)
+                                {
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
+                                            @foreach (var sub2 in sub1.SubCategories)
+                                            {
+                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
             </div>
             <!-- /.nav-collapse -->
         </nav>
     </div>
-</div>
+</div> @*MENY*@
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
 

@@ -16,6 +16,60 @@
                 <a class="navbar-brand" href="/home/index">Hem</a>
             </div>
             <div class="collapse navbar-collapse js-navbar-collapse">
+                @foreach (var cat in Model.CategoryToShow)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                @foreach (var sub1 in cat.SubCategories)
+                                {
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
+                                            @foreach (var sub2 in sub1.SubCategories)
+                                            {
+                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+            <!-- /.nav-collapse -->
+        </nav>
+    </div>
+</div> @*MENY*@
+<div id="breadcrumbRow" class="row text-left">
+    <ol class="breadcrumb">
+        <li><a href="/home/">Hem</a></li>
+        @foreach (var category in Model.CategoryToShow)
+        {
+            if (category.IsActive)
+            {
+                <li class="active"><a href="/store/category/@category.IsActive">@category.Name</a></li>
+            }
+
+        }
+    </ol>
+</div> @*BREADCRUMBS*@
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home/index">Hem</a>
+            </div>
+            <div class="collapse navbar-collapse js-navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="dropdown mega-dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Vad letar du efter? <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
