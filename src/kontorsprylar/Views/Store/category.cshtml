@@ -3,18 +3,72 @@
     ViewBag.Title = Model.CategoryToShow[0].Name;
     Layout = "_LayoutHomePage";
 }
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home/index">Hem</a>
+            </div>
+            <div class="collapse navbar-collapse js-navbar-collapse">
+                @foreach (var cat in Model.CategoryToShow)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                @foreach (var sub1 in cat.SubCategories)
+                                {
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
+                                            @foreach (var sub2 in sub1.SubCategories)
+                                            {
+                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+            <!-- /.nav-collapse -->
+        </nav>
+    </div>
+</div>
 <div id="breadcrumbRow" class="row text-left">
     <ol class="breadcrumb">
         <li><a href="/home/">Hem</a></li>
-        <li class="active"><a href="/store  /category/@Model.CategoryToShow[0].ID">@Model.CategoryToShow[0].Name</a></li>
+        @foreach (var category in Model.CategoryToShow)
+        {
+            if (category.IsActive)
+            {
+        <li class="active"><a href="/store/category/@category.IsActive">@category.Name</a></li>
+            }
+
+        }
     </ol>
 </div>
 
 <div class="row affix-row">
     <div class="col-sm-3 col-md-2 affix-sidebar">
-        @Html.Partial("_CategoryMenu", Model.CategoryToShow)
+        @*@Html.Partial("_CategoryMenu", Model.CategoryToShow)*@
     </div>
-
+    @if (Model.Products.Count < 1)
+    {
+        <div class="col-md-9 affix-content">
+            <h1>Ops! Det verkar inte finnas några produkter i denna kategorin!</h1>
+            <h4>Prova gärna att söka på något i sökrutan ovan, varför inte notes?</h4>
+        </div>
+    }
     <div class="col-md-9 affix-content">
         <div class="row">
             @foreach (var product in Model.Products)
@@ -24,7 +78,7 @@
                         <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
                         <div class="caption">
                             @if (product.CampaignPrice > 0)
-                {
+                            {
                                 <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
                             }
                             else
@@ -50,7 +104,7 @@
                                 @if (@product.Description.ToArray().Length > 110)
                                 {
                                     @for (int i = 0; i < 110; i++)
-                    {
+                                    {
                                         @product.Description.ToArray()[i]
                                     }
                                 }

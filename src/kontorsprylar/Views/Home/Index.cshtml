@@ -1,4 +1,4 @@
-﻿@model List<ProductViewModel>
+﻿@model ProductsInCategoryViewModel
 @{
     ViewBag.Title = "Kontorsprylar.se | Ditt första stopp innan kafferasten";
     Layout = "_LayoutHomePage";
@@ -9,6 +9,48 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>*@
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home/index">Hem</a>
+            </div>
+            <div class="collapse navbar-collapse js-navbar-collapse">
+                @foreach (var cat in Model.CategoryToShow)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
+                            <ul class="dropdown-menu mega-dropdown-menu row">
+                                @foreach (var sub1 in cat.SubCategories)
+                                {
+                                    <li class="col-sm-3">
+                                        <ul>
+                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
+                                            @foreach (var sub2 in sub1.SubCategories)
+                                            {
+                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
+                                            }
+                                            <li class="divider"></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+            <!-- /.nav-collapse -->
+        </nav>
+    </div>
+</div> @*MENY*@
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -27,20 +69,22 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
 
-        @{string firstImage = "https://duke.blob.core.windows.net/images/" + @Model[0].ImgLink;}
+        @{
+            string firstImage = "https://duke.blob.core.windows.net/images/";
+            firstImage += Model.Products[0].ImgLink;
+            }
         <div class="item active">
-            <a href="/store/product/@Model[0].ID"><img src=@firstImage></a>
+            <a href="/store/product/@Model.Products[0].ID"><img src=@firstImage></a>
         </div>
 
-        @for (int i = 1; i < 4; i++)
-        {
-            string img = "https://duke.blob.core.windows.net/images/";
-            img += Model[i].ImgLink;
+        @for (int i = 1; i < Model.Products.Count; i++)
+            {
+                string img = "https://duke.blob.core.windows.net/images/";
+                img += Model.Products[i].ImgLink;
             <div class="item">
-                <a href="/store/product/@Model[i].ID"><img src=@img></a>
+                <a href="/store/product/@Model.Products[i].ID"><img src=@img></a>
             </div>
         }
-
     </div>
 
     <!-- Left and right controls -->
@@ -56,20 +100,18 @@
 
 <div class="container-fluid">
 
-
-
     <div class="row">
-     
+        <div class="col-md-12 text-center">
 
-        @for (var i = 0; i < 8 && i < Model.Count; i++)
-        {
-            string img = "https://duke.blob.core.windows.net/images/";
-            img += Model[i].ImgLink;
-            <div class="col-lg-3">
-                <a href="/store/product/@Model[i].ID"><img src=@img width="200" height="200" /></a>
-                <br /><h5>@Model[i].ProductName</h5>
-            </div>
-        }
-
+            @for (var i = 0; i < 8 && i < Model.Products.Count; i++)
+            {
+                string img = "https://duke.blob.core.windows.net/images/";
+                img += Model.Products[i].ImgLink;
+                <div class="col-lg-3">
+                    <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" /></a>
+                    <br /><h5>@Model.Products[i].ProductName</h5>
+                </div>
+            }
+        </div>
     </div>
 </div>
