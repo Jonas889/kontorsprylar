@@ -74,7 +74,10 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
 
-        @{string firstImage = "https://duke.blob.core.windows.net/images/" + @Model.Products[0].ImgLink;}
+        @{
+            string firstImage = "https://duke.blob.core.windows.net/images/";
+            firstImage += Model.Products[0].ImgLink;
+            }
         <div class="item active">
             <a href="/store/product/@Model.Products[0].ID"><img src=@firstImage></a>
         </div>
@@ -103,15 +106,17 @@
 <div class="container-fluid">
 
     <div class="row">
+        <div class="col-md-12 text-center">
 
-        @for (var i = 0; i < 8 && i < Model.Products.Count; i++)
+            @for (var i = 0; i < 8 && i < Model.Products.Count; i++)
             {
                 string img = "https://duke.blob.core.windows.net/images/";
                 img += Model.Products[i].ImgLink;
-            <div class="col-lg-3">
-                <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" /></a>
-                <br /><h5>@Model.Products[i].ProductName</h5>
-            </div>
-        }
+                <div class="col-lg-3">
+                    <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" /></a>
+                    <br /><h5>@Model.Products[i].ProductName</h5>
+                </div>
+            }
+        </div>
     </div>
 </div>
