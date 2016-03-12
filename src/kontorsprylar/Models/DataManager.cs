@@ -1,8 +1,11 @@
 ﻿using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Http;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Mvc;
+
 
 namespace kontorsprylar.Models
 {
@@ -32,6 +35,7 @@ namespace kontorsprylar.Models
 
         public List<ShoppingCartVM> GetMyShoppingCart(int pID)
         {
+            
             if (pID != 0)
             {
                 ShoppingCartVM product = context.Products

@@ -6,7 +6,6 @@ using Microsoft.AspNet.Mvc;
 using SimpleCrypto;
 using kontorsprylar.Models;
 using kontorsprylar.ViewModels;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using Microsoft.AspNet.Http;
 
@@ -22,6 +21,8 @@ namespace kontorsprylar.Controllers
         {
             context = newcontext;
             dataManager = new DataManager(context);
+
+            
         }
         // GET: /<controller>/
         [HttpGet]

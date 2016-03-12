@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kontorsprylar.Controllers
+namespace kontorsprylar.Models
 {
-    public static class SessionExtensions
+    static public class SessionExtensions
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
         {
