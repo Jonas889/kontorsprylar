@@ -1,11 +1,11 @@
-﻿using System;
+﻿using kontorsprylar.Models;
+using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Mvc;
+using SimpleCrypto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using kontorsprylar.Models;
-using kontorsprylar.ViewModels;
-using SimpleCrypto;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,10 +15,11 @@ namespace kontorsprylar.Controllers
     {
         //Här ska vi ha metoder som hämtar data genom datamanager och kickar in till min AdminPageViewModel
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
-        //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen. 
+        //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen.
 
-        static StoredDbContext context;
+        private static StoredDbContext context;
         public static DataManager dataManager;
+
         public AdminController(StoredDbContext newcontext)
         {
             context = newcontext;
@@ -40,7 +41,7 @@ namespace kontorsprylar.Controllers
                 return View(userLogin);
             }
             bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
-        
+
             if (loggedIn)
                 return RedirectToAction(nameof(AdminController.AdminPage));
 
@@ -63,7 +64,8 @@ namespace kontorsprylar.Controllers
 
         public IActionResult AdminPage()
         {
-            return View();
+            var viewModel = dataManager.GetAdminCategories();
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -73,6 +75,7 @@ namespace kontorsprylar.Controllers
             //return View(model);
             return View();
         }
+
         [HttpPost]
         public IActionResult AddProduct(AddProductViewModel viewModel)
         {

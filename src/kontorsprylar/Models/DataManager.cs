@@ -105,8 +105,20 @@ namespace kontorsprylar.Models
                     SubCategories = query.Where(o => o.TopID == c.ID).ToList()
                 })
                 .ToList();
-        }
 
+        }
+        public List<AdminCategoryViewModel> GetAdminCategories()
+        {
+            return context.Categories
+                .OrderBy(c => c.CategoryID)
+                .Select(c => new AdminCategoryViewModel
+                {
+                    ID = c.CategoryID,
+                    Name = c.CategoryName,
+                    TopID = c.TopCategoryID,
+                })
+                .ToList();
+        }
         public string[] GetAdmin(string eMail)
         {
             return context.Users
