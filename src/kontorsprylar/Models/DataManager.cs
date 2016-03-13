@@ -296,6 +296,7 @@ namespace kontorsprylar.Models
             product.StockQuantity = viewModel.StockQuantity;
             product.ImgLink = imgLink;
             product.ForSale = viewModel.ForSale;
+            product.CategoryID = viewModel.CategoryID;
 
             context.Products.Add(product);
             context.SaveChanges();
