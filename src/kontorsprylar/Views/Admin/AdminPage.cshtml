@@ -41,7 +41,7 @@
             // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter
             // specifies the mapping between the 'text' and 'label' fields.
             var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' },{ name: 'ID', map: 'id' },{ name: 'TopID', map: 'topid' }]);
-            $('#jqxTree').jqxTree({ source: records, width: '100%' });
+            $('#jqxTree').jqxTree({ source: records, width: '100%', height:'100%' });
 
             //Behöver någon onselect-metod på jqxTree som fyller produktlistan med en ajax-request.
             //OBS saknar scroll-funnktion...
@@ -190,13 +190,13 @@
             </div>
             <div class="col-sm-1">
                 <div style="height: 5%; margin: 1%">
-                    <input type="button" id="addProduct" value="Lägg till produkt" class="btn btn-primary" style="width: 140px" />
+                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Lägg till produkt</a>
                 </div>
                 <div style="height: 5%; margin: 1%">
-                    <input type="button" id="editProduct" value="Ändra produkt" class="btn btn-primary" style="width: 140px" />
+                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Ändra produkt</a>
                 </div>
                 <div style="height: 5%; margin: 1%">
-                    <input type="button" id="removeProduct" value="Radera produkt" class="btn btn-danger" style="width: 140px" />
+                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Radera produkt</a>
                 </div>
             </div>
         </div>
