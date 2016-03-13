@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Microsoft.AspNet.Http;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,33 +39,45 @@ namespace kontorsprylar.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Felaktiga inloggningsuppgifter");
-                return View(userLogin);
+                ModelState.AddModelError(string.Empty, "Felaktiga inloggningsuppgifter");
+                return null;
             }
-            bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
+            var user = ValidateLogin(userLogin.Email, userLogin.Password);
 
-            if (loggedIn)
+            if (user != null && user.Accessability == "admin")
+            {
+                LoginUser(user);
                 return RedirectToAction(nameof(AdminController.AdminPage));
+            }
+            ModelState.AddModelError(string.Empty, "Felaktiga inloggningsuppgifter");
+            return null;
 
-            return View(userLogin);
         }
 
-        //Get and check accessibility
-        private bool ValidateLogin(string eMail, string password)
+        private void LoginUser(UserLoginModel user)
         {
-            bool isValidUser = false;
+            CookieOptions myCookie = new CookieOptions() { Expires = DateTime.Now.AddMinutes(30) };
+            Response.Cookies.Append("Email", user.Email, myCookie);
+            HttpContext.Session.SetObjectAsJson("user", user);
+        }
+
+        private UserLoginModel ValidateLogin(string eMail, string password)
+        {
             PBKDF2 crypt = new PBKDF2();
-            var user = dataManager.GetAdmin(eMail); //Hämtar Password, PasswordSalt och Accessability
+            var user = dataManager.GetUser(eMail);
             if (user != null)
             {
-                if (user[0] == crypt.Compute(password, user[1]) && user[2] == "admin") //Sätter ihop password och passwordsalt samt kollar att det var en admin
-                    isValidUser = true;
+                if (user.Password == crypt.Compute(password, user.PasswordSalt))
+                    return user;
             }
-            return isValidUser;
+            return null;
         }
+    
+                
 
         public IActionResult AdminPage()
         {
+            
             var viewModel = dataManager.GetAdminCategories();
             return View(viewModel);
         }
@@ -110,6 +123,15 @@ namespace kontorsprylar.Controllers
                 }).ToList();
 
             return JsonConvert.SerializeObject(result);
+        }
+
+        bool UserHasAdminRights()
+        {
+            bool isAdmin = false;
+            var user = HttpContext.Session.GetObjectFromJson<UserLoginModel>("user");
+            if (user.Accessability == "admin")
+                isAdmin = true;
+            return isAdmin;
         }
     }
 }
