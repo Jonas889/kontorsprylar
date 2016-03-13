@@ -1,7 +1,12 @@
-﻿function isvaliduser(e) {
+﻿$.ajaxSetup({
+    // Disable caching of AJAX responses
+    cache: false
+});
+
+function isvaliduser(e) {
     e.preventDefault();
     $.post("/login/testlogin", { 'Email': $("#Email").val(), 'Password': $("#Password").val() }, function (data) {
-        
+
         if (data != null) {
             alert("Du har nu loggat in med E-post " + data)
             $('#loginModal').modal('hide');
@@ -10,7 +15,7 @@
         else {
             //$("summary").html("Felaktiga inloggningsuppgifter");
             alert("Nu gick fel, har du koll på dina inloggningsuppgifter? ");
-            
+
         }
     });
 }
@@ -24,9 +29,11 @@ function userregistrate(e) {
     });
 }
 
+
 function addtocart(pid) {
-    $.get("/ShoppingCart/AddToCart", { 'PID': pid }, function (data) {
-        $("#shoppingcart").html(data)
+    $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': $('#productCount').val() }, function (data) {
+        $("#shoppingcart").html(data);
+
     });
 }
 
