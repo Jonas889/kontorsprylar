@@ -29,5 +29,7 @@ namespace kontorsprylar.ViewModels
 
         [Display(Name = "Tillgänglig")]
         public bool ForSale { get; set; }
+        public int CategoryID { get; set; }
+
     }
 }

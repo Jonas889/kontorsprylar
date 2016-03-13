@@ -3,13 +3,17 @@
 <div class="shoppingcart">
     @foreach (var p in Model.KundVagn)
     {
+        var sum = p.Price * p.ProductQuantity;
         <div class="row">
-            <div class="col-xs-9">@p.ProductName</div>
-            <div class="col-xs-3">@p.Price Kr</div>
+            <div class="col-xs-4">@p.ProductName</div>
+            <div class="col-xs-2">@p.ProductQuantity st</div>
+            <div class="col-xs-3">@p.Price Kr/st</div>
+            <div class="col-xs-3">@sum Kr</div>
+
         </div>
     }
     <div class="col-xs-9"><h4>Summa:</h4></div>
-    <div class="col-xs-3"><h4>@Model.KundVagn.Sum(p => p.Price) Kr</h4></div>
+    <div class="col-xs-3"><h4>@Model.KundVagn.Sum(p => p.Price * p.ProductQuantity) Kr</h4></div>
 
     <div class="col-xs-3" style="float:right">
         <button id="kassa" type="button" onclick="window.location.href='/checkout/index'" class="btn btn-sm btn-success">Kassa</button>

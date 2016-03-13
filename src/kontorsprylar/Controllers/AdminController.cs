@@ -102,8 +102,6 @@ namespace kontorsprylar.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-            //var model = dataManager.GetProductPresentationData();
-            //return View(model);
             return View();
         }
 
@@ -193,6 +191,13 @@ namespace kontorsprylar.Controllers
                     isAdmin = true;
             }
             return isAdmin;
+        }
+
+        public List<AdminCategoryViewModel> GetCategories()
+        {
+            var categories = dataManager.GetAdminCategories();
+
+            return categories;
         }
     }
 }
