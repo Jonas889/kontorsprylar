@@ -8,6 +8,8 @@ using kontorsprylar.Models;
 using kontorsprylar.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNet.Http;
+using System.Net.Mail;
+using System.Net;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -83,7 +85,7 @@ namespace kontorsprylar.Controllers
         {
             return View();
         }
+
+       
     }
-
-
 }
