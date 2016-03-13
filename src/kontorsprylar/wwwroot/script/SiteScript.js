@@ -9,7 +9,7 @@
         }
         else {
             //$("summary").html("Felaktiga inloggningsuppgifter");
-            alert("Nu gick något åt helvete, har du koll på dina förbannade inloggningsuppgifter...?? IDIOT!!");
+            alert("Nu gick fel, har du koll på dina inloggningsuppgifter? ");
             
         }
     });
