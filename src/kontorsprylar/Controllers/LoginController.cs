@@ -79,5 +79,11 @@ namespace kontorsprylar.Controllers
             }
             return null;
         }
+        public IActionResult Denied()
+        {
+            return View();
+        }
     }
+
+
 }

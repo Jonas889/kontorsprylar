@@ -72,14 +72,21 @@ namespace kontorsprylar.Controllers
             }
             return null;
         }
-    
-                
+
+
 
         public IActionResult AdminPage()
         {
-            
-            var viewModel = dataManager.GetAdminCategories();
-            return View(viewModel);
+            if (UserHasAdminRights())
+            {
+                var viewModel = dataManager.GetAdminCategories();
+                return View(viewModel);
+            }
+            else
+            {
+                return RedirectToAction("Denied", "Login");
+            }
+
         }
 
         [HttpGet]
@@ -105,32 +112,44 @@ namespace kontorsprylar.Controllers
 
         public string GetProductlistByCategory(int categoryID)
         {
-            var result = context.Products
-                .Where(p => p.CategoryID == categoryID)
-                .OrderBy(p => p.ProductID)
-                .Select(p => new ProductViewModel
-                {
-                    ID = p.ProductID,
-                    ProductName = p.ProductName,
-                    Price = p.Price,
-                    CampaignPrice = p.CampaignPrice,
-                    ImgLink = p.ImgLink,
-                    Description = p.Description,
-                    StockQuantity = p.StockQuantity,
-                    ForSale = p.ForSale,
-                    CategoryID = p.CategoryID,
-                    Specifications = null
-                }).ToList();
+            if (UserHasAdminRights())
+            {
+                var result = context.Products
+                    .Where(p => p.CategoryID == categoryID)
+                    .OrderBy(p => p.ProductID)
+                    .Select(p => new ProductViewModel
+                    {
+                        ID = p.ProductID,
+                        ProductName = p.ProductName,
+                        Price = p.Price,
+                        CampaignPrice = p.CampaignPrice,
+                        ImgLink = p.ImgLink,
+                        Description = p.Description,
+                        StockQuantity = p.StockQuantity,
+                        ForSale = p.ForSale,
+                        CategoryID = p.CategoryID,
+                        Specifications = null
+                    }).ToList();
 
-            return JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(result);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         bool UserHasAdminRights()
         {
+            var user = new UserLoginModel();
             bool isAdmin = false;
-            var user = HttpContext.Session.GetObjectFromJson<UserLoginModel>("user");
-            if (user.Accessability == "admin")
-                isAdmin = true;
+            if (HttpContext.Session.GetObjectFromJson<UserLoginModel>("user") != null)
+            {
+                user = HttpContext.Session.GetObjectFromJson<UserLoginModel>("user");
+                if (user.Accessability == "admin")
+                    isAdmin = true;
+
+            }
             return isAdmin;
         }
     }
