@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO;
 
 namespace kontorsprylar.Models
 {
@@ -239,7 +241,7 @@ namespace kontorsprylar.Models
             return productToShow;
         }
 
-        public void AddCustomer(RegistrateViewModel viewModel)
+        public UserLoginModel AddCustomer(RegistrateViewModel viewModel)
         {
             PBKDF2 crypt = new PBKDF2();
             var user = new User();
@@ -255,6 +257,8 @@ namespace kontorsprylar.Models
             user.Accessability = "user";
             context.Users.Add(user);
             context.SaveChanges();
+            return new UserLoginModel { UserID = user.UserID, Accessability = user.Accessability, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password=user.Password, PasswordSalt = user.PasswordSalt};
+
         }
 
         public void AddProduct(AddProductViewModel viewModel)
@@ -271,6 +275,23 @@ namespace kontorsprylar.Models
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        public void UploadBlob(CloudBlobContainer container, string key, string filePath, bool deleteAfter)
+        {
+
+            //Skapa en blob-referens att skriva filen till
+            CloudBlockBlob b = container.GetBlockBlobReference(key);
+
+            using (var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                string extension = filePath.Split('.').Last();
+                b.Properties.ContentType = "image/" + extension;
+
+                b.UploadFromStream(fs);
+            }
+            if (deleteAfter)
+                File.Delete(filePath);
+
+        }
     }
-   
 }

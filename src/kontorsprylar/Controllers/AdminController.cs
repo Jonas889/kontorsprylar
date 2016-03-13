@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage;
+using System.IO;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,6 +21,7 @@ namespace kontorsprylar.Controllers
 {
     public class AdminController : Controller
     {
+
         //Här ska vi ha metoder som hämtar data genom datamanager och kickar in till min AdminPageViewModel
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
         //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen.
@@ -100,32 +105,6 @@ namespace kontorsprylar.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult AddProducts(IList<IFormFile> files)
-
-        {
-            foreach (var file in files)
-
-            {
-                var fileName = ContentDispositionHeaderValue
-
-                    .Parse(file.ContentDisposition)
-
-                    .FileName
-
-                    .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
-
-                if (fileName.EndsWith(".txt"))// Important for security if saving in webroot
-
-                {
-                    var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
-
-                    //await file.SaveAsAsync(filePath);
-                }
-            }
-            return RedirectToAction("Admin/AdminPage");
-        }
-
 
 
 
@@ -138,27 +117,46 @@ namespace kontorsprylar.Controllers
                 return View(viewModel);
             }
 
-            foreach (var file in files)
+            //Ladda upp BLOB
+            //Dessa vill inte gå att gömma i web.config. Lyckas inte komma åt dem där. 
+            string connString = @"DefaultEndpointsProtocol=https;AccountName=duke;AccountKey=gcycuGDB5g5UADNu6VFM19AiNV8DeAGpatc3ZM52nMXKtJFScqxwkVewJD6WRwA5AU+7MR08mxJhh6Gwh15l2g==;BlobEndpoint=https://duke.blob.core.windows.net/;TableEndpoint=https://duke.table.core.windows.net/;QueueEndpoint=https://duke.queue.core.windows.net/;FileEndpoint=https://duke.file.core.windows.net/";
+            string destContainer = "images";
 
-            {
-                var fileName = ContentDispositionHeaderValue
+            //Få en referens till storage account
 
-                    .Parse(file.ContentDisposition)
+            CloudStorageAccount sa = CloudStorageAccount.Parse(connString);
+            CloudBlobClient bc = sa.CreateCloudBlobClient();
 
-                    .FileName
+            //Få referens till container i Azure (skapar ny om inte finns, antagligen)
+            CloudBlobContainer container = bc.GetContainerReference(destContainer);
+            container.CreateIfNotExists();
 
-                    .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
+            //foreach (var file in files)
 
-                if (fileName.EndsWith(".txt"))// Important for security if saving in webroot
+            //{
 
-                {
-                    var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+            var fileName = ContentDispositionHeaderValue
+                //Kommer bara vara en fil åt gången tills vidare..
+                .Parse(files[0].ContentDisposition)
 
-                    //await file.SaveAsAsync(filePath);
-                }
-            }
+                .FileName
 
-            //Lägg till rätt imglink i db här...
+                .Trim('"'); //Får jag rätt filnamn här?
+
+            var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+            files[0].SaveAsAsync(filePath);
+
+            //string[] fileEntries = Directory.GetFiles(filePath);
+            string key = Path.GetFileName(filePath);
+
+            dataManager.UploadBlob(container, key, filePath, true);
+
+
+
+
+          
+
+            //Lägg till rätt imglink i db här... Ska gå att få in namnet i viewmodel relativt lätt.
             dataManager.AddProduct(viewModel); //Lägger till en produkt till databasen
 
             return RedirectToAction(nameof(AdminController.AddProduct));
@@ -206,6 +204,6 @@ namespace kontorsprylar.Controllers
             return isAdmin;
         }
 
-      
+
     }
 }
