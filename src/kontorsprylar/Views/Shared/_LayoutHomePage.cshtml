@@ -64,11 +64,11 @@
                 <div class="col-md-2">
                     <div id="mypages" class="col-md-2">
                         @if (Context.Request.Cookies["Email"].Count != 0)
-                            {
-                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span>&nbsp;Mina sidor</button>
-                            }
-                            else
-                            {
+                        {
+                            <button type="button" onclick="window.location.href='/mypages'" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span>&nbsp;Mina sidor</button>
+                        }
+                        else
+                        {
                         <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
                             }
                     </div>
