@@ -1,10 +1,10 @@
-﻿using System;
+﻿using kontorsprylar.Models;
+using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using kontorsprylar.ViewModels;
-using kontorsprylar.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,18 +24,8 @@ namespace kontorsprylar.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var products = context.Products
-                .Select(p => new ViewModels.ProductViewModel
-                {
-                    ProductName = p.ProductName,
-                    ID = p.ProductID,
-                    ImgLink = p.ImgLink
-
-                }).ToList();
-
-            
-            return View(products);
-
+            var model = dataManager.GetProductsInCategory(1);
+            return View(model);
 
             ////detta ersätter vi med datamanager osv senare
             //var modelList = new List<ProductViewModel>();
@@ -69,9 +59,12 @@ namespace kontorsprylar.Controllers
             //modelList[8].ProductName = "Namn9";
 
             //return View(modelList);
-
-
         }
 
+        public IActionResult LoadMainMenu()
+        {
+            var model = dataManager.GetCategoryMenu();
+            return PartialView(model);
+        }
     }
 }

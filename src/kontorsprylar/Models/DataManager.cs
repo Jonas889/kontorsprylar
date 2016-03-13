@@ -1,14 +1,16 @@
 ﻿using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Http;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Mvc;
+
 
 namespace kontorsprylar.Models
 {
     public class DataManager
     {
-        static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM> { new ShoppingCartVM { ProductName = "test", Price = 2.1f }, new ShoppingCartVM { ProductName = "test2", Price = 3f } };
         //static List<ShoppingCartVM> kundvagn = new List<ShoppingCartVM>();
         private StoredDbContext context;
 
@@ -20,7 +22,7 @@ namespace kontorsprylar.Models
         //Används av produkter som visas på första sidan
         public ProductViewModel[] GetProductPresentationData()
         {
-            //Här kanske vi sak tänka att produkter har en frontpageprop för att kunna beställa med .Where
+            //Här kanske vi ska tänka att produkter har en frontpageprop för att kunna beställa med .Where
             return context.Products
                 .OrderByDescending(p => p.Price)
                 .Select(p => new ProductViewModel
@@ -30,8 +32,28 @@ namespace kontorsprylar.Models
                 }).ToArray();
         }
 
-        public List<ShoppingCartVM> GetMyShoppingCart(int pID)
+        public ShopingCart DeleteFromCart(ShopingCart kundVagn,int productID)
         {
+            int saveIndex = -1;
+            for(int i = 0; i < kundVagn.KundVagn.Count; i++)
+            {
+                if (kundVagn.KundVagn[i].ProductID == productID)
+                {
+                    saveIndex = i;
+                    break;
+                }
+    
+            }
+            if (saveIndex > -1)
+            {
+                kundVagn.KundVagn.RemoveAt(saveIndex);
+            }
+            return kundVagn;
+        }
+
+        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID)
+        {
+            
             if (pID != 0)
             {
                 ShoppingCartVM product = context.Products
@@ -42,16 +64,17 @@ namespace kontorsprylar.Models
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
                         ProductQuantity = 1
+
                     }).SingleOrDefault();
-                kundvagn.Add(product);
+                kundVagn.KundVagn.Add(product);
             }
-            return kundvagn;
+            return kundVagn;
         }
 
-        public List<ShoppingCartVM> GetMyShoppingCart()
-        {
-            return kundvagn;
-        }
+        //public ShopingCart GetMyShoppingCart(ShopingCart)
+        //{
+        //    return kundvagn;
+        //}
 
         public string[] GetUser(string eMail)
         {
@@ -82,8 +105,20 @@ namespace kontorsprylar.Models
                     SubCategories = query.Where(o => o.TopID == c.ID).ToList()
                 })
                 .ToList();
-        }
 
+        }
+        public List<AdminCategoryViewModel> GetAdminCategories()
+        {
+            return context.Categories
+                .OrderBy(c => c.CategoryID)
+                .Select(c => new AdminCategoryViewModel
+                {
+                    ID = c.CategoryID,
+                    Name = c.CategoryName,
+                    TopID = c.TopCategoryID,
+                })
+                .ToList();
+        }
         public string[] GetAdmin(string eMail)
         {
             return context.Users
@@ -117,7 +152,7 @@ namespace kontorsprylar.Models
                 .Where(p => p.CategoryID == categoryIDtoShow).ToList();
 
             ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
-            { Products = selectedProducts, CategoryToShow = categoryFromQuery, Specifications = categorySpecifications };
+            { Products = selectedProducts, CategoryToShow = categories, Specifications = categorySpecifications };
 
             return categoryToShow;
         }
@@ -166,21 +201,40 @@ namespace kontorsprylar.Models
             {
                 ID = c.CategoryID,
                 Name = c.CategoryName,
-                TopID = c.TopCategoryID
-            })
-            .ToList();
-            // Skapa trädstrukturen för kategorierna
-            return categories
-            .Select(c => new CategoryMenuViewModel
-            {
-                ID = c.ID,
-                Name = c.Name,
-                TopID = c.TopID,
-                IsActive = c.ID == categoryIDtoShow ? true : false,
-                SubCategories = categories.Where(o => o.TopID == c.ID).ToList()
+                TopID = c.TopCategoryID,
+                IsActive = c.CategoryID == categoryIDtoShow ? true : false,
             })
             .ToList();
 
+            // Skapa trädstrukturen för kategorierna (tre nivåer)
+            var parentNodes = categories
+                .Where(c => c.TopID == 0)
+                .Select(c => new CategoryMenuViewModel
+                {
+                    ID = c.ID,
+                    Name = c.Name,
+                    TopID = c.TopID,
+                    IsActive = c.ID == categoryIDtoShow ? true : false,
+                    SubCategories = categories.Where(s => s.TopID == c.ID)
+                        .Select(s => new CategoryMenuViewModel
+                        {
+                            ID = s.ID,
+                            Name = s.Name,
+                            TopID = s.TopID,
+                            IsActive = s.ID == categoryIDtoShow ? true : false,
+                            SubCategories = categories.Where(s2 => s2.TopID == s.ID)
+                                 .Select(s2 => new CategoryMenuViewModel
+                                 {
+                                     ID = s2.ID,
+                                     Name = s2.Name,
+                                     TopID = s2.TopID,
+                                     IsActive = s2.ID == categoryIDtoShow ? true : false,
+                                 }).ToList()
+                        }).ToList()
+                })
+                .ToList();
+            
+            return parentNodes;
         }
 
         public ProductDetailPageVM GetProduct(int productIDtoShow)

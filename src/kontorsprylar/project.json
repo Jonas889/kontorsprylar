@@ -1,4 +1,4 @@
-{
+﻿{
   "version": "1.0.0-*",
   "compilationOptions": {
     "emitEntryPoint": true
@@ -16,7 +16,8 @@
     "WindowsAzure.Storage": "6.2.0",
     "SimpleCrypto": "0.3.30.26",
     "Microsoft.AspNet.Session": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Identity": "3.0.0-rc1-final"
+    "System.Web.Helpers.dll": "1.0.0",
+    "Newtonsoft.Json": "8.0.2"
   },
 
   "commands": {

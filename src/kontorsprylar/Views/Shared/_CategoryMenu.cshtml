@@ -24,32 +24,26 @@
                             }
                             @cat.Name<span class="caret pull-right"></span>
                         </a>
-                        @if (cat.SubCategories.Count > 0)
-                        {
-                            <div class="collapse" id="toggleDemo" style="height: 0px;">
-                                <ul class="nav nav-list">
-                                    @foreach (var sub1 in cat.SubCategories)
-                                    {
-                                        <li>
-                                            <a href="/store/category/@sub1.ID">@sub1.Name</a>
-                                            @if (sub1.SubCategories.Count > 0)
-                                            {
-                                                <div class="collapse" id="toggleDemo" style="height: 0px;">
-                                                    <ul class="nav nav-list">
-                                                        @foreach (var sub2 in sub1.SubCategories)
-                                                        {
-                                                            <li>
-                                                                <a href="/store/category/@sub2.ID">@sub2.Name</a>
-                                                            </li>
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            }
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        }
+                        <div class="collapse" id="toggleDemo" style="height: 0px;">
+                            <ul class="nav nav-list">
+                                @foreach (var sub1 in cat.SubCategories)
+                                {
+                                    <li>
+                                        <a href="/store/category/@sub1.ID">@sub1.Name</a>
+                                        <div class="collapse" id="toggleDemo" style="height: 0px;">
+                                            <ul class="nav nav-list">
+                                                @foreach (var sub2 in sub1.SubCategories)
+                                                {
+                                                    <li>
+                                                        <a href="/store/category/@sub2.ID">@sub2.Name</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </li>
                 }
             </ul>
