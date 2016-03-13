@@ -85,12 +85,12 @@
         <div class="clear"></div>
         <div id="productBuy">
             <div id="addToCart">
-                <form asp-controller="AddProduct" asp-action="AddToCart">
+                <form onsubmit="addtocart(@Model.Product.ID);">
                     <fieldset>
                             <div id="productQuantity">
                                 <div style="float:left;" class="counterWrapper">
                                     <input value="1" name="quantity" id="productCountLarge" style="display: none;" original-title="Ange kvantitet">
-                                    <select id="productCount" style="padding: 0;"><option>1 st</option><option>2 st</option><option>3 st</option><option>4 st</option><option>5 st</option><option>6 st</option><option>7 st</option><option>8 st</option><option>9 st</option><option>10+</option></select>
+                                    <select id="productCount" style="padding: 0;"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
                                 </div>
                             </div>
                         <br />

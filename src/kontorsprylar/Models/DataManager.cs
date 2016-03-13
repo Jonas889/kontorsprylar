@@ -53,7 +53,7 @@ namespace kontorsprylar.Models
             return kundVagn;
         }
 
-        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID)
+        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID, int quantity)
         {
             
             if (pID != 0)
@@ -65,7 +65,7 @@ namespace kontorsprylar.Models
                         ProductName = p.ProductName,
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
-                        ProductQuantity = 1
+                        ProductQuantity = quantity
 
                     }).SingleOrDefault();
                 kundVagn.KundVagn.Add(product);
