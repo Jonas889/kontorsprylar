@@ -1,4 +1,10 @@
 ﻿@model ShopingCart
+@{
+    ViewBag.Title = "Din Kundvagn";
+    Layout = "_LayoutHomePage";
+}
+@Html.Partial("_MainMenu", Model.CategoryMenu)
+@Html.Partial("_Breadcrumb", Model.CategoryMenu)
 
 <table class="table table-striped">
     <tr><th>Namn</th><th>Pris</th><td></td></tr>

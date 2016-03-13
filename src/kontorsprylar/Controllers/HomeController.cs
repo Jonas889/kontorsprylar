@@ -63,7 +63,7 @@ namespace kontorsprylar.Controllers
 
         public IActionResult LoadMainMenu()
         {
-            var model = dataManager.GetCategoryMenu();
+            var model = dataManager.GetCategoriesToList(1);
             return PartialView(model);
         }
     }

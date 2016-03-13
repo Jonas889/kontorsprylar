@@ -13,6 +13,7 @@ namespace kontorsprylar.Models
         {
             KundVagn = new List<ShoppingCartVM>();
         }
+        public List<CategoryMenuViewModel> CategoryMenu { get; set; }
 
     }
 }
