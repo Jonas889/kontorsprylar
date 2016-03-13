@@ -3,13 +3,22 @@
     ViewBag.Title = "Din Kundvagn";
     Layout = "_LayoutHomePage";
 }
-@Html.Partial("_MainMenu", Model.CategoryMenu)
-@Html.Partial("_Breadcrumb", Model.CategoryMenu)
+@*@Html.Partial("_MainMenu", Model.CategoryMenu)
+    @Html.Partial("_Breadcrumb", Model.CategoryMenu)*@
 
 <table class="table table-striped">
     <tr><th>Namn</th><th>Pris</th><td></td></tr>
-    @foreach (var item in Model.KundVagn)
+    @if (Model.KundVagn.Count < 1)
     {
+        <tr>
+            <td>Kundvagnen är tom</td>
+            <td></td>
+        </tr>
+
+    }
+
+    @foreach (var item in Model.KundVagn)
+            {
         <tr>
             <td>@item.ProductName</td>
             <td>@item.Price Kr</td>

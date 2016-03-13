@@ -28,11 +28,15 @@
                         </div>
                     </div>
                 </div>
+               
                 <div class="col-md-2">
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp;Kundvagn</button>
                     <div id="shoppingcart" class="collapse">
                     </div>
                 </div>
+                <script type="text/javascript">
+                    addtocart(0);
+                </script>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
                     {
@@ -143,7 +147,7 @@
                                         $('#loginModal').modal('show');
                                     });
                                 });
-                                addtocart(0);
+                                
                             });
 
                             //Ajax show registrate modal.
