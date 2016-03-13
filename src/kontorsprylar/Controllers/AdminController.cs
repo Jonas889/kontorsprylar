@@ -143,7 +143,7 @@ namespace kontorsprylar.Controllers
                     .Trim('"'); //Får jag rätt filnamn här?
 
                 var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
-                files[0].SaveAsAsync(filePath);
+                files[0].SaveAs(filePath);
 
                 //string[] fileEntries = Directory.GetFiles(filePath);
                 string key = Path.GetFileName(filePath);
