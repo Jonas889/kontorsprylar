@@ -88,29 +88,6 @@ namespace kontorsprylar.Models
                 .SingleOrDefault();
         }
 
-        public List<CategoryMenuViewModel> GetCategoryMenu()
-        {
-            var query = context.Categories
-                .OrderBy(c => c.CategoryID)
-                .Select(c => new CategoryMenuViewModel
-                {
-                    ID = c.CategoryID,
-                    Name = c.CategoryName,
-                    TopID = c.TopCategoryID,
-                })
-                .ToList();
-
-            return query
-                .Select(c => new CategoryMenuViewModel
-                {
-                    ID = c.ID,
-                    Name = c.Name,
-                    TopID = c.TopID,
-                    SubCategories = query.Where(o => o.TopID == c.ID).ToList()
-                })
-                .ToList();
-
-        }
         public List<AdminCategoryViewModel> GetAdminCategories()
         {
             return context.Categories
@@ -197,7 +174,7 @@ namespace kontorsprylar.Models
                 }).ToList();
         }
 
-        private List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoShow)
+        public List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoHighlight)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -206,7 +183,7 @@ namespace kontorsprylar.Models
                 ID = c.CategoryID,
                 Name = c.CategoryName,
                 TopID = c.TopCategoryID,
-                IsActive = c.CategoryID == categoryIDtoShow ? true : false,
+                IsActive = c.CategoryID == categoryIDtoHighlight ? true : false,
             })
             .ToList();
 
@@ -218,21 +195,21 @@ namespace kontorsprylar.Models
                     ID = c.ID,
                     Name = c.Name,
                     TopID = c.TopID,
-                    IsActive = c.ID == categoryIDtoShow ? true : false,
+                    IsActive = c.ID == categoryIDtoHighlight ? true : false,
                     SubCategories = categories.Where(s => s.TopID == c.ID)
                         .Select(s => new CategoryMenuViewModel
                         {
                             ID = s.ID,
                             Name = s.Name,
                             TopID = s.TopID,
-                            IsActive = s.ID == categoryIDtoShow ? true : false,
+                            IsActive = s.ID == categoryIDtoHighlight ? true : false,
                             SubCategories = categories.Where(s2 => s2.TopID == s.ID)
                                  .Select(s2 => new CategoryMenuViewModel
                                  {
                                      ID = s2.ID,
                                      Name = s2.Name,
                                      TopID = s2.TopID,
-                                     IsActive = s2.ID == categoryIDtoShow ? true : false,
+                                     IsActive = s2.ID == categoryIDtoHighlight ? true : false,
                                  }).ToList()
                         }).ToList()
                 })
