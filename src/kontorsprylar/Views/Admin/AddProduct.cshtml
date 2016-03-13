@@ -32,6 +32,12 @@
             console.log(records);
             $('#jqxTree').jqxTree({ source: records, width: '100%', height: '700px' });
         })
+
+        $('#jqxTree').on('select', function (event) {
+            var args = event.args;
+            var item = $('#jqxTree').jqxTree('getItem', args.element);
+            $("#catID").val(item.id);
+        })
     });
 </script>
 
@@ -64,6 +70,8 @@
             <label asp-for="Description"></label>
             <textarea rows="5" asp-for="Description" class="form-control"></textarea>
             <span asp-validation-for="Description"></span>
+            <input asp-for="CategoryID" style="visibility:hidden" id="catID"/>
+
             <br/>
             <div class="checkbox">
                 <label asp-for="ForSale"><input type="checkbox" asp-for="ForSale" />Tillgänglig på sidan</label>
