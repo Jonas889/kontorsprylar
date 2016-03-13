@@ -261,7 +261,7 @@ namespace kontorsprylar.Models
 
         }
 
-        public void AddProduct(AddProductViewModel viewModel)
+        public void AddProduct(AddProductViewModel viewModel, string imgLink)
         {
             var product = new Product();
             product.ProductName = viewModel.ProductName;
@@ -269,7 +269,7 @@ namespace kontorsprylar.Models
             product.Price = viewModel.Price;
             product.CampaignPrice = viewModel.CampaignPrice;
             product.StockQuantity = viewModel.StockQuantity;
-            product.ImgLink = viewModel.ImgLink;
+            product.ImgLink = imgLink;
             product.ForSale = viewModel.ForSale;
 
             context.Products.Add(product);
@@ -282,7 +282,7 @@ namespace kontorsprylar.Models
             //Skapa en blob-referens att skriva filen till
             CloudBlockBlob b = container.GetBlockBlobReference(key);
 
-            using (var fs = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var fs = File.OpenRead(filePath)) //, FileMode.Open, FileAccess.Read, FileShare.None)
             {
                 string extension = filePath.Split('.').Last();
                 b.Properties.ContentType = "image/" + extension;
@@ -291,6 +291,7 @@ namespace kontorsprylar.Models
             }
             if (deleteAfter)
                 File.Delete(filePath);
+      
 
         }
     }

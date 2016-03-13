@@ -27,7 +27,8 @@ namespace kontorsprylar.Controllers
         //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen.
 
         private IApplicationEnvironment _hostingEnvironment;
-
+        //Behövde göra denna som en field...
+        private static string fileName;
         private static StoredDbContext context;
         public static DataManager dataManager;
 
@@ -112,53 +113,48 @@ namespace kontorsprylar.Controllers
         [HttpPost]
         public IActionResult AddProduct(AddProductViewModel viewModel, IList<IFormFile> files)
         {
-            if (!ModelState.IsValid) // kollar valideringen, returnerar ErrorMsges
+            //Validering med ASP verkar ej fungera med form-attributen som krävs för att kunna ladda upp bild.
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
 
             //Ladda upp BLOB
-            //Dessa vill inte gå att gömma i web.config. Lyckas inte komma åt dem där. 
-            string connString = @"DefaultEndpointsProtocol=https;AccountName=duke;AccountKey=gcycuGDB5g5UADNu6VFM19AiNV8DeAGpatc3ZM52nMXKtJFScqxwkVewJD6WRwA5AU+7MR08mxJhh6Gwh15l2g==;BlobEndpoint=https://duke.blob.core.windows.net/;TableEndpoint=https://duke.table.core.windows.net/;QueueEndpoint=https://duke.queue.core.windows.net/;FileEndpoint=https://duke.file.core.windows.net/";
-            string destContainer = "images";
+            if (files.Count != 0)
+            {
+                string connString = @"DefaultEndpointsProtocol=https;AccountName=duke;AccountKey=gcycuGDB5g5UADNu6VFM19AiNV8DeAGpatc3ZM52nMXKtJFScqxwkVewJD6WRwA5AU+7MR08mxJhh6Gwh15l2g==;BlobEndpoint=https://duke.blob.core.windows.net/;TableEndpoint=https://duke.table.core.windows.net/;QueueEndpoint=https://duke.queue.core.windows.net/;FileEndpoint=https://duke.file.core.windows.net/";
+                string destContainer = "images";
 
-            //Få en referens till storage account
+                //Få en referens till storage account
 
-            CloudStorageAccount sa = CloudStorageAccount.Parse(connString);
-            CloudBlobClient bc = sa.CreateCloudBlobClient();
+                CloudStorageAccount sa = CloudStorageAccount.Parse(connString);
+                CloudBlobClient bc = sa.CreateCloudBlobClient();
 
-            //Få referens till container i Azure (skapar ny om inte finns, antagligen)
-            CloudBlobContainer container = bc.GetContainerReference(destContainer);
-            container.CreateIfNotExists();
-
-            //foreach (var file in files)
-
-            //{
-
-            var fileName = ContentDispositionHeaderValue
-                //Kommer bara vara en fil åt gången tills vidare..
-                .Parse(files[0].ContentDisposition)
-
-                .FileName
-
-                .Trim('"'); //Får jag rätt filnamn här?
-
-            var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
-            files[0].SaveAsAsync(filePath);
-
-            //string[] fileEntries = Directory.GetFiles(filePath);
-            string key = Path.GetFileName(filePath);
-
-            dataManager.UploadBlob(container, key, filePath, true);
+                //Få referens till container i Azure (skapar ny om inte finns, antagligen)
+                CloudBlobContainer container = bc.GetContainerReference(destContainer);
+                container.CreateIfNotExists();
 
 
+                fileName = ContentDispositionHeaderValue
+                    .Parse(files[0].ContentDisposition)
 
+                    .FileName
 
-          
+                    .Trim('"'); //Får jag rätt filnamn här?
+
+                var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+                files[0].SaveAsAsync(filePath);
+
+                //string[] fileEntries = Directory.GetFiles(filePath);
+                string key = Path.GetFileName(filePath);
+
+                dataManager.UploadBlob(container, key, filePath, true);
+            }
+
 
             //Lägg till rätt imglink i db här... Ska gå att få in namnet i viewmodel relativt lätt.
-            dataManager.AddProduct(viewModel); //Lägger till en produkt till databasen
-
+            dataManager.AddProduct(viewModel, fileName); //Lägger till en produkt till databasen
+            fileName = null;
             return RedirectToAction(nameof(AdminController.AddProduct));
         }
 
