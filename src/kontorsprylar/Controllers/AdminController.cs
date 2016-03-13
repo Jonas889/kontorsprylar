@@ -4,16 +4,16 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Net.Http.Headers;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage;
-using System.IO;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,14 +21,15 @@ namespace kontorsprylar.Controllers
 {
     public class AdminController : Controller
     {
-
         //Här ska vi ha metoder som hämtar data genom datamanager och kickar in till min AdminPageViewModel
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
         //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen.
 
         private IApplicationEnvironment _hostingEnvironment;
+
         //Behövde göra denna som en field...
         private static string fileName;
+
         private static StoredDbContext context;
         public static DataManager dataManager;
 
@@ -106,10 +107,6 @@ namespace kontorsprylar.Controllers
             return View();
         }
 
-
-
-
-
         [HttpPost]
         public IActionResult AddProduct(AddProductViewModel viewModel, IList<IFormFile> files)
         {
@@ -134,7 +131,6 @@ namespace kontorsprylar.Controllers
                 CloudBlobContainer container = bc.GetContainerReference(destContainer);
                 container.CreateIfNotExists();
 
-
                 fileName = ContentDispositionHeaderValue
                     .Parse(files[0].ContentDisposition)
 
@@ -143,14 +139,13 @@ namespace kontorsprylar.Controllers
                     .Trim('"'); //Får jag rätt filnamn här?
 
                 var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
-                files[0].SaveAsAsync(filePath);
+                files[0].SaveAs(filePath);
 
                 //string[] fileEntries = Directory.GetFiles(filePath);
                 string key = Path.GetFileName(filePath);
 
                 dataManager.UploadBlob(container, key, filePath, true);
             }
-
 
             //Lägg till rätt imglink i db här... Ska gå att få in namnet i viewmodel relativt lätt.
             dataManager.AddProduct(viewModel, fileName); //Lägger till en produkt till databasen
@@ -199,7 +194,5 @@ namespace kontorsprylar.Controllers
             }
             return isAdmin;
         }
-
-
     }
 }
