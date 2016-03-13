@@ -46,6 +46,7 @@ namespace kontorsprylar.Controllers
             if (HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart") != null)
                 shoppingList = HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart");
             var result = dataManager.DeleteFromCart(shoppingList, productID);
+            HttpContext.Session.SetObjectAsJson("Cart", result);
             return RedirectToAction("index", result);
         }
 

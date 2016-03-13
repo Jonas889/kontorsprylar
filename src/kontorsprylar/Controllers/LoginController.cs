@@ -22,7 +22,7 @@ namespace kontorsprylar.Controllers
             context = newcontext;
             dataManager = new DataManager(context);
 
-            
+
         }
         // GET: /<controller>/
         [HttpGet]
@@ -35,10 +35,11 @@ namespace kontorsprylar.Controllers
         {
             if (Request.Cookies["Email"].Count != 0)
             {
+                HttpContext.Session.Clear();
                 CookieOptions myCookie = new CookieOptions() { Expires = DateTime.Now.AddDays(-1) };
                 Response.Cookies.Append("Email", "", myCookie);
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult TestLogin(LoginViewModel userLogin)
@@ -48,12 +49,11 @@ namespace kontorsprylar.Controllers
                 ModelState.AddModelError("Error", "Felaktiga inloggningsuppgifter");
                 return null;
             }
-            bool loggedIn = ValidateLogin(userLogin.Email, userLogin.Password);
+            var user = ValidateLogin(userLogin.Email, userLogin.Password);
 
-            if (loggedIn)
+            if (user != null)
             {
-                CookieOptions myCookie = new CookieOptions() { Expires = DateTime.Now.AddMinutes(30) };
-                Response.Cookies.Append("Email", userLogin.Email, myCookie);
+                LoginUser(user);
                 return Json(userLogin.Email);
             }
             ModelState.AddModelError("Error", "Felaktiga inloggningsuppgifter");
@@ -61,17 +61,23 @@ namespace kontorsprylar.Controllers
 
         }
 
-        private bool ValidateLogin(string eMail, string password)
+        private void LoginUser(UserLoginModel user)
         {
-            bool isValidUser = false;
+            CookieOptions myCookie = new CookieOptions() { Expires = DateTime.Now.AddMinutes(30) };
+            Response.Cookies.Append("Email", user.Email, myCookie);
+            HttpContext.Session.SetObjectAsJson("user", user);
+        }
+
+        private UserLoginModel ValidateLogin(string eMail, string password)
+        {
             PBKDF2 crypt = new PBKDF2();
             var user = dataManager.GetUser(eMail);
             if (user != null)
             {
-                if (user[0] == crypt.Compute(password, user[1]))
-                    isValidUser = true;
+                if (user.Password == crypt.Compute(password, user.PasswordSalt))
+                    return user;
             }
-            return isValidUser;
+            return null;
         }
     }
 }
