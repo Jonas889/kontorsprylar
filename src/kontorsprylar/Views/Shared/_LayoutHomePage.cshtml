@@ -16,11 +16,11 @@
                 <a href="#" class="info-link">
                     <span class="uppercase">Mina Sidor </span>
                     <span class="icon icon-sm fa-darkgrey-heart"></span>
-                </a>    
+                </a>
                 <a href="#" class="info-link">
                     <span class="uppercase"> Infocenter </span>
                     <span class="glyphicon glyphicon-info-sign"></span>
-                </a>    
+                </a>
                 <a href="/admin/index" class="info-link">
                     <span class="uppercase"> Administration </span>
                 </a>
@@ -50,16 +50,19 @@
                     <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp;Kundvagn</button>
                     <div id="shoppingcart" class="collapse">
                     </div>
+                    <script type="text/javascript">
+                        addtocart(0);
+                    </script>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
-                        {
-                    <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
-                        }
-                        else
-                        {
-                    <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
-                        }
+                    {
+                        <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
+                    }
+                    else
+                    {
+                        <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
+                    }
                 </div>
                 <div class="col-md-2">
                     <div id="mypages" class="col-md-2">
@@ -69,8 +72,8 @@
                         }
                         else
                         {
-                        <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
-                            }
+                            <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
+                        }
                     </div>
                 </div> @*TOP ROW (1)*@
             </div>
@@ -165,7 +168,6 @@
                     $('#loginModal').modal('show');
                 });
             });
-            addtocart(0);
         });
 
         //Ajax show registrate modal.

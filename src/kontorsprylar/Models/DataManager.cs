@@ -73,6 +73,31 @@ namespace kontorsprylar.Models
             return kundVagn;
         }
 
+        //Lägga order och returnera ett nytt ordernummer!
+        internal int PlaceTheOrder(UserLoginModel user, ShopingCart shoppingList)
+        {
+            var newOrder = new Order();
+            newOrder.CustomerID = user.UserID;
+            newOrder.DeliveryAddress = context.Users
+                .Where(u => u.UserID == user.UserID)
+                .Select(u => u.Address).ToString();
+            newOrder.OrderTime = DateTime.Now;
+            newOrder.DeliveryService = "Postpaket";
+            context.Orders.Add(newOrder);
+            context.SaveChanges();
+
+            foreach (var p in shoppingList.KundVagn)
+            {
+                ProductsInOrder tempPID = new ProductsInOrder {
+                    OrderID = newOrder.OrderID,
+                    BuyPrice = p.Price,
+                    OrderQuantity = p.ProductQuantity,
+                    ProductID = p.ProductID };
+                context.ProductsInOrders.Add(tempPID);
+                context.SaveChanges();
+            }
+            return newOrder.OrderID;
+        }
 
         public UserLoginModel GetUser(string eMail)
         {
@@ -271,6 +296,7 @@ namespace kontorsprylar.Models
             product.StockQuantity = viewModel.StockQuantity;
             product.ImgLink = imgLink;
             product.ForSale = viewModel.ForSale;
+            product.CategoryID = viewModel.CategoryID;
 
             context.Products.Add(product);
             context.SaveChanges();

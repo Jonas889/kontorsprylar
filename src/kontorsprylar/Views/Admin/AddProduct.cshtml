@@ -1,12 +1,47 @@
 ﻿@using kontorsprylar.ViewModels
 @model AddProductViewModel
+
 @{
     ViewBag.Title = "Lägg till produkt";
     Layout = "_AdminLayout";
 }
+<script>
+    $(document).ready(function () {
 
+        var url = "/Admin/GetCategories"
+        $.get(url, {}, function (data) {
+            console.log(data);
 
-<form asp-controller="admin" asp-action="addproduct" method="post" enctype="multipart/form-data" >
+            var jsonArray = JSON.stringify(data);
+            console.log(jsonArray);
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'ID' },
+                    { name: 'TopID' },
+                    { name: 'Name' }
+                ],
+                id: 'ID',
+                localdata: jsonArray
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            //Bindar datan
+            dataAdapter.dataBind();
+            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' }, { name: 'ID', map: 'id' }, { name: 'TopID', map: 'topid' }]);
+            console.log(records);
+            $('#jqxTree').jqxTree({ source: records, width: '100%', height: '700px' });
+        })
+
+        $('#jqxTree').on('select', function (event) {
+            var args = event.args;
+            var item = $('#jqxTree').jqxTree('getItem', args.element);
+            $("#catID").val(item.id);
+        })
+    });
+</script>
+
+<form asp-controller="admin" asp-action="addproduct" method="post" enctype="multipart/form-data">
     <div class="container-fluid" style="height:1000px">
         <div class="col-sm-4">
 
@@ -35,24 +70,40 @@
             <label asp-for="Description"></label>
             <textarea rows="5" asp-for="Description" class="form-control"></textarea>
             <span asp-validation-for="Description"></span>
-        </div>
-        <div class="col-sm-4">
+            <input asp-for="CategoryID" style="visibility:hidden" id="catID"/>
+
+            <br/>
             <div class="checkbox">
                 <label asp-for="ForSale"><input type="checkbox" asp-for="ForSale" />Tillgänglig på sidan</label>
             </div>
-            <input id="submitProduct" type="submit" class="btn btn-primary" value="Lägg till produkt" />
+        </div>
+        <div class="col-sm-2">
+            <div id="jqxTree">
+            </div>
+            <div class="col-sm-2">
+
+               
+            </div>
         </div>
         <div class="col-sm-2">
             <div>
-             
+
                 <img id="imgs" width='170' height="160">
-                <input type="file" name="files" id="files" onchange="imgchange(this)" multiple />
+                <input style="margin-top:15px" type="file" name="files" id="files" onchange="imgchange(this)" multiple />
             </div>
-            <div class="col-sm-2">
-            </div>
+
         </div>
-    </div>
+        <div class="col-sm-1">
+            <input id="submitProduct" type="submit" class="btn btn-primary" value="Lägg till produkt" />
+        </div>
+        <div class="col-sm-1">
+        </div>
+        </div>
 </form>
+
+
+
+
 <script>
     function imgchange(f) {
         var reader = new FileReader();

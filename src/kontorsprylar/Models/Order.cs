@@ -11,6 +11,6 @@ namespace kontorsprylar.Models
         public int CustomerID { get; set; }
         public DateTime OrderTime { get; set; }
         public string DeliveryService { get; set; }
-        public string DeliveryAdress { get; set; }
+        public string DeliveryAddress { get; set; }
     }
 }
