@@ -71,16 +71,20 @@ namespace kontorsprylar.Models
             return kundVagn;
         }
 
-        //public ShopingCart GetMyShoppingCart(ShopingCart)
-        //{
-        //    return kundvagn;
-        //}
 
-        public string[] GetUser(string eMail)
+        public UserLoginModel GetUser(string eMail)
         {
             return context.Users
                 .Where(u => u.Email == eMail)
-                .Select(u => new string[] { u.Password, u.PasswordSalt })
+                .Select(u => new UserLoginModel {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    UserID = u.UserID,
+                    Email = u.Email,
+                    Accessability = u.Accessability,
+                    Password = u.Password,
+                    PasswordSalt = u.PasswordSalt,
+                })
                 .SingleOrDefault();
         }
 

@@ -18,233 +18,170 @@
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
                 <div class="col-md-4">
-
                     <div class="form-group">
-
-
                         @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
-
-
                         <div>
                             <form asp-controller="Search" asp-action="SearchResult">
                                 <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
                                 @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
                             </form>
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon-shopping-cart"></span>Kundvagn</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp;Kundvagn</button>
                     <div id="shoppingcart" class="collapse">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </div>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
                     {
-                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
+                        <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
                     }
                     else
                     {
-                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                        <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
                     }
                 </div>
                 <div class="col-md-2">
-                    <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
-                </div>
-            </div> @*TOP ROW (1)*@
-            <div class="row" id="row2">
-                @*MENU ROW (2)*@
-                <nav id="mainmenu" class="navbar navbar-default">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+                    <div class="col-md-2">
+                        @if (Context.Request.Cookies["Email"].Count != 0)
+                        {
+                            <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span>&nbsp;Mina sidor</button>
+                        }
+                        else
+                        {
+                            <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
+                        }
                     </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul ID="mainmenu_1lvl" class="nav navbar-nav text-uppercase">
-                            <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pennor<span class="caret"></span></a>
-                                <ul class="dropdown-menu text-capitalize">
-                                    <li><a href="#"></a></li>
-                                    <li><a href="#"> Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> One more separated link</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teknik<span class="caret"></span></a>
-                                <ul class="dropdown-menu text-capitalize">
-                                    <li><a href="#"></a></li>
-                                    <li><a href="#"> Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            @*HÖGRA MENY-DELEN*@
-                            <li><a href="#">Service</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tjänster <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Profilprodukter</a></li>
-                                    <li><a href="#">Matkorg</a></li>
-                                    <li><a href="#">Expressbeställning</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Kick Off</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-            </div> @*MENU ROW (2)*@
-            <div class="row content text-center" id="row3">
-                @*CONTENT ROW (3)*@
-                @*<div class="col-md-3 sidenav text-justify">
-                    <h4>Kategorier</h4>
-                    <p><a href="#">Kategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    <p>PARTIAL VIEW - TAGGS / FILTER</p>
-                    <p>PARTIAL VIEW - RELATED PRODUCTS</p>
-                </div>*@
-                <div class="col-md-12 text-left">
-                    <div>
+                </div> @*TOP ROW (1)*@
+                <div class="row" id="row2">
+                    @*MENU ROW (2)*@
+                </div> @*MENU ROW (2)*@
+                <div class="row content text-center" id="row3">
+                    @*CONTENT ROW (3)*@
+                    <div class="col-md-12">
                         @RenderBody()
                     </div>
-                </div>
-            </div> @*CONTENT ROW (3)*@
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row footer" id="row4">
-            @*FOOTER ROW (4)*@
-            <div class="container">
-                <div class="col-md-3 text-center">
-                    <p><a href="#"><img src="~/img/tryggehandel_visa_mastercard_kontorsprylar.se.png" id="footerImageTryggEhandel" /></a> </p>
-                    <p class="footerText">
-                        Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
-                    </p>
-                </div>
-                <div class="text-justify" id="footerLinksContainer">
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent1">
-                            <h4>Kundcenter</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Kontakta oss</a></li>
-                                <li><a href="/information/varakataloger">Våra kataloger</a> </li>
-                                <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
-                                <li><a href="/information/betalning">Betalningsalternativ</a> </li>
-                                <li><a href="/information/specialorder">Specialbeställning</a> </li>
-                                <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
-                                <li><a href="/information/cookieinformation">Information om cookies</a> </li>
-                                <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent2">
-                            <h4>Kontorsprylar.se</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="/information/omoss">Om oss</a> </li>
-                                <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
-                                <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
-                                <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
-                                <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="footerLinks" id="footerContent3">
-                            <h4>Tjänster &amp; produkter</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
-                                <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
-                                <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
-                                <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
-                                <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
-                                <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
-                                <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
-                                <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                </div> @*CONTENT ROW (3)*@
             </div>
-        </div> @*FOOTER ROW (4)*@
-    </div> @*CONTAINER-FLUID*@
-    <div class="row footer" id="row5">
-        @*FOOTER ROW (5)*@
-        <div class="container text-center">
-            <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
         </div>
-    </div> @*FOOTER ROW (5)*@
-    <script src="~/script/jquery.validate.js"></script>
-    <script src="~/script/jquery.validate.unobtrusive.js"></script>
-    <div id="modal"></div>
+        <div class="container-fluid">
+            <div class="row footer" id="row4">
+                @*FOOTER ROW (4)*@
+                <div class="container">
+                    <div class="col-md-3 text-center">
+                        <p><a href="#"><img src="~/img/tryggehandel_visa_mastercard_kontorsprylar.se.png" id="footerImageTryggEhandel" /></a> </p>
+                        <p class="footerText">
+                            Kontorsprylar.se är en ny aktör på den Skandinaviska marknaden med visionen att all shopping till kontoret ska vara en enkel och rolig upplevelese! Vi erbjuder alla tänkbara förbrukningsvaror till kontoret, samt även kontorsmöbler, profilprodukter, utskriftslösningar, kaffemaskiner och mycket mer. Säkra beställningar på webben med snabba leveranser. Genom vårt servicecenter har vi även rikstäckande service på samtliga produkter, även fåniga Mac-datorer.
+                        </p>
+                    </div>
+                    <div class="text-justify" id="footerLinksContainer">
+                        <div class="col-md-3">
+                            <div class="footerLinks" id="footerContent1">
+                                <h4>Kundcenter</h4>
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Kontakta oss</a></li>
+                                    <li><a href="/information/varakataloger">Våra kataloger</a> </li>
+                                    <li><a href="/information/forsaljningsvillkor">Försäljningsvillkor</a> </li>
+                                    <li><a href="/information/betalning">Betalningsalternativ</a> </li>
+                                    <li><a href="/information/specialorder">Specialbeställning</a> </li>
+                                    <li><a href="/information/sakerhet-sekretess">Säkerhet &amp; Sekretess</a> </li>
+                                    <li><a href="/information/cookieinformation">Information om cookies</a> </li>
+                                    <li><a target="" type="link" href="/ecommerce/control/fullcontent?contentPath=%2Fpim%2Fvaratjanster%2Fprint/skrivarservice">Beställ skrivarservice&nbsp;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="footerLinks" id="footerContent2">
+                                <h4>Kontorsprylar.se</h4>
+                                <ul class="list-unstyled">
+                                    <li><a href="/information/omoss">Om oss</a> </li>
+                                    <li><a href="/information/varavarumarken">Våra varumärken</a> </li>
+                                    <li><a href="/information/omoss/press">Pressmeddelanden</a> </li>
+                                    <li><a href="/information/omoss/ledigatjanster">Lediga tjänster</a> </li>
+                                    <li><a href="/information/kvalitet-miljo">Kvalitet &amp; miljö</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="footerLinks" id="footerContent3">
+                                <h4>Tjänster &amp; produkter</h4>
+                                <ul class="list-unstyled">
+                                    <li><a href="/varatjanster/fruktkorgar">Frukt på jobbet</a> </li>
+                                    <li><a href="/varatjanster/profil">Profilprodukter</a>  </li>
+                                    <li><a href="/store/sortiment/papper--block-c2334/">Papper</a> </li>
+                                    <li><a href="/store/control/kop-black-och-toner">Bläck &amp; toner</a> </li>
+                                    <li><a href="/store/sortiment/c2157/stad/">Städmaterial</a> </li>
+                                    <li><a href="/store/sortiment/c2130/teknik/">Teknik</a> </li>
+                                    <li><a href="/store/sortiment/ergonomi-c3227/">Ergonomi</a> </li>
+                                    <li><a href="/information/valjrattdokumentforstorare">Köpguide Dokumentförstörare</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> @*FOOTER ROW (4)*@
+        </div> @*CONTAINER-FLUID*@
+        <div class="row footer" id="row5">
+            @*FOOTER ROW (5)*@
+            <div class="container text-center">
+                <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
+            </div>
+        </div> @*FOOTER ROW (5)*@
+        <script src="~/script/jquery.validate.js"></script>
+        <script src="~/script/jquery.validate.unobtrusive.js"></script>
+        <div id="modal"></div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#login").click(function () {
-                $.get("/login/index", { 'id': this.id }, function (data) {
-                    $("#modal").html(data);
-                    $.validator.unobtrusive.parse($("#modal"));
-                    $('#loginModal').modal('show');
-                });
-            });
+        <script type="text/javascript">
+                            //Ajax show login modal.
+                            $(document).ready(function () {
+                                $("#login").click(function () {
+                                    $.get("/login/index", { 'id': this.id }, function (data) {
+                                        $("#modal").html(data);
+                                        $.validator.unobtrusive.parse($("#modal"));
+                                        $('#loginModal').modal('show');
+                                    });
+                                });
+                                addtocart(0);
+                            });
 
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#registrate").click(function () {
-                $.get("/registrate/index", { 'id': this.id }, function (data) {
-                    $("#modal").html(data);
-                    $.validator.unobtrusive.parse($("#modal"));
-                    $('#regmodal').modal('show');
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        var $jQval = $.validator,
-            adapters,
-            data_validation = "unobtrusiveValidation";
+                            //Ajax show registrate modal.
+                            $(document).ready(function () {
+                                $("#registrate").click(function () {
+                                    $.get("/registrate/index", { 'id': this.id }, function (data) {
+                                        $("#modal").html(data);
+                                        $.validator.unobtrusive.parse($("#modal"));
+                                        $('#regmodal').modal('show');
+                                    });
+                                });
+                            });
 
-        function setValidationValues(options, ruleName, value) {
-            options.rules[ruleName] = value;
-            if (options.message) {
-                options.messages[ruleName] = options.message;
-            }
-        }
+                            //--|| Update unobtrusive to handle checkboxes with custom annotation "mustbetrue" ||--
+                            var $jQval = $.validator,
+                                adapters,
+                                data_validation = "unobtrusiveValidation";
 
-        $jQval.addMethod("mustbetrue", function (value, element, param) {
-            // check if dependency is met
-            if (!this.depend(param, element))
-                return "dependency-mismatch";
-            return element.checked;
-        });
+                            function setValidationValues(options, ruleName, value) {
+                                options.rules[ruleName] = value;
+                                if (options.message) {
+                                    options.messages[ruleName] = options.message;
+                                }
+                            }
 
-        $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
-            setValidationValues(options, "mustbetrue", true);
-        });
+                            $jQval.addMethod("mustbetrue", function (value, element, param) {
+                                // check if dependency is met
+                                if (!this.depend(param, element))
+                                    return "dependency-mismatch";
+                                return element.checked;
+                            });
 
-        $jQval.unobtrusive.parse();
-    </script>
+                            $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
+                                setValidationValues(options, "mustbetrue", true);
+                            });
+
+                            $jQval.unobtrusive.parse();
+                            //--|| end of unobtrusive update ||--
+        </script>
 </body>
 </html>
