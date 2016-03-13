@@ -241,7 +241,7 @@ namespace kontorsprylar.Models
             return productToShow;
         }
 
-        public void AddCustomer(RegistrateViewModel viewModel)
+        public UserLoginModel AddCustomer(RegistrateViewModel viewModel)
         {
             PBKDF2 crypt = new PBKDF2();
             var user = new User();
@@ -257,6 +257,8 @@ namespace kontorsprylar.Models
             user.Accessability = "user";
             context.Users.Add(user);
             context.SaveChanges();
+            return new UserLoginModel { UserID = user.UserID, Accessability = user.Accessability, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password=user.Password, PasswordSalt = user.PasswordSalt};
+
         }
 
         public void AddProduct(AddProductViewModel viewModel)
