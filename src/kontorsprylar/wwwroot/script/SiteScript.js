@@ -49,3 +49,13 @@ function changebuttons() {
     $("#loginstate").html(" <a href=\"/login/logout\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-log-out \"></span>&nbsp;Logga ut</a>");
     $("#mypages").html(" <button type=\"button\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-user\"></span>&nbsp;Mina sidor</button>");
 }
+function loginclick() {
+    $.get("/login/index", { 'id': this.id }, function (data) {
+        $("#modal").html(data);
+        $.validator.unobtrusive.parse($("#modal"));
+        $('#loginModal').modal('show');
+        $('#loginModal').on('hidden.bs.modal', function (e) {
+            location.reload();
+        });
+    });
+}
