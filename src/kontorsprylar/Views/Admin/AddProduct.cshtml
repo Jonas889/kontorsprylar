@@ -7,36 +7,46 @@
 
 <script>
     $(document).ready(function () {
-        $('#txtUploadFile').on('change', function (e) {
-            var files = e.target.files;
-            //var myID = 3; //uncomment this to make sure the ajax URL works
-            if (files.length > 0) {
-                console.log(files);
-                if (window.FormData !== undefined) {
-                    var data = new FormData();
-                    for (var x = 0; x < files.length; x++) {
-                        data.append("file" + x, files[x]);
-                    }
 
-                    //$.ajax({
-                    //    type: "POST",
-                    //    url: '/MyController/UploadFile?id=' + myID,
-                    //    contentType: false,
-                    //    processData: false,
-                    //    data: data,
-                    //    success: function (result) {
-                    //        console.log(result);
-                    //    },
-                    //    error: function (xhr, status, p3, p4) {
-                    //        var err = "Error " + " " + status + " " + p3 + " " + p4;
-                    //        if (xhr.responseText && xhr.responseText[0] == "{")
-                    //            err = JSON.parse(xhr.responseText).Message;
-                    //        console.log(err);
-                    //    }
-                    //});
-                } 
-            }
-        });
+
+        //$('#i_file').change(function (event) {
+        //    $("img").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+        //    console.log(URL.createObjectURL(event.target.files[0]));
+        //});
+        //$('#txtUploadFile').on('change', function (e) {
+        //    var files = e.target.files;
+        //    var filePath = e.target.filePath;
+        //    console.log(filePath);
+        //    //var myID = 3; //uncomment this to make sure the ajax URL works
+        //    if (files.length > 0) {
+        //        console.log(files);
+        //        if (window.FormData !== undefined) {
+        //            var data = new FormData();
+        //            for (var x = 0; x < files.length; x++) {
+        //                data.append("file" + x, files[x]);
+        //                console.log(files[x].filePath);
+        //                console.log(data);
+        //            }
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: '/MyController/UploadFile?id=' + myID,
+        //    contentType: false,
+        //    processData: false,
+        //    data: data,
+        //    success: function (result) {
+        //        console.log(result);
+        //    },
+        //    error: function (xhr, status, p3, p4) {
+        //        var err = "Error " + " " + status + " " + p3 + " " + p4;
+        //        if (xhr.responseText && xhr.responseText[0] == "{")
+        //            err = JSON.parse(xhr.responseText).Message;
+        //        console.log(err);
+        //    }
+        //});
+        //        }
+        //    }
+        //});
     });
 
 </script>
@@ -51,7 +61,7 @@
             <input asp-for="ProductName" class="form-control" />
             @*<span asp-validation-for="ProductName"></span>*@
             <br />
-            
+
             <label asp-for="Price"></label>
             <input asp-for="Price" class="form-control" />
             @*<span asp-validation-for="Price"></span>*@
@@ -82,12 +92,69 @@
             </div>
             <input id="submitProduct" type="submit" class="btn btn-primary" value="Lägg till produkt" />
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <div>
-                <input type="file" name="UploadFile" id="txtUploadFile" />
+                @*<input type="file" name="UploadFile" id="txtUploadFile" /><br/>
+                    <input type="file" id="i_file" value="">
+                    <input type="button" id="i_submit" value="Submit">
+                    <br>
+                    <img src="" width="200" style="display:none;" />*@
+
+                <center>
+                    <table>
+                        <tr>
+                            <td colspan="2"><center><img id="imgs" width='170' height="160"></center></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><b><label for="file">Filnamn:  </label></b></td>
+                            <td><input style="padding:10px" type="file" name="file" id="file" onchange="imgchange(this)"></td>
+                        </tr>
+                    </table>
+                </center>
             </div>
 
+        </div>
+        <div class="col-sm-2">
         </div>
     </div>
 
 </form>
+<script>
+    function imgchange(f) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgs').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(f.files[0]);
+    }
+
+    $('#file').on('change', function (e) {
+        var files = e.target.files;
+        console.log(files);
+        console.log(e);
+        if (files.length > 0) {
+            if (window.FormData !== undefined) {
+                var data = new FormData();
+                for (var x = 0; x < files.length; x++) {
+                    data.append("file" + x, files[x]);
+                }
+            }
+            //$.ajax({
+            //    type: "POST",
+            //    url: '/Admin/UploadFile?id=' + myID,
+            //    contentType: false,
+            //    processData: false,
+            //    data: data,
+            //    success: function (result) {
+            //        console.log(result);
+            //    },
+            //    error: function (xhr, status, p3, p4) {
+            //        var err = "Error " + " " + status + " " + p3 + " " + p4;
+            //        if (xhr.responseText && xhr.responseText[0] == "{")
+            //            err = JSON.parse(xhr.responseText).Message;
+            //        console.log(err);
+            //    }
+            //});
+        }
+    });
+</script>
