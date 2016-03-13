@@ -20,12 +20,12 @@ namespace kontorsprylar.Controllers
             dataManager = new DataManager(context);
         }
         // GET: /<controller>/
-        public IActionResult AddToCart(int PID)
+        public IActionResult AddToCart(int Id)
         {
             var kundVagn = new ShopingCart();
             if (HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart") != null)
                 kundVagn = HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart");
-            var model = dataManager.GetMyShoppingCart(kundVagn, PID);
+            var model = dataManager.GetMyShoppingCart(kundVagn, Id);
             HttpContext.Session.SetObjectAsJson("Cart", kundVagn);
             return PartialView("ShoppingCartPartial", model);
         }

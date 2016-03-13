@@ -1,0 +1,14 @@
+﻿@model List<CategoryMenuViewModel>
+<div id="breadcrumbRow" class="row text-left">
+    <ol class="breadcrumb">
+        <li><a href="/home/">Hem</a></li>
+        @foreach (var category in Model)
+        {
+            if (category.IsActive)
+            {
+                <li class="active"><a href="/store/category/@category.IsActive">@category.Name</a></li>
+            }
+
+        }
+    </ol>
+</div>

@@ -10,128 +10,66 @@
     <script src="~/script/sitescript.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="container-fluid">
-            <div class="row" id="row1">
+    <div class="container-fluid">
+        <div class="row" id="row1">
+            <div class="container">
                 @*TOP ROW*@
                 <div class="col-md-2">
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
                 <div class="col-md-4">
-
                     <div class="form-group">
-
-
                         @*@using (Html.BeginForm("SearchResult", "Search", FormMethod.Get))*@
-
-
                         <div>
                             <form asp-controller="Search" asp-action="SearchResult">
                                 <input type="text" class="form-control" placeholder="Sök på ex. afterwork tilltugg.." name="query" />&nbsp;
                                 @*<input type="submit" value="Search" id="btnSubmit" class="btn btn-default" />*@
                             </form>
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon-shopping-cart"></span>Kundvagn</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp;Kundvagn</button>
                     <div id="shoppingcart" class="collapse">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </div>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
                     {
-                        <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
+                    <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
                     }
                     else
                     {
-                        <button id="login" type="button" class="btn btn-primary">Logga in</button>
+                    <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
                     }
                 </div>
                 <div class="col-md-2">
-                    <button id="registrate" type="button" class="btn btn-danger">Registrera</button>
-                </div>
-            </div> @*TOP ROW (1)*@
+                    <div class="col-md-2">
+                        @if (Context.Request.Cookies["Email"].Count != 0)
+                        {
+                            <button type="button" onclick="window.location.href='/mypages'" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span>&nbsp;Mina sidor</button>
+                        }
+                        else
+                        {
+                        <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
+                        }
+                    </div>
+                </div> @*TOP ROW (1)*@
+            </div>
             <div class="row" id="row2">
                 @*MENU ROW (2)*@
-                <nav id="mainmenu" class="navbar navbar-default">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul ID="mainmenu_1lvl" class="nav navbar-nav text-uppercase">
-                            <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pennor<span class="caret"></span></a>
-                                <ul class="dropdown-menu text-capitalize">
-                                    <li><a href="#"></a></li>
-                                    <li><a href="#"> Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> One more separated link</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teknik<span class="caret"></span></a>
-                                <ul class="dropdown-menu text-capitalize">
-                                    <li><a href="#"></a></li>
-                                    <li><a href="#"> Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> Separated link</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"> One more separated link</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            @*HÖGRA MENY-DELEN*@
-                            <li><a href="#">Service</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tjänster <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Profilprodukter</a></li>
-                                    <li><a href="#">Matkorg</a></li>
-                                    <li><a href="#">Expressbeställning</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Kick Off</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-            </div> @*MENU ROW (2)*@
+            </div> @*MENU ROW (2) ANVÄNDS EJ*@
             <div class="row content text-center" id="row3">
-                @*CONTENT ROW (3)*@
-                @*<div class="col-md-3 sidenav text-justify">
-                    <h4>Kategorier</h4>
-                    <p><a href="#">Kategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    <p><a href="#">Underkategori</a></p>
-                    <p>PARTIAL VIEW - TAGGS / FILTER</p>
-                    <p>PARTIAL VIEW - RELATED PRODUCTS</p>
-                </div>*@
-                <div class="col-md-12 text-left">
-                    <div>
+                <div class="container">
+                    @*CONTENT ROW (3)*@
+                    <div class="col-md-12">
                         @RenderBody()
                     </div>
-                </div>
-            </div> @*CONTENT ROW (3)*@
+                </div> @*CONTENT ROW (3)*@
+            </div>
         </div>
-    </div>
-    <div class="container-fluid">
+        <div class="container-fluid">
+        </div>
         <div class="row footer" id="row4">
             @*FOOTER ROW (4)*@
             <div class="container">
@@ -199,52 +137,54 @@
     <div id="modal"></div>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#login").click(function () {
-                $.get("/login/index", { 'id': this.id }, function (data) {
-                    $("#modal").html(data);
-                    $.validator.unobtrusive.parse($("#modal"));
-                    $('#loginModal').modal('show');
-                });
-            });
+                            //Ajax show login modal.
+                            $(document).ready(function () {
+                                $("#login").click(function () {
+                                    $.get("/login/index", { 'id': this.id }, function (data) {
+                                        $("#modal").html(data);
+                                        $.validator.unobtrusive.parse($("#modal"));
+                                        $('#loginModal').modal('show');
+                                    });
+                                });
+                                addtocart(0);
+                            });
 
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#registrate").click(function () {
-                $.get("/registrate/index", { 'id': this.id }, function (data) {
-                    $("#modal").html(data);
-                    $.validator.unobtrusive.parse($("#modal"));
-                    $('#regmodal').modal('show');
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        var $jQval = $.validator,
-            adapters,
-            data_validation = "unobtrusiveValidation";
+                            //Ajax show registrate modal.
+                            $(document).ready(function () {
+                                $("#registrate").click(function () {
+                                    $.get("/registrate/index", { 'id': this.id }, function (data) {
+                                        $("#modal").html(data);
+                                        $.validator.unobtrusive.parse($("#modal"));
+                                        $('#regmodal').modal('show');
+                                    });
+                                });
+                            });
 
-        function setValidationValues(options, ruleName, value) {
-            options.rules[ruleName] = value;
-            if (options.message) {
-                options.messages[ruleName] = options.message;
-            }
-        }
+                            //--|| Update unobtrusive to handle checkboxes with custom annotation "mustbetrue" ||--
+                            var $jQval = $.validator,
+                                adapters,
+                                data_validation = "unobtrusiveValidation";
 
-        $jQval.addMethod("mustbetrue", function (value, element, param) {
-            // check if dependency is met
-            if (!this.depend(param, element))
-                return "dependency-mismatch";
-            return element.checked;
-        });
+                            function setValidationValues(options, ruleName, value) {
+                                options.rules[ruleName] = value;
+                                if (options.message) {
+                                    options.messages[ruleName] = options.message;
+                                }
+                            }
 
-        $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
-            setValidationValues(options, "mustbetrue", true);
-        });
+                            $jQval.addMethod("mustbetrue", function (value, element, param) {
+                                // check if dependency is met
+                                if (!this.depend(param, element))
+                                    return "dependency-mismatch";
+                                return element.checked;
+                            });
 
-        $jQval.unobtrusive.parse();
+                            $.validator.unobtrusive.adapters.add("mustbetrue", function (options) {
+                                setValidationValues(options, "mustbetrue", true);
+                            });
+
+                            $jQval.unobtrusive.parse();
+                            //--|| end of unobtrusive update ||--
     </script>
 </body>
 </html>
