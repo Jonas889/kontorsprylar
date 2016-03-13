@@ -12,26 +12,28 @@
     <script src="~/script/sitescript.js"></script>
 </head>
 <body>
-    <div class="container">
-        <br />
-        <div class="col-md-2">
-            <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
+    <div class="container text-center">
+        <div class="col-md-4">
+            <br />
+            <br />
+            <h1>Admin-inloggning</h1>
+            <form asp-controller="admin" asp-action="TestAdminLogin">
+                <div asp-validation-summary="ValidationSummary.All"></div>
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email"></span>
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control">
+                <span asp-validation-for="Password"></span>
+                <div class="modal-footer">
+                    <input id="submitAdmin" type="submit" class="btn btn-primary" value="Logga in" />
+                </div>
+            </form>
+            <br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br />
         </div>
-
-        <br />
-        <br />
-        <br />
-        <form asp-controller="admin" asp-action="TestAdminLogin">
-            <div asp-validation-summary="ValidationSummary.All"></div>
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control">
-            <span asp-validation-for="Email"></span>
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control">
-            <span asp-validation-for="Password"></span>
-            <div class="modal-footer">
-                <input id="submitAdmin" type="submit" class="btn btn-primary" value="Logga in" />
-            </div>
-        </form>
     </div>
 </body>
