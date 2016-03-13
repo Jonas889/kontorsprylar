@@ -1,13 +1,15 @@
 ﻿using kontorsprylar.Models;
 using kontorsprylar.ViewModels;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using SimpleCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Microsoft.AspNet.Http;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,12 +21,17 @@ namespace kontorsprylar.Controllers
         //När vi lägger till en produkt görs det från AddProductController. Gäller att hålla dem separerade.
         //Här kollar vi även om det var en admin som har loggat in mha. accessibility från databasen.
 
+        private IApplicationEnvironment _hostingEnvironment;
+
         private static StoredDbContext context;
         public static DataManager dataManager;
 
-        public AdminController(StoredDbContext newcontext)
+        public AdminController(StoredDbContext newcontext, IApplicationEnvironment hostingEnvironment)
         {
             context = newcontext;
+
+            _hostingEnvironment = hostingEnvironment;
+
             dataManager = new DataManager(context);
         }
 
@@ -51,7 +58,6 @@ namespace kontorsprylar.Controllers
             }
             ModelState.AddModelError(string.Empty, "Felaktiga inloggningsuppgifter");
             return null;
-
         }
 
         private void LoginUser(UserLoginModel user)
@@ -73,8 +79,6 @@ namespace kontorsprylar.Controllers
             return null;
         }
 
-
-
         public IActionResult AdminPage()
         {
             if (UserHasAdminRights())
@@ -86,7 +90,6 @@ namespace kontorsprylar.Controllers
             {
                 return RedirectToAction("Denied", "Login");
             }
-
         }
 
         [HttpGet]
@@ -98,13 +101,64 @@ namespace kontorsprylar.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductViewModel viewModel)
+        public IActionResult AddProducts(IList<IFormFile> files)
+
+        {
+            foreach (var file in files)
+
+            {
+                var fileName = ContentDispositionHeaderValue
+
+                    .Parse(file.ContentDisposition)
+
+                    .FileName
+
+                    .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
+
+                if (fileName.EndsWith(".txt"))// Important for security if saving in webroot
+
+                {
+                    var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+
+                    //await file.SaveAsAsync(filePath);
+                }
+            }
+            return RedirectToAction("Admin/AdminPage");
+        }
+
+
+
+
+
+        [HttpPost]
+        public IActionResult AddProduct(AddProductViewModel viewModel, IList<IFormFile> files)
         {
             if (!ModelState.IsValid) // kollar valideringen, returnerar ErrorMsges
             {
                 return View(viewModel);
             }
 
+            foreach (var file in files)
+
+            {
+                var fileName = ContentDispositionHeaderValue
+
+                    .Parse(file.ContentDisposition)
+
+                    .FileName
+
+                    .Trim('"');// FileName returns "fileName.ext"(with double quotes) in beta 3
+
+                if (fileName.EndsWith(".txt"))// Important for security if saving in webroot
+
+                {
+                    var filePath = _hostingEnvironment.ApplicationBasePath + "\\wwwroot\\" + fileName;
+
+                    //await file.SaveAsAsync(filePath);
+                }
+            }
+
+            //Lägg till rätt imglink i db här...
             dataManager.AddProduct(viewModel); //Lägger till en produkt till databasen
 
             return RedirectToAction(nameof(AdminController.AddProduct));
@@ -139,7 +193,7 @@ namespace kontorsprylar.Controllers
             }
         }
 
-        bool UserHasAdminRights()
+        private bool UserHasAdminRights()
         {
             var user = new UserLoginModel();
             bool isAdmin = false;
@@ -148,9 +202,10 @@ namespace kontorsprylar.Controllers
                 user = HttpContext.Session.GetObjectFromJson<UserLoginModel>("user");
                 if (user.Accessability == "admin")
                     isAdmin = true;
-
             }
             return isAdmin;
         }
+
+      
     }
 }
