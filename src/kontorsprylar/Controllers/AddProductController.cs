@@ -41,7 +41,7 @@ namespace kontorsprylar.Controllers
                 return View(viewModel);
             }
 
-            dataManager.AddProduct(viewModel);
+            dataManager.AddProduct(viewModel, "tv.jpg");
 
             return RedirectToAction(nameof(AddProductController.Add));
         }

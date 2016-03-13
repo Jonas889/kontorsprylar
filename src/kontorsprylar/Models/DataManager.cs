@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO;
 
 namespace kontorsprylar.Models
 {
@@ -259,7 +261,7 @@ namespace kontorsprylar.Models
 
         }
 
-        public void AddProduct(AddProductViewModel viewModel)
+        public void AddProduct(AddProductViewModel viewModel, string imgLink)
         {
             var product = new Product();
             product.ProductName = viewModel.ProductName;
@@ -267,12 +269,30 @@ namespace kontorsprylar.Models
             product.Price = viewModel.Price;
             product.CampaignPrice = viewModel.CampaignPrice;
             product.StockQuantity = viewModel.StockQuantity;
-            product.ImgLink = viewModel.ImgLink;
+            product.ImgLink = imgLink;
             product.ForSale = viewModel.ForSale;
 
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        public void UploadBlob(CloudBlobContainer container, string key, string filePath, bool deleteAfter)
+        {
+
+            //Skapa en blob-referens att skriva filen till
+            CloudBlockBlob b = container.GetBlockBlobReference(key);
+
+            using (var fs = File.OpenRead(filePath)) //, FileMode.Open, FileAccess.Read, FileShare.None)
+            {
+                string extension = filePath.Split('.').Last();
+                b.Properties.ContentType = "image/" + extension;
+
+                b.UploadFromStream(fs);
+            }
+            if (deleteAfter)
+                File.Delete(filePath);
+      
+
+        }
     }
-   
 }
