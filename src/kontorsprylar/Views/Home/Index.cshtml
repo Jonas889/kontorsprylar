@@ -71,7 +71,7 @@
             {
                 string img = "https://duke.blob.core.windows.net/images/";
                 img += Model.Products[i].ImgLink;
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
                     <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" style="padding-top: 70px" /></a>
                     <br /><h5>@Model.Products[i].ProductName</h5>
                     @if (Model.Products[i].CampaignPrice > 0)
@@ -80,7 +80,7 @@
                     }
                     else
                     {
-                        <h2 class="ordinaryPrice">@Model.Products[i].Price:-</h2>
+                        <div class="col-sm-4 ordinaryPrice"><h2 class="ordinaryPrice">@Model.Products[i].Price:-</h2></div>
                     }
                 </div>
                 if (i == 3)
