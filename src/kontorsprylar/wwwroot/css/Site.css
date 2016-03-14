@@ -10,10 +10,10 @@
 }
 
 #toprow {
-    background-color: #0e0e0e;
+    background-color: #f4f4f4;
     border-bottom: 4px solid #059AC4;
     position: relative;
-    color: #ededed;
+    color: #373737;
 }
 
 #row1 {
@@ -39,6 +39,9 @@
     background-color: #0b4a81;
     color: #ededed;
     width: auto;
+}
+#mainmenurow {
+    border-bottom: 3px solid #059AC4;
 }
 
 /* --- MENY ----*/
@@ -224,7 +227,7 @@ footer {
 
 #productPricePanel {
     padding:10px, 10px, 20px, 15px;
-    background-color:#f1f1f1;
-    border: 2px solid #0543c4;
+    background-color:#f5f5f5;
+    border: 2px solid #9c9c9c;
 
 }
