@@ -160,7 +160,7 @@ namespace kontorsprylar.Models
                 .Where(p => p.CategoryID == categoryIDtoShow).ToList();
 
             ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
-            { Products = selectedProducts, CategoryToShow = categories, Specifications = categorySpecifications };
+            { Products = allProducts, CategoryToShow = categories, Specifications = categorySpecifications };
 
             return categoryToShow;
         }
