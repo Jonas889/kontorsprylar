@@ -54,7 +54,7 @@ namespace kontorsprylar.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Felaktiga inloggningsuppgifter");
-                return null;
+                return View(userLogin); 
             }
             var user = ValidateLogin(userLogin.Email, userLogin.Password);
 
@@ -64,7 +64,7 @@ namespace kontorsprylar.Controllers
                 return RedirectToAction(nameof(AdminController.AdminPage));
             }
             ModelState.AddModelError(string.Empty, "Felaktiga inloggningsuppgifter");
-            return null;
+            return View(userLogin); 
         }
 
         private void LoginUser(UserLoginModel user)
@@ -76,6 +76,7 @@ namespace kontorsprylar.Controllers
 
         private UserLoginModel ValidateLogin(string eMail, string password)
         {
+           
             PBKDF2 crypt = new PBKDF2();
             var user = dataManager.GetUser(eMail);
             if (user != null)

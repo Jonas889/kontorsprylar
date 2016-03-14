@@ -17,13 +17,13 @@
             <h4>Prova gärna att söka på något i sökrutan ovan, varför inte notes?</h4>
         </div>
     }
-    <div class="col-md-9 affix-content">
+    <div class="col-md-12 affix-content">
         <div class="row">
             @foreach (var product in Model.Products)
             {
-                <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="col-sm-6 col-md-3 col-lg-3">
                     <div class="thumbnail">
-                        <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
+                        <a href="/store/product/@product.ID"><img src="https://duke.blob.core.windows.net/images/@product.ImgLink" alt="@product.ProductName"></a>
                         <div class="caption">
                             @if (product.CampaignPrice > 0)
                             {
@@ -73,7 +73,7 @@
                             </p>
                         </div>
                         <div class="productbuttons">
-                            <a class="btn btn-success" onclick="addtocart(@product.ID)"><span class="glyphicon glyphicon-shopping-cart"></span>Lägg till i kundvagn</a>
+                            <a class="btn btn-success" onclick="addtocart(@product.ID,1)"><span class="glyphicon glyphicon-shopping-cart"></span>Lägg till i kundvagn</a>
                         </div>
                     </div>
                 </div>
