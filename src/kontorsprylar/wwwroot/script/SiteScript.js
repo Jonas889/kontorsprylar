@@ -30,11 +30,19 @@ function userregistrate(e) {
 }
 
 
-function addtocart(pid) {
+function addtocart(pid, q) {
+    if (q = null) {
     $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': $('#productCount').val() }, function (data) {
         $("#shoppingcart").html(data);
-
     });
+    }
+    else{
+        $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': q }, function (data) {
+            $("#shoppingcart").html(data);
+        });
+    }
+
+    
 }
 
 function gotoreg() {
@@ -61,7 +69,7 @@ function loginclick() {
         $("#modal").html(data);
         $.validator.unobtrusive.parse($("#modal"));
         $('#loginModal').modal('show');
-        $('#loginModal').on('hidden.bs.modal', function (e) {
+        $('#loginModal').on('hidden.bs.modal', function () {
             location.reload();
         });
     });
