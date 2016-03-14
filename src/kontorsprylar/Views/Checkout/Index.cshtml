@@ -6,47 +6,64 @@
 @Html.Partial("_MainMenu", Model.CategoryMenu)
 @*@Html.Partial("_Breadcrumb", Model.CategoryMenu)*@
 
-<table class="table table-striped">
-    <tr><th>Namn</th><th>Pris</th><td></td></tr>
+<table class="table table-striped" style="text-align:left;">
+    <tr><th>Namn</th><th>Antal</th><th>Pris</th><th>Summa</th><td></td></tr>
     @if (Model.KundVagn.Count < 1)
     {
         <tr>
-            <td>Kundvagnen är tom</td>
+            <td><h1>Kundvagnen är tom</h1></td>
             <td></td>
         </tr>
 
     }
-  
+
     @foreach (var item in Model.KundVagn)
-            {
+    {
+        var sum = @item.ProductQuantity * item.Price;
         <tr>
             <td>@item.ProductName</td>
+            <td>@item.ProductQuantity</td>
             <td>@item.Price Kr</td>
+            <td>@sum Kr</td>
 
             <td>
 
 
-                <a href="~/Checkout/Delete/?productID=@item.ProductID"><input id="id" type="button" class="btn btn-xs btn-danger" value="Ta bort" name="id" /><span class="glyphicon glyphicon-trash "></span></a>
+                <Button id="id" onclick="window.location.href='/Checkout/Delete/@item.ProductID'" type="button" class="btn btn-xs btn-danger" value="Ta bort" name="id"><span class="glyphicon glyphicon-trash "></span></Button>
 
 
             </td>
         </tr>
     }
     <tr>
-        <td id="order" colspan="3">
-            @if (Context.Request.Cookies["Email"].Count != 0)
-            {
-                <button type="button" onclick="window.location.href='/Checkout/PlaceOrder'" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Betala</button>
-
-            }
-            else
-            {
-                <h4>Logga in för att gå vidare.</h4>
-                <button id="login2" onclick="loginclick();" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
-            }
-        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h3>Summa:</h3></td>
+        <td><h3>@Model.KundVagn.Sum(p => p.Price * p.ProductQuantity) Kr</h3></td>
     </tr>
+
 </table>
+@if (Model.KundVagn.Count > 0)
+{
+<div style="float:right;">
+    @if (Context.Request.Cookies["Email"].Count != 0)
+    {
+        <button type="button" onclick="window.location.href='/Checkout/PlaceOrder'" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Betala</button>
+
+    }
+    else
+    {
+        <h4>Logga in för att gå vidare.</h4>
+                <button id="login2" onclick="loginclick();" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
+    }
+</div>
+}
+
+
+
+
+
 <script type="text/javascript">
     //Ta bort kassa-knappen i kundvagnen.
     $(document).ready(function () {

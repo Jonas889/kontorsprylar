@@ -11,191 +11,194 @@
 
 
 
-    <script>
+<script>
 
-        $(document).ready(function () {
-            // Create jqxTree
-            //Matchar bra
+    $(document).ready(function () {
+        // Create jqxTree
+        //Matchar bra
 
-            var categoriesArray = @Html.Raw(JsonConvert.SerializeObject(Model));
-            @*var array = JSON.parse('@Html.Raw(Model)');*@
+        var categoriesArray = @Html.Raw(JsonConvert.SerializeObject(Model));
+        @*var array = JSON.parse('@Html.Raw(Model)');*@
 
-            var jsonArray = JSON.stringify(categoriesArray);
+        var jsonArray = JSON.stringify(categoriesArray);
 
-            var source =
-            {
-                datatype: "json",
-                datafields: [
-                    { name: 'ID' },
-                    { name: 'TopID' },
-                    { name: 'Name' }
-                ],
-                id: 'ID',
-                localdata: jsonArray
-            };
-            var dataAdapter = new $.jqx.dataAdapter(source);
-            // perform Data Binding.
-            dataAdapter.dataBind();
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'ID' },
+                { name: 'TopID' },
+                { name: 'Name' }
+            ],
+            id: 'ID',
+            localdata: jsonArray
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // perform Data Binding.
+        dataAdapter.dataBind();
 
-            // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents
-            // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter
-            // specifies the mapping between the 'text' and 'label' fields.
-            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' },{ name: 'ID', map: 'id' },{ name: 'TopID', map: 'topid' }]);
-            $('#jqxTree').jqxTree({ source: records, width: '100%', height:'100%' });
+        // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents
+        // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter
+        // specifies the mapping between the 'text' and 'label' fields.
+        var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' },{ name: 'ID', map: 'id' },{ name: 'TopID', map: 'topid' }]);
+        $('#jqxTree').jqxTree({ source: records, width: '100%', height:'100%' });
 
-            //Behöver någon onselect-metod på jqxTree som fyller produktlistan med en ajax-request.
-            //OBS saknar scroll-funnktion...
-            $('#jqxTree').on('select', function (event) {
-                var args = event.args;
-                var item = $('#jqxTree').jqxTree('getItem', args.element);
-                var label = item.label;
-                //Alright, hur lista ut ifall den har några childnodes? Loopa igenom alla topID, ifall ID inte finns med
-                //är det en "last node".
-                var childnodes = 0;
-                for (var i = 0; i < categoriesArray.length; i++) {
-                    if (item.id==categoriesArray[i].TopID)
-                    {
-                        childnodes++;
-                    }
-                }
-
-                //
-                if (childnodes == 0)
+        //Behöver någon onselect-metod på jqxTree som fyller produktlistan med en ajax-request.
+        //OBS saknar scroll-funnktion...
+        $('#jqxTree').on('select', function (event) {
+            var args = event.args;
+            var item = $('#jqxTree').jqxTree('getItem', args.element);
+            var label = item.label;
+            //Alright, hur lista ut ifall den har några childnodes? Loopa igenom alla topID, ifall ID inte finns med
+            //är det en "last node".
+            var childnodes = 0;
+            for (var i = 0; i < categoriesArray.length; i++) {
+                if (item.id==categoriesArray[i].TopID)
                 {
-                    console.log("Gör Ajax-get id " + item.id);
-
-                    var url = "/Admin/GetProductlistByCategory"
-                    $.get(url,{categoryID:item.id}, function (data){
-
-                        console.log(data);
-                        var newArray =JSON.parse(data);
-                        console.log(newArray);
-                        var source =
-                        {
-                            localdata: newArray,
-                            datatype: "array"
-                        };
-                        var dataAdapter = new $.jqx.dataAdapter(source);
-                        RenderListbox(dataAdapter, newArray);
-                        console.log(dataAdapter);
-                    });
-
-                }
-
-            });
-
-            $("#splitter").jqxSplitter({ width: '100%', height: '800px', panels: [{ size: '35%' }] });
-
-            //Här ändrar vi updatepanel beroende på vald produkt
-            $('#listboxProd').on('select', function (event) {
-                updatePanel(event.args.index);
-
-            });
-            //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
-            function updateProductView(){
-                var updatePanel = function (index) {
-
-                 
-                    var container = $('<div style="margin: 5px;"></div>')
-                    var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-                    var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-                    var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-                    var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
-                    var undercolumn = $('<div style="width: 100%;height:100%"></div>');
-
-                    container.append(leftcolumn);
-                    container.append(rightcolumn);
-
-                    container.append(leftsecondcolumn);
-                    container.append(rightsecondcolumn);
-                    //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
-                    //via ett hidden field eller linande.
-                    //
-                    var datarecord = data[index];
-                    //console.log(datarecord);
-                    var productHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
-                    var productID = "<div style='margin: 10px;'><b>ProduktID:</b> " + datarecord.productid + "</div>";
-
-                    //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
-                    //Här lagrar jag id som hidden field eller liknande...
-                    $(leftcolumn).append(productHeader);
-                    $(leftcolumn).append(productID);
-
-                    //Här är blob-url + ImgLink från DB.
-                    var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
-                    var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
-                    $(rightcolumn).append(img);
-                    //Ändra namn på dessa variabler
-                    //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
-                    //$(leftsecondcolumn).append(homeHeader);
-                    var productName = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.productname + "</div>";
-
-                    //Gör en skiss för updatepanel
-                    $(leftsecondcolumn).append(productName);
-
-                    //var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
-                    //var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
-
-                    //$(rightsecondcolumn).append(specHeader);
-                    //$(rightsecondcolumn).append(spec1);
-
-                    //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
-                    //container.append(comment);
-                    container.append(undercolumn);
-                    //$(undercolumn).append(comment);
-                    $("#ContentPanel").html(container.html());
+                    childnodes++;
                 }
             }
-            //Skapar Listboxen. source väljer första till sista. tror jag.
 
-            //Göra en funktion av denna? så att datan uppdateras varje gång? hmm. Skicka in dataAdapter
-            function RenderListbox(dataAdapter, data){
-                $('#listboxProd').jqxListBox({
-                    selectedIndex: 0, source: dataAdapter, itemHeight: 70, height: '100%', width: '100%',
-                    //Denna renderer måste jag kalla på.. men med rätt source...
-                    renderer: function (index, label, value) {
-                        console.log(data);
-                        var datarecord = data[index];
-                        //datarecord.ImgLink
-                        var imgurl = 'https://duke.blob.core.windows.net/images/' +datarecord.ImgLink;
-                        var img = '<img height="50" width="45" src="' + imgurl + '" />';
-                        //Här behöver donas så det responsiva fungerar
-                        var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + String(datarecord.ID) + " " + datarecord.ProductName + '</td></tr></table>';
-                        return table;
+            //
+            if (childnodes == 0)
+            {
+                console.log("Gör Ajax-get id " + item.id);
 
-                    }
+                var url = "/Admin/GetProductlistByCategory"
+                $.get(url,{categoryID:item.id}, function (data){
 
-                })
+                    console.log(data);
+                    var newArray =JSON.parse(data);
+                    console.log(newArray);
+                    var source =
+                    {
+                        localdata: newArray,
+                        datatype: "array"
+                    };
+                    var dataAdapter = new $.jqx.dataAdapter(source);
+                    RenderListbox(dataAdapter, newArray);
+                    console.log(dataAdapter);
+                });
+
             }
-            //RenderListbox(dataAdapter);
-            //updatePanel(0);
+
         });
-    </script>
+
+        $("#splitter").jqxSplitter({ width: '100%', height: '800px', panels: [{ size: '35%' }] });
+
+        //Här ändrar vi updatepanel beroende på vald produkt
+        $('#listboxProd').on('select', function (event) {
+            updatePanel(event.args.index);
+
+        });
+        //Denna visar aktuell produkt givet vad som är valt i produkt-listboxen
+        function updateProductView(){
+            var updatePanel = function (index) {
 
 
-        <div class="container-fluid">
-            <div class="col-sm-6">
-                <div id="splitter">
-                    <div style="overflow: hidden">
-                        <div id="jqxTree">
-                        </div>
-                    </div>
-                    <div style="overflow: hidden;" id="listboxProd">
-                    </div>
+                var container = $('<div style="margin: 5px;"></div>')
+                var leftcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var leftsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var rightsecondcolumn = $('<div style="float: left; width: 50%;height: 40%"></div>');
+                var undercolumn = $('<div style="width: 100%;height:100%"></div>');
+
+                container.append(leftcolumn);
+                container.append(rightcolumn);
+
+                container.append(leftsecondcolumn);
+                container.append(rightsecondcolumn);
+                //Här ska jag få HTML för en specifik produkt. Dess ID måste vara kopplat till index i listan
+                //via ett hidden field eller linande.
+                //
+                var datarecord = data[index];
+                //console.log(datarecord);
+                var productHeader = "<div align='center' style='margin: 10px;font: bold 16px Arial'><b>Produkt</b></div>";
+                var productID = "<div style='margin: 10px;'><b>ProduktID:</b> " + datarecord.productid + "</div>";
+
+                //var id = "<div style='display:none'>" + datarecord.ID + "</div>"
+                //Här lagrar jag id som hidden field eller liknande...
+                $(leftcolumn).append(productHeader);
+                $(leftcolumn).append(productID);
+
+                //Här är blob-url + ImgLink från DB.
+                var imgurl = 'https://duke.blob.core.windows.net/images/2016-03-09-16:55:25-tv.jpg';
+                var img = "<div style='margin:10px'><img height='100%' width='100%' src=" + imgurl + " /></div>";
+                $(rightcolumn).append(img);
+                //Ändra namn på dessa variabler
+                //var homeHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Hemadress</b></div>";
+                //$(leftsecondcolumn).append(homeHeader);
+                var productName = "<div style='margin: 10px;'><b>Adress:</b> " + datarecord.productname + "</div>";
+
+                //Gör en skiss för updatepanel
+                $(leftsecondcolumn).append(productName);
+
+                //var specHeader = "<div align='center' style='margin-top: 30px;margin:10px; margin-bottom: 10px;font: bold 16px Arial'><b>Specifications</b></div>";
+                //var spec1 = "<div style='margin: 10px;'><b>Adress:</b> " + "Svartvit" + "</div>";
+
+                //$(rightsecondcolumn).append(specHeader);
+                //$(rightsecondcolumn).append(spec1);
+
+                //var comment = "<div align='center' style='clear: both; margin: 50px;'><div style='font: bold 16px Arial'><b>Notis</b></div><div>" + $('#listbox').jqxListBox('getItem', index).value + "</div></div>";
+                //container.append(comment);
+                container.append(undercolumn);
+                //$(undercolumn).append(comment);
+                $("#ContentPanel").html(container.html());
+            }
+        }
+        //Skapar Listboxen. source väljer första till sista. tror jag.
+
+        //Göra en funktion av denna? så att datan uppdateras varje gång? hmm. Skicka in dataAdapter
+        function RenderListbox(dataAdapter, data){
+            $('#listboxProd').jqxListBox({
+                selectedIndex: 0, source: dataAdapter, itemHeight: 70, height: '100%', width: '100%',
+                //Denna renderer måste jag kalla på.. men med rätt source...
+                renderer: function (index, label, value) {
+                    console.log(data);
+                    var datarecord = data[index];
+                    //datarecord.ImgLink
+                    var imgurl = 'https://duke.blob.core.windows.net/images/' +datarecord.ImgLink;
+                    var img = '<img height="50" width="45" src="' + imgurl + '" />';
+                    //Här behöver donas så det responsiva fungerar
+                    var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' + img + '</td><td>' + "  " + String(datarecord.ID) + " " + datarecord.ProductName + '</td></tr></table>';
+                    return table;
+
+                }
+
+            })
+        }
+        //RenderListbox(dataAdapter);
+        //updatePanel(0);
+    });
+</script>
+
+
+<div class="container-fluid">
+    <div class="col-sm-6">
+        <div id="splitter">
+            <div style="overflow: hidden">
+                <div id="jqxTree">
                 </div>
             </div>
-            <div class="col-sm-5">
-                In med grejjor här
-            </div>
-            <div class="col-sm-1">
-                <div style="height: 5%; margin: 1%">
-                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Lägg till produkt</a>
-                </div>
-                <div style="height: 5%; margin: 1%">
-                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Ändra produkt</a>
-                </div>
-                <div style="height: 5%; margin: 1%">
-                    <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Radera produkt</a>
-                </div>
+            <div style="overflow: hidden;" id="listboxProd">
             </div>
         </div>
+    </div>
+    <div class="col-sm-4">
+        In med grejjor här
+    </div>
+    <div class="col-sm-1">
+        <div style="height: 5%; margin: 1%">
+            <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Lägg till produkt</a>
+        </div>
+        <div style="height: 5%; margin: 1%">
+            <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Ändra produkt</a>
+        </div>
+        <div style="height: 5%; margin: 1%">
+            <a href="/Admin/AddProduct" class="btn btn-primary" style="width: 140px">Radera produkt</a>
+        </div>
+    </div>
+    <div class="col-sm-1">
+    </div>
+
+</div>

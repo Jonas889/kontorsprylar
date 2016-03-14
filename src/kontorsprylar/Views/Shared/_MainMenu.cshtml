@@ -1,8 +1,8 @@
 ﻿@model List<CategoryMenuViewModel>
 
 <div class="row">
-    <div id="mainmenurow" class="col-md-12">
-        <nav class="navbar navbar-default">
+    <div class="col-md-12">
+        <nav id="mainmenurow"  class="navbar navbar-default">
             <div class="navbar-header">
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -23,7 +23,7 @@
                                 {
                                     <li class="col-sm-3">
                                         <ul>
-                                            <li class="dropdown-header"><div>@sub1.Name</div></li>
+                                            <li class="dropdown-header"><p>@sub1.Name</p></li>
                                             @foreach (var sub2 in sub1.SubCategories)
                                             {
                                                 <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>

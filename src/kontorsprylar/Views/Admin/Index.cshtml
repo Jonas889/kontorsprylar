@@ -1,6 +1,10 @@
 ﻿@using kontorsprylar.ViewModels
 @model LoginViewModel
 
+@{
+    Layout = "_AdminLayout";
+}
+
 
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -16,7 +20,7 @@
         <div class="col-md-4">
             <br />
             <br />
-            <h1>Admin-inloggning</h1>
+            <h1>Inloggning administratör</h1>
             <form asp-controller="admin" asp-action="TestAdminLogin">
                 <div asp-validation-summary="ValidationSummary.All"></div>
                 <label asp-for="Email"></label>

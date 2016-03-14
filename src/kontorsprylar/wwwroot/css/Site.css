@@ -10,22 +10,19 @@
 }
 
 #toprow {
-    background-color: #eeeeee;
-    border-bottom: 3px solid #059AC4;
+    background-color: #f4f4f4;
+    border-bottom: 4px solid #059AC4;
     position: relative;
-    color:#303030;
+    color: #373737;
 }
 
-#mainmenurow {
-    border-bottom: 2px solid #494949;
-}
 #row1 {
-    padding-top: 25px;
+    padding-top: 50px;
     padding-bottom: 10px;
 }
 
 #row3 {
-    padding-bottom: 20px;
+    padding-bottom: 60px;
 }
 
 #row4 {
@@ -43,19 +40,15 @@
     color: #ededed;
     width: auto;
 }
-
-#productPricePanel {
-    padding: 10px, 10px, 20px, 10px;
-    background-color:#fafafa;
-    border: 1px solid #059AC4;
+#mainmenurow {
+    border-bottom: 3px solid #059AC4;
 }
 
-#oldPrice {
-    color:#797979;
-    text-decoration:line-through;
+#shoppingcart{
+    position:relative;
 }
 
-/* --- MENU ----*/
+/* --- MENY ----*/
 .navbar-nav > li > .dropdown-menu {
     margin-top: 20px;
     border-top-left-radius: 4px;
@@ -143,12 +136,12 @@
 
 /* --- LÄNKAR --- */
 a {
-    color: #337ab7;
+    color: #0060b4;
     text-decoration: none;
 }
 
     a:hover, a:focus {
-        color: #23527c;
+        color: #81c3ff;
         text-decoration: none;
     }
 
@@ -166,10 +159,6 @@ a {
         color: #ededed !important;
         text-decoration: none !important;
     }
-
-.campaignprice {
-    color: #ff0000;
-}
 
 .leverans {
     text-size: 8px;
@@ -230,4 +219,19 @@ footer {
 .shoppingcart {
     z-index: 5;
     width: 400px;
+}
+
+.oldPrice {
+    color:#777777;
+}
+.campaignprice {
+    color:#ff0000;
+    font-weight:600;
+}
+
+#productPricePanel {
+    padding:10px, 10px, 20px, 15px;
+    background-color:#f5f5f5;
+    border: 2px solid #9c9c9c;
+
 }

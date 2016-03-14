@@ -30,11 +30,13 @@ function userregistrate(e) {
 }
 
 
-function addtocart(pid) {
+function addtocart(pid, q) {
     $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': $('#productCount').val() }, function (data) {
         $("#shoppingcart").html(data);
-
     });
+ 
+
+    
 }
 
 function gotoreg() {
@@ -61,7 +63,7 @@ function loginclick() {
         $("#modal").html(data);
         $.validator.unobtrusive.parse($("#modal"));
         $('#loginModal').modal('show');
-        $('#loginModal').on('hidden.bs.modal', function (e) {
+        $('#loginModal').on('hidden.bs.modal', function () {
             location.reload();
         });
     });

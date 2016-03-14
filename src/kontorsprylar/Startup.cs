@@ -10,6 +10,7 @@ using Microsoft.Data.Entity;
 using kontorsprylar.Models;
 using Newtonsoft.Json;
 
+
 namespace kontorsprylar
 {
     public class Startup
@@ -18,7 +19,7 @@ namespace kontorsprylar
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var connString = @"Server=tcp:emperor.database.windows.net,1433;Database=KontorsPrylar_DB;User ID=root_emperor@emperor;Password=Academy16;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            var connString = @"Server=tcp:emperor.database.windows.net,1433;Database=KontorsPrylar_DB;User ID=root_emperor@emperor;Password=Academy16;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=true";
 
             
             services.AddEntityFramework()
