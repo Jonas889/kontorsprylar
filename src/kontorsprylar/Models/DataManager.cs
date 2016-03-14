@@ -21,19 +21,6 @@ namespace kontorsprylar.Models
             this.context = context;
         }
 
-        //Används av produkter som visas på första sidan
-        public ProductViewModel[] GetProductPresentationData()
-        {
-            //Här kanske vi ska tänka att produkter har en frontpageprop för att kunna beställa med .Where
-            return context.Products
-                .OrderByDescending(p => p.Price)
-                .Select(p => new ProductViewModel
-                {
-                    ImgLink = p.ImgLink,
-                    ProductName = p.ProductName
-                }).ToArray();
-        }
-
         public ShopingCart DeleteFromCart(ShopingCart kundVagn,int productID)
         {
             int saveIndex = -1;
@@ -320,7 +307,6 @@ namespace kontorsprylar.Models
 
         public void UploadBlob(CloudBlobContainer container, string key, string filePath, bool deleteAfter)
         {
-
             //Skapa en blob-referens att skriva filen till
             CloudBlockBlob b = container.GetBlockBlobReference(key);
 
@@ -333,8 +319,6 @@ namespace kontorsprylar.Models
             }
             if (deleteAfter)
                 File.Delete(filePath);
-      
-            
         }
     }
 }
