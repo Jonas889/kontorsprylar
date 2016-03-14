@@ -44,6 +44,10 @@
     border-bottom: 3px solid #059AC4;
 }
 
+#shoppingcart{
+    position:relative;
+}
+
 /* --- MENY ----*/
 .navbar-nav > li > .dropdown-menu {
     margin-top: 20px;
