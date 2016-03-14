@@ -44,9 +44,11 @@
     </tr>
 
 </table>
+@if (Model.KundVagn.Count > 0)
+{
 <div style="float:right;">
     @if (Context.Request.Cookies["Email"].Count != 0)
-            {
+    {
         <button type="button" onclick="window.location.href='/Checkout/PlaceOrder'" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Betala</button>
 
     }
@@ -56,10 +58,11 @@
                 <button id="login2" onclick="loginclick();" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
     }
 </div>
+}
 
 
 
-     
+
 
 <script type="text/javascript">
     //Ta bort kassa-knappen i kundvagnen.

@@ -30,11 +30,19 @@ function userregistrate(e) {
 }
 
 
-function addtocart(pid) {
+function addtocart(pid, q) {
+    if (q = null) {
     $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': $('#productCount').val() }, function (data) {
         $("#shoppingcart").html(data);
-
     });
+    }
+    else{
+        $.get("/ShoppingCart/AddToCart", { 'Id': pid, 'quantity': q }, function (data) {
+            $("#shoppingcart").html(data);
+        });
+    }
+
+    
 }
 
 function gotoreg() {
