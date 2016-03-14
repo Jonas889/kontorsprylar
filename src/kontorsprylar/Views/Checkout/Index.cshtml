@@ -7,7 +7,7 @@
 @*@Html.Partial("_Breadcrumb", Model.CategoryMenu)*@
 
 <table class="table table-striped">
-    <tr><th>Namn</th><th>Pris</th><td></td></tr>
+    <tr><th>Namn</th><th>Antal</th><th>Pris</th><th>Summa</th><td></td></tr>
     @if (Model.KundVagn.Count < 1)
     {
         <tr>
@@ -16,17 +16,20 @@
         </tr>
 
     }
-  
+
     @foreach (var item in Model.KundVagn)
-            {
+    {
+        var sum = @item.ProductQuantity * item.Price;
         <tr>
             <td>@item.ProductName</td>
+            <td>@item.ProductQuantity</td>
             <td>@item.Price Kr</td>
+            <td>@sum Kr</td>
 
             <td>
 
 
-                <a href="~/Checkout/Delete/?productID=@item.ProductID"><input id="id" type="button" class="btn btn-xs btn-danger" value="Ta bort" name="id" /><span class="glyphicon glyphicon-trash "></span></a>
+                <Button id="id" onclick="window.location.href='/Checkout/Delete/@item.ProductID'" type="button" class="btn btn-xs btn-danger" value="Ta bort" name="id"><span class="glyphicon glyphicon-trash "></span></Button>
 
 
             </td>
