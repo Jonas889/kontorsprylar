@@ -61,7 +61,7 @@ function loginclick() {
         $("#modal").html(data);
         $.validator.unobtrusive.parse($("#modal"));
         $('#loginModal').modal('show');
-        $('#loginModal').on('hidden.bs.modal', function (e) {
+        $('#loginModal').on('hidden.bs.modal', function () {
             location.reload();
         });
     });
