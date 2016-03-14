@@ -10,12 +10,15 @@
 }
 
 #toprow {
-    background-color: #0e0e0e;
-    border-bottom: 4px solid #059AC4;
+    background-color: #eeeeee;
+    border-bottom: 3px solid #059AC4;
     position: relative;
-    color:#ededed;
+    color:#303030;
 }
 
+#mainmenurow {
+    border-bottom: 2px solid #494949;
+}
 #row1 {
     padding-top: 25px;
     padding-bottom: 10px;
@@ -42,7 +45,14 @@
 }
 
 #productPricePanel {
-    padding-top: 30px;
+    padding: 10px, 10px, 20px, 10px;
+    background-color:#fafafa;
+    border: 1px solid #059AC4;
+}
+
+#oldPrice {
+    color:#797979;
+    text-decoration:line-through;
 }
 
 /* --- MENU ----*/

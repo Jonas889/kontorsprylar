@@ -12,18 +12,16 @@
 <body>
     <div id="toprow" class="row">
         <div class="container">
-            <div class="col-sm-12 text-right">
-                <a href="#" class="info-link">
-                    <span class="uppercase">Mina Sidor </span>
-                    <span class="icon icon-sm fa-darkgrey-heart"></span>
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="col-sm-2 pull-right">
                 <a href="#" class="info-link">
                     <span class="uppercase"> Infocenter </span>
                     <span class="glyphicon glyphicon-info-sign"></span>
-                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <p class="info-link">
+                </a>
+            </div>
+            <div class="col-sm-2 pull-right info-link">
+                <b>
                     <span class="uppercase"> Tel: 06065555 </span>
-                </p>
+                </b>
             </div>
         </div>
     </div>
@@ -53,13 +51,13 @@
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
-                        {
-                    <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
-                        }
-                        else
-                        {
-                    <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
-                        }
+                    {
+                        <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
+                    }
+                    else
+                    {
+                        <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
+                    }
                 </div>
                 <div class="col-md-2">
                     <div id="mypages" class="col-md-2">
@@ -69,8 +67,8 @@
                         }
                         else
                         {
-                        <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
-                            }
+                            <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
+                        }
                     </div>
                 </div> @*TOP ROW (1)*@
             </div>
@@ -206,4 +204,5 @@
         //--|| end of unobtrusive update ||--
     </script>
 </body>
+
 </html>

@@ -15,19 +15,28 @@
         <div class="col-md-9 affix-content">
             <h1>Ops! Det verkar inte finnas några produkter i denna kategorin!</h1>
             <h4>Prova gärna att söka på något i sökrutan ovan, varför inte notes?</h4>
+            <br /><br />
+            <br />
+            <br />
+            <br />
+            <br /><br />
+            <br />
+            <hr />
         </div>
     }
-    <div class="col-md-9 affix-content">
+    else
+    {
+    <div class="col-md-12 affix-content">
         <div class="row">
             @foreach (var product in Model.Products)
             {
-                <div class="col-sm-6 col-md-4 col-lg-4">
+                <div class="col-sm-4 col-md-3 col-lg-3">
                     <div class="thumbnail">
                         <a href="/store/product/@product.ID"><img src="@product.ImgLink" alt="@product.ProductName"></a>
                         <div class="caption">
                             @if (product.CampaignPrice > 0)
                             {
-                                <h4 class="pull-right campaignprice">@product.CampaignPrice</h4><s class="pull-right ">@product.Price</s>
+                                <h4 class="pull-right campaignprice">@product.CampaignPrice:-</h4><s class="pull-right ">@product.Price:-</s>
                             }
                             else
                             {
@@ -35,9 +44,9 @@
                             }
                             <h4>
                                 <a href="/store/product/@product.ID">
-                                    @if (@product.ProductName.ToArray().Length > 14)
+                                    @if (@product.ProductName.ToArray().Length > 15)
                                     {
-                                        @for (int i = 0; i < 14; i++)
+                                        @for (int i = 0; i < 15; i++)
                                         {
                                             @product.ProductName.ToArray()[i]
                                         }
@@ -73,7 +82,7 @@
                             </p>
                         </div>
                         <div class="productbuttons">
-                            <a class="btn btn-success" onclick="addtocart(@product.ID)"><span class="glyphicon glyphicon-shopping-cart"></span>Lägg till i kundvagn</a>
+                            <a class="btn btn-success" onclick="addtocart(@product.ID)"><span class="glyphicon glyphicon-shopping-cart"></span> Lägg till i kundvagn</a>
                         </div>
                     </div>
                 </div>
@@ -101,4 +110,5 @@
             </nav> @*PAGINATION*@
         </div>
     </div>
+    }
 </div>
