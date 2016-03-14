@@ -24,7 +24,7 @@ namespace kontorsprylar.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var model = dataManager.GetProductsInCategory(1);
+            var model = dataManager.GetHomePageInfo();
             return View(model);
 
             ////detta ersätter vi med datamanager osv senare
