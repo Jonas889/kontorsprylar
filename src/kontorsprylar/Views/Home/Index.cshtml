@@ -68,11 +68,11 @@
                 string img = "https://duke.blob.core.windows.net/images/";
                 img += Model.Products[i].ImgLink;
                 <div class="col-lg-3">
-                    <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" /></a>
+                    <a href="/store/product/@Model.Products[i].ID"><img src=@img width="200" height="200" style="padding-top: 70px" /></a>
                     <br /><h5>@Model.Products[i].ProductName</h5>
                 </div>
             }
         </div>
-        <br /><br /><br /><br />
+        
     </div>
 </div>
