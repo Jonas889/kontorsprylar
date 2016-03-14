@@ -160,9 +160,25 @@ namespace kontorsprylar.Models
                 .Where(p => p.CategoryID == categoryIDtoShow).ToList();
 
             ProductsInCategoryViewModel categoryToShow = new ProductsInCategoryViewModel
-            { Products = allProducts, CategoryToShow = categories, Specifications = categorySpecifications };
+            { Products = selectedProducts, CategoryToShow = categories, Specifications = categorySpecifications };
 
             return categoryToShow;
+        }
+        public ProductsInCategoryViewModel GetHomePageInfo()
+        {
+            // Hämta alla kategorier
+            List<CategoryMenuViewModel> categories = GetCategoriesToList(0);
+
+            // Hämta alla specificationer
+            List<Specification> specifications = GetAllSpecifications();
+
+            // Hämta alla produkter och lägg till specs
+            List<ProductViewModel> allProducts = GetAllProducts(specifications);
+
+            ProductsInCategoryViewModel homePageInfo = new ProductsInCategoryViewModel
+            { Products = allProducts, CategoryToShow = categories, Specifications = specifications };
+
+            return homePageInfo;
         }
 
         private List<ProductViewModel> GetAllProducts(List<Specification> specifications)
