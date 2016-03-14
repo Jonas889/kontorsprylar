@@ -52,7 +52,7 @@ namespace kontorsprylar.Models
                         ProductName = p.ProductName,
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
-                        ProductQuantity = quantity
+                        ProductQuantity = quantity > 0 ? quantity : 1
 
                     }).SingleOrDefault();
                 kundVagn.KundVagn.Add(product);
