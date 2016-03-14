@@ -27,7 +27,7 @@
     </ol>
 
     <!-- Wrapper for slides -->
-    @*<div class="carousel-inner" role="listbox">
+    <div class="carousel-inner" role="listbox">
 
         @{
             string firstImage = "https://duke.blob.core.windows.net/images/";
@@ -37,7 +37,7 @@
             <a href="/store/product/@Model.Products[0].ID"><img src=@firstImage></a>
         </div>
 
-        @for (int i = 1; i < Model.Products.Count; i++)
+        @for (int i = 1; i < 4; i++)
             {
                 string img = "https://duke.blob.core.windows.net/images/";
                 img += Model.Products[i].ImgLink;
@@ -45,7 +45,7 @@
                 <a href="/store/product/@Model.Products[i].ID"><img src=@img></a>
             </div>
         }
-    </div>*@
+    </div>
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
