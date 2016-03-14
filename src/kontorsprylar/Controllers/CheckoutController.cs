@@ -18,7 +18,7 @@ namespace kontorsprylar.Controllers
             context = newcontext;
             dataManager = new DataManager(context);
         }
-        //Denna körs innan context ovan är instansierad.. Då skickar vi in context = null till konstruktorn för DataManager
+
         public static DataManager dataManager;
         // GET: /<controller>/
         public IActionResult Index()
@@ -26,15 +26,8 @@ namespace kontorsprylar.Controllers
             var shoppingList = new ShopingCart(); ;
             if (HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart") != null)
                 shoppingList = HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart");
-                //.Select(p => new ShoppingCartVM
-                //{
-                //    ProductName = p.ProductName,
-                //    Price = p.Price,
-                //    ProductQuantity = p.ProductQuantity,
-                //    ProductID = p.ProductID
-
-                //}).ToList();
-
+            
+            shoppingList.CategoryMenu = dataManager.GetCategoriesToList(1);
             return View(shoppingList);
 
            
@@ -42,10 +35,11 @@ namespace kontorsprylar.Controllers
 
         public IActionResult Delete(int productID)
         {
-            var shoppingList = new ShopingCart(); ;
+            var shoppingList = new ShopingCart(); 
             if (HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart") != null)
                 shoppingList = HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart");
             var result = dataManager.DeleteFromCart(shoppingList, productID);
+            HttpContext.Session.SetObjectAsJson("Cart", result);
             return RedirectToAction("index", result);
         }
 
@@ -53,6 +47,20 @@ namespace kontorsprylar.Controllers
         {
             throw new NotImplementedException();
         }
-        
+        public IActionResult PlaceOrder()
+        {
+            var shoppingList = new ShopingCart();
+            var user = new UserLoginModel();
+            if (HttpContext.Session.GetObjectFromJson<UserLoginModel>("Cart") != null && HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart") != null)
+            {
+                user = HttpContext.Session.GetObjectFromJson<UserLoginModel>("user");
+                shoppingList = HttpContext.Session.GetObjectFromJson<ShopingCart>("Cart");
+                int model = dataManager.PlaceTheOrder(user, shoppingList);
+                return View(model);
+            }
+            else
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
     }
 }

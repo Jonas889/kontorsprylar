@@ -11,5 +11,6 @@ namespace kontorsprylar.ViewModels
         public float Price { get; set; }
         public int ProductQuantity { get; set; }
         public int ProductID { get; set; }
+
     }
 }

@@ -9,48 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>*@
-<div class="row">
-    <div class="col-md-12">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header">
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/home/index">Hem</a>
-            </div>
-            <div class="collapse navbar-collapse js-navbar-collapse">
-                @foreach (var cat in Model.CategoryToShow)
-                {
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown mega-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> @cat.Name<span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
-                            <ul class="dropdown-menu mega-dropdown-menu row">
-                                @foreach (var sub1 in cat.SubCategories)
-                                {
-                                    <li class="col-sm-3">
-                                        <ul>
-                                            <li class="dropdown-header"><a href="/store/category/@sub1.ID">@sub1.Name</a></li>
-                                            @foreach (var sub2 in sub1.SubCategories)
-                                            {
-                                                <li><a href="/store/category/@sub2.ID">@sub2.Name</a></li>
-                                            }
-                                            <li class="divider"></li>
-                                        </ul>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-                    </ul>
-                }
-            </div>
-            <!-- /.nav-collapse -->
-        </nav>
-    </div>
-</div> @*MENY*@
 
+@Html.Partial("_MainMenu", Model.CategoryToShow)
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -67,7 +27,7 @@
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
+    @*<div class="carousel-inner" role="listbox">
 
         @{
             string firstImage = "https://duke.blob.core.windows.net/images/";
@@ -85,7 +45,7 @@
                 <a href="/store/product/@Model.Products[i].ID"><img src=@img></a>
             </div>
         }
-    </div>
+    </div>*@
 
     <!-- Left and right controls -->
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -113,5 +73,6 @@
                 </div>
             }
         </div>
+        <br /><br /><br /><br />
     </div>
 </div>

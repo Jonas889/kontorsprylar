@@ -1,19 +1,56 @@
 ﻿@model ShopingCart
+@{
+    ViewBag.Title = "Din Kundvagn";
+    Layout = "_LayoutHomePage";
+}
+@Html.Partial("_MainMenu", Model.CategoryMenu)
+@*@Html.Partial("_Breadcrumb", Model.CategoryMenu)*@
 
 <table class="table table-striped">
     <tr><th>Namn</th><th>Pris</th><td></td></tr>
-    @foreach (var item in Model.KundVagn)
+    @if (Model.KundVagn.Count < 1)
     {
         <tr>
+            <td>Kundvagnen är tom</td>
+            <td></td>
+        </tr>
+
+    }
+  
+    @foreach (var item in Model.KundVagn)
+            {
+        <tr>
             <td>@item.ProductName</td>
-            <td>@item.Price</td>
+            <td>@item.Price Kr</td>
 
             <td>
 
 
-                <a href="~/Checkout/Delete/?productID=@item.ProductID"><input id="id" type="button" value="Ta bort" name="id"/></a>
+                <a href="~/Checkout/Delete/?productID=@item.ProductID"><input id="id" type="button" class="btn btn-xs btn-danger" value="Ta bort" name="id" /><span class="glyphicon glyphicon-trash "></span></a>
+
 
             </td>
         </tr>
     }
+    <tr>
+        <td id="order" colspan="3">
+            @if (Context.Request.Cookies["Email"].Count != 0)
+            {
+                <button type="button" onclick="window.location.href='/Checkout/PlaceOrder'" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Betala</button>
+
+            }
+            else
+            {
+                <h4>Logga in för att gå vidare.</h4>
+                <button id="login2" onclick="loginclick();" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
+            }
+        </td>
+    </tr>
 </table>
+<script type="text/javascript">
+    //Ta bort kassa-knappen i kundvagnen.
+    $(document).ready(function () {
+        $('#kassa').attr("disabled", true);
+    });
+
+</script>

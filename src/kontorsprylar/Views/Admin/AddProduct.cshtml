@@ -1,55 +1,115 @@
 ﻿@using kontorsprylar.ViewModels
 @model AddProductViewModel
+
 @{
     ViewBag.Title = "Lägg till produkt";
-    Layout = "_LayoutHomePage";
+    Layout = "_AdminLayout";
 }
+<script>
+    $(document).ready(function () {
 
-<form asp-controller="admin" asp-action="addproduct">
-    <div asp-validation-summary="ValidationSummary.All"></div>
-    <div class="col-xs-6">
-        <label asp-for="ProductName"></label>
-        <input asp-for="ProductName" class="form-control" />
-        <span asp-validation-for="ProductName"></span>
-        <br />
-    </div>
-    <div class="col-xs-6">
-        <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
-        <span asp-validation-for="Description"></span>
-        <br />
-    </div>
-    <div class="col-xs-2">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price"></span>
-        <br />
-    </div>
-    <div class="col-xs-2">
-        <label asp-for="CampaignPrice"></label>
-        <input asp-for="CampaignPrice" class="form-control" />
-        <span asp-validation-for="CampaignPrice"></span>
-        <br />
-    </div>
-    <div class="col-xs-2">
-        <label asp-for="StockQuantity"></label>
-        <input asp-for="StockQuantity" class="form-control" />
-        <span asp-validation-for="StockQuantity"></span>
-        <br />
-    </div>
-    <div class="col-xs-6">
-        <label asp-for="ImgLink"></label>
-        <input asp-for="ImgLink" class="form-control" />
-        <span asp-validation-for="ImgLink"></span>
-        <br />
-    </div>
-    <div class="col-xs-6">
-        <label asp-for="ForSale"></label>
-        <input asp-for="ForSale" class="form-control" />
-        <br />
-    </div>
-    <br />
-    <br />
+        var url = "/Admin/GetCategories"
+        $.get(url, {}, function (data) {
+            console.log(data);
 
-    <input id="submitProduct" type="submit" class="btn btn-primary" value="Add product" />
+            var jsonArray = JSON.stringify(data);
+            console.log(jsonArray);
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'ID' },
+                    { name: 'TopID' },
+                    { name: 'Name' }
+                ],
+                id: 'ID',
+                localdata: jsonArray
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            //Bindar datan
+            dataAdapter.dataBind();
+            var records = dataAdapter.getRecordsHierarchy('ID', 'TopID', 'items', [{ name: 'Name', map: 'label' }, { name: 'ID', map: 'id' }, { name: 'TopID', map: 'topid' }]);
+            console.log(records);
+            $('#jqxTree').jqxTree({ source: records, width: '100%', height: '700px' });
+        })
+
+        $('#jqxTree').on('select', function (event) {
+            var args = event.args;
+            var item = $('#jqxTree').jqxTree('getItem', args.element);
+            $("#catID").val(item.id);
+        })
+    });
+</script>
+
+<form asp-controller="admin" asp-action="addproduct" method="post" enctype="multipart/form-data">
+    <div class="container-fluid" style="height:1000px">
+        <div class="col-sm-4">
+
+            @*Validering fungerar ej i samband med enctype i form för att kunna ladda upp filer*@
+            <div asp-validation-summary="ValidationSummary.All"></div>
+            <label asp-for="ProductName"></label>
+            <input asp-for="ProductName" class="form-control" />
+            <span asp-validation-for="ProductName"></span>
+            <br />
+
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price"></span>
+            <br />
+
+            <label asp-for="CampaignPrice"></label>
+            <input asp-for="CampaignPrice" class="form-control" />
+            <span asp-validation-for="CampaignPrice"></span>
+            <br />
+
+            <label asp-for="StockQuantity"></label>
+            <input asp-for="StockQuantity" class="form-control" />
+            <span asp-validation-for="StockQuantity"></span>
+            <br />
+
+            <label asp-for="Description"></label>
+            <textarea rows="5" asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description"></span>
+            <input asp-for="CategoryID" style="visibility:hidden" id="catID"/>
+
+            <br/>
+            <div class="checkbox">
+                <label asp-for="ForSale"><input type="checkbox" asp-for="ForSale" />Tillgänglig på sidan</label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div id="jqxTree">
+            </div>
+            <div class="col-sm-2">
+
+               
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div>
+
+                <img id="imgs" width='170' height="160">
+                <input style="margin-top:15px" type="file" name="files" id="files" onchange="imgchange(this)" multiple />
+            </div>
+
+        </div>
+        <div class="col-sm-1">
+            <input id="submitProduct" type="submit" class="btn btn-primary" value="Lägg till produkt" />
+        </div>
+        <div class="col-sm-1">
+        </div>
+        </div>
 </form>
+
+
+
+
+<script>
+    function imgchange(f) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgs').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(f.files[0]);
+    }
+</script>

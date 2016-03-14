@@ -27,10 +27,9 @@ namespace kontorsprylar.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Fyll i antal")]
         public int StockQuantity { get; set; }
 
-        [Display(Name = "Bild")]        
-        public string ImgLink { get; set; }
-
         [Display(Name = "Tillgänglig")]
         public bool ForSale { get; set; }
+        public int CategoryID { get; set; }
+
     }
 }

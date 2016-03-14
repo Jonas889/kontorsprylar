@@ -1,0 +1,42 @@
+﻿
+<html>
+<head>
+
+    <title>@ViewBag.Title</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/jqx.base.css" rel="stylesheet" />
+    <script src="~/script/jquery.js"></script>
+    <script src="~/script/jqxcore.js"></script>
+    <script src="~/script/jqxlistbox.js"></script>
+    <script src="~/script/bootstrap.js"></script>
+    <script src="~/script/jqxbuttons.js"></script>
+    <script src="~/script/jqxscrollbar.js"></script>
+    <script src="~/script/jqxdata.js"></script>
+    <script src="~/script/jqxsplitter.js"></script>
+    <script src="~/script/jqxtree.js"></script>
+    <script src="~/script/jqxexpander.js"></script>
+    <script src="~/script/jqxpanel.js"></script>
+    <script src="~/script/demos.js"></script>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+<body class="default">
+    <div class="container-fluid">
+        <div class="col-sm-4" style="height:100px">
+            <label style="font: bold 20px Arial;color:darkblue;margin-top:40px">Administration av e-handelsida</label>
+        </div>
+        <div class="col-sm-4" style="height:100px">
+
+            <img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" style="margin-top:10px" />
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

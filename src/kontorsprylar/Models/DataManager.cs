@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
-
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO;
 
 namespace kontorsprylar.Models
 {
@@ -51,7 +53,7 @@ namespace kontorsprylar.Models
             return kundVagn;
         }
 
-        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID)
+        public ShopingCart GetMyShoppingCart(ShopingCart kundVagn,int pID, int quantity)
         {
             
             if (pID != 0)
@@ -63,7 +65,7 @@ namespace kontorsprylar.Models
                         ProductName = p.ProductName,
                         Price = p.CampaignPrice > 0 ? p.CampaignPrice : p.Price,
                         ProductID = p.ProductID,
-                        ProductQuantity = 1
+                        ProductQuantity = quantity
 
                     }).SingleOrDefault();
                 kundVagn.KundVagn.Add(product);
@@ -71,42 +73,60 @@ namespace kontorsprylar.Models
             return kundVagn;
         }
 
-        //public ShopingCart GetMyShoppingCart(ShopingCart)
-        //{
-        //    return kundvagn;
-        //}
+        //Lägga order och returnera ett nytt ordernummer!
+        internal int PlaceTheOrder(UserLoginModel user, ShopingCart shoppingList)
+        {
+            var newOrder = new Order();
+            newOrder.CustomerID = user.UserID;
+            newOrder.DeliveryAddress = context.Users
+                .Where(u => u.UserID == user.UserID)
+                .Select(u => u.Address).ToString();
+            newOrder.OrderTime = DateTime.Now;
+            newOrder.DeliveryService = "Postpaket";
+            context.Orders.Add(newOrder);
+            context.SaveChanges();
 
-        public string[] GetUser(string eMail)
+            foreach (var p in shoppingList.KundVagn)
+            {
+                ProductsInOrder tempPID = new ProductsInOrder {
+                    OrderID = newOrder.OrderID,
+                    BuyPrice = p.Price,
+                    OrderQuantity = p.ProductQuantity,
+                    ProductID = p.ProductID };
+                context.ProductsInOrders.Add(tempPID);
+                context.SaveChanges();
+            }
+            return newOrder.OrderID;
+        }
+
+        public UserLoginModel GetUser(string eMail)
         {
             return context.Users
                 .Where(u => u.Email == eMail)
-                .Select(u => new string[] { u.Password, u.PasswordSalt })
+                .Select(u => new UserLoginModel {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    UserID = u.UserID,
+                    Email = u.Email,
+                    Accessability = u.Accessability,
+                    Password = u.Password,
+                    PasswordSalt = u.PasswordSalt,
+                })
                 .SingleOrDefault();
         }
 
-        public List<CategoryMenuViewModel> GetCategoryMenu()
+        public List<AdminCategoryViewModel> GetAdminCategories()
         {
-            var query = context.Categories
+            return context.Categories
                 .OrderBy(c => c.CategoryID)
-                .Select(c => new CategoryMenuViewModel
+                .Select(c => new AdminCategoryViewModel
                 {
                     ID = c.CategoryID,
                     Name = c.CategoryName,
                     TopID = c.TopCategoryID,
                 })
                 .ToList();
-
-            return query
-                .Select(c => new CategoryMenuViewModel
-                {
-                    ID = c.ID,
-                    Name = c.Name,
-                    TopID = c.TopID,
-                    SubCategories = query.Where(o => o.TopID == c.ID).ToList()
-                })
-                .ToList();
         }
-
         public string[] GetAdmin(string eMail)
         {
             return context.Users
@@ -181,7 +201,7 @@ namespace kontorsprylar.Models
                 }).ToList();
         }
 
-        private List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoShow)
+        public List<CategoryMenuViewModel> GetCategoriesToList(int categoryIDtoHighlight)
         {
             // Hämta kategorier för att lägga i en lista
             var categories = context.Categories
@@ -190,11 +210,11 @@ namespace kontorsprylar.Models
                 ID = c.CategoryID,
                 Name = c.CategoryName,
                 TopID = c.TopCategoryID,
-                IsActive = c.CategoryID == categoryIDtoShow ? true : false,
+                IsActive = c.CategoryID == categoryIDtoHighlight ? true : false,
             })
             .ToList();
 
-            // Skapa trädstrukturen för kategorierna
+            // Skapa trädstrukturen för kategorierna (tre nivåer)
             var parentNodes = categories
                 .Where(c => c.TopID == 0)
                 .Select(c => new CategoryMenuViewModel
@@ -202,21 +222,21 @@ namespace kontorsprylar.Models
                     ID = c.ID,
                     Name = c.Name,
                     TopID = c.TopID,
-                    IsActive = c.ID == categoryIDtoShow ? true : false,
+                    IsActive = c.ID == categoryIDtoHighlight ? true : false,
                     SubCategories = categories.Where(s => s.TopID == c.ID)
                         .Select(s => new CategoryMenuViewModel
                         {
                             ID = s.ID,
                             Name = s.Name,
                             TopID = s.TopID,
-                            IsActive = s.ID == categoryIDtoShow ? true : false,
+                            IsActive = s.ID == categoryIDtoHighlight ? true : false,
                             SubCategories = categories.Where(s2 => s2.TopID == s.ID)
                                  .Select(s2 => new CategoryMenuViewModel
                                  {
                                      ID = s2.ID,
                                      Name = s2.Name,
                                      TopID = s2.TopID,
-                                     IsActive = s2.ID == categoryIDtoShow ? true : false,
+                                     IsActive = s2.ID == categoryIDtoHighlight ? true : false,
                                  }).ToList()
                         }).ToList()
                 })
@@ -246,7 +266,7 @@ namespace kontorsprylar.Models
             return productToShow;
         }
 
-        public void AddCustomer(RegistrateViewModel viewModel)
+        public UserLoginModel AddCustomer(RegistrateViewModel viewModel)
         {
             PBKDF2 crypt = new PBKDF2();
             var user = new User();
@@ -262,9 +282,11 @@ namespace kontorsprylar.Models
             user.Accessability = "user";
             context.Users.Add(user);
             context.SaveChanges();
+            return new UserLoginModel { UserID = user.UserID, Accessability = user.Accessability, Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password=user.Password, PasswordSalt = user.PasswordSalt};
+
         }
 
-        public void AddProduct(AddProductViewModel viewModel)
+        public void AddProduct(AddProductViewModel viewModel, string imgLink)
         {
             var product = new Product();
             product.ProductName = viewModel.ProductName;
@@ -272,12 +294,31 @@ namespace kontorsprylar.Models
             product.Price = viewModel.Price;
             product.CampaignPrice = viewModel.CampaignPrice;
             product.StockQuantity = viewModel.StockQuantity;
-            product.ImgLink = viewModel.ImgLink;
+            product.ImgLink = imgLink;
             product.ForSale = viewModel.ForSale;
+            product.CategoryID = viewModel.CategoryID;
 
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        public void UploadBlob(CloudBlobContainer container, string key, string filePath, bool deleteAfter)
+        {
+
+            //Skapa en blob-referens att skriva filen till
+            CloudBlockBlob b = container.GetBlockBlobReference(key);
+
+            using (var fs = File.OpenRead(filePath)) //, FileMode.Open, FileAccess.Read, FileShare.None)
+            {
+                string extension = filePath.Split('.').Last();
+                b.Properties.ContentType = "image/" + extension;
+
+                b.UploadFromStream(fs);
+            }
+            if (deleteAfter)
+                File.Delete(filePath);
+      
+            
+        }
     }
-   
 }

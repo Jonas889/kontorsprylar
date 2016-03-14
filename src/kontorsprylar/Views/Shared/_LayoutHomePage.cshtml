@@ -10,10 +10,28 @@
     <script src="~/script/sitescript.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="container-fluid">
-            <div class="row" id="row1">
-                @*TOP ROW*@
+    <div id="toprow" class="row">
+        <div class="container">
+            <div class="col-sm-12 text-right">
+                <a href="#" class="info-link">
+                    <span class="uppercase">Mina Sidor </span>
+                    <span class="icon icon-sm fa-darkgrey-heart"></span>
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" class="info-link">
+                    <span class="uppercase"> Infocenter </span>
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="info-link">
+                    <span class="uppercase"> Tel: 06065555 </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" id="row1">
+            @*TOP ROW*@
+            <div class="container">
                 <div class="col-md-2">
                     <a href="/home/index"><img width="150" title="Kontorsprylar.se | Roligare shopping till kontoret" src="~/img/kontorsprylar_logga_header.png" /></a>
                 </div>
@@ -29,36 +47,46 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>Kundvagn</button>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#shoppingcart"><span class="glyphicon glyphicon-shopping-cart "></span>&nbsp;Kundvagn</button>
                     <div id="shoppingcart" class="collapse">
                     </div>
                 </div>
                 <div id="loginstate" class="col-md-2">
                     @if (Context.Request.Cookies["Email"].Count != 0)
-                    {
-                    <a href="~/login/logout" class="btn btn-danger">Logga ut</a>
-                    }
-                    else
-                    {
-                    <button id="login" type="button" class="btn btn-primary">Logga in</button>
-                    }
+                        {
+                    <a href="~/login/logout" class="btn btn-danger"><span class="glyphicon glyphicon-log-out "></span>&nbsp;Logga ut</a>
+                        }
+                        else
+                        {
+                    <button id="login" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in "></span>&nbsp;Logga in</button>
+                        }
                 </div>
                 <div class="col-md-2">
-                    <button id="registrate" type="button" class="btn btn-primary">Registrera</button>
-                </div>
-            </div> @*TOP ROW (1)*@
-            <div class="row" id="row2">
-                @*MENU ROW (2)*@
-            </div> @*MENU ROW (2)*@
+                    <div id="mypages" class="col-md-2">
+                        @if (Context.Request.Cookies["Email"].Count != 0)
+                        {
+                            <button type="button" onclick="window.location.href='/mypages'" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span>&nbsp;Mina sidor</button>
+                        }
+                        else
+                        {
+                        <button id="registrate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-user "></span>&nbsp;Registrera</button>
+                            }
+                    </div>
+                </div> @*TOP ROW (1)*@
+            </div>
+        </div>
+
+        <div class="row" id="row2">
+            @*MENU ROW (2)*@
+        </div> @*MENU ROW (2)*@
+        <div class="container">
             <div class="row content text-center" id="row3">
                 @*CONTENT ROW (3)*@
                 <div class="col-md-12">
                     @RenderBody()
                 </div>
-            </div> @*CONTENT ROW (3)*@
+            </div>@*CONTENT ROW (3)*@
         </div>
-    </div>
-    <div class="container-fluid">
         <div class="row footer" id="row4">
             @*FOOTER ROW (4)*@
             <div class="container">
@@ -114,18 +142,21 @@
                 </div>
             </div>
         </div> @*FOOTER ROW (4)*@
+        <div class="row footer" id="row5">
+            @*FOOTER ROW (5)*@
+            <div class="container text-center">
+                <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
+            </div>
+        </div> @*FOOTER ROW (5)*@
     </div> @*CONTAINER-FLUID*@
-    <div class="row footer" id="row5">
-        @*FOOTER ROW (5)*@
-        <div class="container text-center">
-            <p>COPYRIGHT | KONTORSPRYLAR.SE</p>
-        </div>
-    </div> @*FOOTER ROW (5)*@
+
+
     <script src="~/script/jquery.validate.js"></script>
     <script src="~/script/jquery.validate.unobtrusive.js"></script>
     <div id="modal"></div>
 
     <script type="text/javascript">
+        //Ajax show login modal.
         $(document).ready(function () {
             $("#login").click(function () {
                 $.get("/login/index", { 'id': this.id }, function (data) {
@@ -136,8 +167,8 @@
             });
             addtocart(0);
         });
-    </script>
-    <script type="text/javascript">
+
+        //Ajax show registrate modal.
         $(document).ready(function () {
             $("#registrate").click(function () {
                 $.get("/registrate/index", { 'id': this.id }, function (data) {
@@ -147,8 +178,8 @@
                 });
             });
         });
-    </script>
-    <script type="text/javascript">
+
+        //--|| Update unobtrusive to handle checkboxes with custom annotation "mustbetrue" ||--
         var $jQval = $.validator,
             adapters,
             data_validation = "unobtrusiveValidation";
@@ -172,6 +203,7 @@
         });
 
         $jQval.unobtrusive.parse();
+        //--|| end of unobtrusive update ||--
     </script>
 </body>
 </html>
